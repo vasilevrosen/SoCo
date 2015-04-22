@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/editText"
         android:layout_alignParentTop="true"
@@ -23,19 +22,20 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="Name"
+        android:focusable="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText2"
+        android:text="Click me"
+        android:id="@+id/button"
+        android:clickable="true"
+        android:onClick="onClickButton"
         android:layout_below="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Password" />
+        android:layout_marginTop="29dp" />
 
 </RelativeLayout>
