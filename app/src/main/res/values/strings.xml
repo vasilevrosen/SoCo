@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">SOCO</string>
+    <string name="app_name">SoCo - Social Cooking</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="email">Email</string>
+    <string name="title_activity">Index</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_section1">Terminvermittlung</string>
+    <string name="title_section2">Rezeptkatalog</string>
+    <string name="title_section3">Wissensdatenbank</string>
+    <string name="title_section4">Settings</string>
+    <string name="title_section5">Logout</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>
