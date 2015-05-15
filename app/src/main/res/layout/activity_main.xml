@@ -24,6 +24,14 @@
             android:layout_height="87dp"
             android:textSize="30dp"
             android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/btn_login"
+            android:layout_gravity="center"
+            android:onClick="login()"/>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

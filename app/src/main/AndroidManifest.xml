@@ -26,7 +26,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -68,6 +69,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
+        <activity
+            android:name=".IndexActivity"
+            android:label="@string/title_activity_index" >
+        </activity>
     </application>
-
 </manifest>
