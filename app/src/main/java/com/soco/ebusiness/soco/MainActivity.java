@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity
 
         switch (number) {
             case 1:
-                mTitle = getString(R.string.home);
+                mTitle = getString(R.string.app_name);
 //                Intent intent = new Intent(this, NavigationDrawerFragment.class);
 //                startActivity(intent);
                 break;
@@ -79,16 +79,6 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.wissensdb);
                 intent = new Intent(this, WissensDBActivity.class);
-                startActivity(intent);
-                break;
-            case 5:
-                mTitle = getString(R.string.settings);
-                intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                break;
-            case 6:
-                mTitle = getString(R.string.logout);
-                intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -116,6 +106,7 @@ public class MainActivity extends ActionBarActivity
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Hier die Actionbar Events binden
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -123,12 +114,19 @@ public class MainActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_logout:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        
-        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -106,7 +106,7 @@
         </activity>
         <activity
             android:name=".WissensDBActivity"
-            android:label="@string/title_activity_wissensDb"
+            android:label="@string/wissensdb"
             android:parentActivityName=".IndexActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

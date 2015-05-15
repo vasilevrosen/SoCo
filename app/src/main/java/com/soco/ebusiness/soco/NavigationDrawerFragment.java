@@ -104,9 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.home),
                         getString(R.string.terminvermittlung),
                         getString(R.string.rezeptkatalog),
-                        getString(R.string.wissensdb),
-                        getString(R.string.settings),
-                        getString(R.string.logout)
+                        getString(R.string.wissensdb)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -265,6 +263,7 @@ public class NavigationDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
