@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".KocheventAnbietenActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Titel"
+        android:id="@+id/titelHeader"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/editTextEventTitel"
+        android:layout_alignLeft="@+id/titelHeader"
+        android:layout_marginLeft="100dp"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Rezept"
+        android:id="@+id/rezeptHeader"
+        android:layout_below="@+id/titelHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="#ffff2211"
+        android:textColor="#FFFFFF" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welches Rezept?"
+        android:id="@+id/ausgewähltesRezeptTV"
+        android:layout_below="@+id/rezeptHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="0dp"
+        android:text="Rezeptsuche"
+        android:id="@+id/btnNavToRezeptsuche"
+        android:layout_below="@+id/rezeptHeader"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:background="#ff55ff29"
+        android:layout_alignParentRight="true"
+        android:onClick="navigateToRezeptsuche"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Maximale Teilnehmerzahl"
+        android:id="@+id/TVMaxTeilnehmer"
+        android:layout_below="@+id/btnNavToRezeptsuche"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/editTextMaxTeilnehmerzahl"
+        android:layout_alignTop="@+id/TVMaxTeilnehmer"
+        android:layout_toRightOf="@+id/TVMaxTeilnehmer"
+        android:layout_toEndOf="@+id/TVMaxTeilnehmer"
+        android:layout_marginTop="-8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Treffpunkt"
+        android:id="@+id/treffpunktHeader"
+        android:textStyle="bold"
+        android:layout_below="@+id/TVMaxTeilnehmer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:background="#ffff2211"
+        android:textColor="#FFFFFF"/>
+
+
+
+
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Zeitpunkt"
+        android:id="@+id/zeitpunktHeader"
+        android:textStyle="bold"
+        android:layout_marginTop="55dp"
+        android:layout_below="@+id/treffpunktHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:background="#ffff2211"
+        android:textColor="#FFFFFF"/>
+
+
+
+
+</RelativeLayout>

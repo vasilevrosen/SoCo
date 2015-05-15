@@ -7,19 +7,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-
-public class RezeptActivity extends ActionBarActivity {
+public class TerminvermittlungActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rezept);
+        setContentView(R.layout.activity_terminvermittlung);
+    }
+
+
+    // OnClick Handler der die RezeptActivity startet
+    public void navigateToMeineEvents(View view)
+    {
+        Intent intent = new Intent(TerminvermittlungActivity.this, MeineEventsActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToKocheventAnbieten(View view)
+    {
+        Intent intent = new Intent(TerminvermittlungActivity.this, KocheventAnbietenActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_rezept, menu);
+        getMenuInflater().inflate(R.menu.menu_terminvermittlung, menu);
         return true;
     }
 
@@ -36,11 +49,5 @@ public class RezeptActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void rezeptSuchen(View view)
-    {
-        Intent intent = new Intent(RezeptActivity.this, RezeptSuchenActivity.class);
-        startActivity(intent);
     }
 }

@@ -49,13 +49,12 @@
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RezeptActivity"
-            android:label="@string/title_activity_rezept"
+            android:label="@string/rezeptkatalog"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -72,6 +71,46 @@
         <activity
             android:name=".IndexActivity"
             android:label="@string/title_activity_index" >
+        </activity>
+        <activity
+            android:name=".TerminvermittlungActivity"
+            android:label="@string/title_activity_terminvermittlung"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
+        <activity
+            android:name=".KocheventAnbietenActivity"
+            android:label="@string/title_activity_kochevent"
+            android:parentActivityName=".TerminvermittlungActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
+        </activity>
+        <activity
+            android:name=".MeineEventsActivity"
+            android:label="@string/title_activity_meineevents"
+            android:parentActivityName=".TerminvermittlungActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
+        </activity>
+        <activity
+            android:name=".RezeptSuchenActivity"
+            android:label="@string/title_activity_rezeptsuchen"
+            android:parentActivityName=".RezeptActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.RezeptActivity" />
+        </activity>
+        <activity
+            android:name=".WissensDBActivity"
+            android:label="@string/title_activity_wissensDb"
+            android:parentActivityName=".IndexActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.IndexActivity" />
         </activity>
     </application>
 </manifest>

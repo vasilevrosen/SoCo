@@ -2,6 +2,7 @@ package com.soco.ebusiness.soco;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -57,21 +58,38 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void onSectionAttached(int number) {
+
+
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.home);
+//                Intent intent = new Intent(this, NavigationDrawerFragment.class);
+//                startActivity(intent);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.terminvermittlung);
+                Intent intent = new Intent(this, TerminvermittlungActivity.class);
+                startActivity(intent);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.rezeptkatalog);
+                intent = new Intent(this, RezeptActivity.class);
+                startActivity(intent);
                 break;
             case 4:
-                mTitle = getString(R.string.title_section4);
+                mTitle = getString(R.string.wissensdb);
+                intent = new Intent(this, WissensDBActivity.class);
+                startActivity(intent);
                 break;
             case 5:
-                mTitle = getString(R.string.title_section5);
+                mTitle = getString(R.string.settings);
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            case 6:
+                mTitle = getString(R.string.logout);
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
     }

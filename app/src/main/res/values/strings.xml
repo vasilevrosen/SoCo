@@ -8,19 +8,25 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">SoCo</string>
 
-    <string name="title_section1">Terminvermittlung</string>
-    <string name="title_section2">Rezeptkatalog</string>
-    <string name="title_section3">Wissensdatenbank</string>
-    <string name="title_section4">Settings</string>
-    <string name="title_section5">Logout</string>
+    <string name="terminvermittlung">Terminvermittlung</string>
+    <string name="rezeptkatalog">Rezeptkatalog</string>
+    <string name="wissensdb">Wissensdatenbank</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="home">SoCo - Sozial Kochen</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example">Example action</string>
-    <string name="title_activity_rezept">RezeptActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_rezept">Rezeptkatalog</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="action_logout">Log Out</string>
     <string name="index">Index</string>
-    <string name="title_activity_index">IndexActivity</string>
+    <string name="title_activity_index">Index</string>
+    <string name="btn_rezept_suche">Suchen</string>
+    <string name="title_activity_terminvermittlung">Terminvermittlung</string>
+    <string name="title_activity_kochevent">Kochevent anbieten</string>
+    <string name="title_activity_meineevents">Meine Events</string>
+    <string name="title_activity_wissensDb">Wissensdatenbank</string>
+    <string name="title_activity_rezeptsuchen">Rezept suchen</string>
 </resources>
