@@ -6,91 +6,121 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".KocheventAnbietenActivity">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLfürTitel"
+        android:layout_marginTop="5dp">
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Titel"
         android:id="@+id/titelHeader"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"/>
+
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text=""
         android:id="@+id/editTextEventTitel"
         android:layout_alignLeft="@+id/titelHeader"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
         />
 
+    </LinearLayout>
+
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Rezept"
         android:id="@+id/rezeptHeader"
-        android:layout_below="@+id/titelHeader"
+        android:layout_below="@+id/LLfürTitel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:gravity="center"
         android:background="#ffff2211"
         android:textColor="#FFFFFF" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welches Rezept?"
-        android:id="@+id/ausgewähltesRezeptTV"
+        android:id="@+id/LLfürRezeptsuche"
         android:layout_below="@+id/rezeptHeader"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"/>
+        android:layout_marginTop="5dp"
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="0dp"
-        android:text="Rezeptsuche"
-        android:id="@+id/btnNavToRezeptsuche"
-        android:layout_below="@+id/rezeptHeader"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000"
-        android:background="#ff55ff29"
-        android:layout_alignParentRight="true"
-        android:onClick="navigateToRezeptsuche"/>
+        android:orientation="horizontal">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Rezept auswählen"
+            android:id="@+id/ausgewähltesRezeptTV"
+
+
+            android:layout_marginRight="10dp"
+            android:textSize="18sp"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+
+
+            android:text="Rezeptsuche"
+            android:id="@+id/btnNavToRezeptsuche"
+
+            android:textColor="#000000"
+
+            android:onClick="navigateToRezeptsuche"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Maximale Teilnehmerzahl"
-        android:id="@+id/TVMaxTeilnehmer"
-        android:layout_below="@+id/btnNavToRezeptsuche"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"/>
+        android:id="@+id/LLfürMaximaleTeilnehmerzahl"
+        android:layout_below="@+id/LLfürRezeptsuche"
+        android:layout_marginTop="5dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Maximale Teilnehmerzahl"
+            android:id="@+id/TVMaxTeilnehmer"
+            android:layout_below="@+id/ausgewähltesRezeptTV"
+
+            android:layout_alignParentLeft="true"
+
+
+            android:textSize="18sp"/>
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text=""
         android:id="@+id/editTextMaxTeilnehmerzahl"
-        android:layout_alignTop="@+id/TVMaxTeilnehmer"
-        android:layout_toRightOf="@+id/TVMaxTeilnehmer"
-        android:layout_toEndOf="@+id/TVMaxTeilnehmer"
-        android:layout_marginTop="-8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_alignLeft="@+id/TVMaxTeilnehmer"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/btnNavToRezeptsuche"
+        android:inputType="number"/>
+
+
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="fill_parent"
@@ -99,15 +129,20 @@
         android:text="Treffpunkt"
         android:id="@+id/treffpunktHeader"
         android:textStyle="bold"
-        android:layout_below="@+id/TVMaxTeilnehmer"
+        android:layout_below="@+id/LLfürMaximaleTeilnehmerzahl"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:background="#ffff2211"
         android:textColor="#FFFFFF"/>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLfürPLZundOrt"
+        android:layout_below="@+id/treffpunktHeader"
+        android:layout_marginTop="5dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -115,22 +150,23 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PLZ"
         android:id="@+id/PLZHeader"
-        android:layout_below="@+id/treffpunktHeader"
+
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"/>
+
+        android:textSize="18sp"/>
 
     <EditText
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:inputType="number"
         android:text=""
         android:id="@+id/editTextEventPLZ"
         android:layout_alignLeft="@+id/PLZHeader"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/treffpunktHeader"
+        android:layout_marginLeft="10dp"
+
+
         />
 
 
@@ -140,24 +176,34 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Ort"
         android:id="@+id/ortHeader"
-        android:layout_below="@+id/treffpunktHeader"
+
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="105dp"/>
+
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text=""
         android:id="@+id/editTextEventPLZ2"
         android:layout_alignLeft="@+id/ortHeader"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/treffpunktHeader"
+        android:layout_marginLeft="10dp"
+
+
         />
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLfürStrundNr"
+        android:layout_below="@+id/LLfürPLZundOrt"
+        android:layout_marginTop="5dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -165,21 +211,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Straße"
         android:id="@+id/straßeHeader"
-        android:layout_below="@+id/PLZHeader"
+        android:layout_below="@+id/LLfürPLZundOrt"
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"/>
+
+        android:textSize="18sp"/>
 
     <EditText
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:text=""
         android:id="@+id/editTextEventStraße"
         android:layout_alignLeft="@+id/straßeHeader"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/PLZHeader"
+        android:layout_marginLeft="10dp"
+
+        android:layout_below="@+id/LLfürPLZundOrt"
         />
 
 
@@ -189,38 +236,39 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nr."
         android:id="@+id/nummerHeader"
-        android:layout_below="@+id/PLZHeader"
-
+        android:layout_below="@+id/LLfürPLZundOrt"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="250dp"/>
+
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text=""
         android:id="@+id/editTextEventNummer"
         android:layout_alignLeft="@+id/nummerHeader"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/PLZHeader"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/LLfürPLZundOrt"
         android:inputType="number"
         />
+
+    </LinearLayout>
 
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="0dp"
         android:text="Daten per GPS eintragen"
         android:id="@+id/btnGPSAbfrage"
-        android:layout_below="@+id/straßeHeader"
+        android:layout_below="@+id/LLfürStrundNr"
         android:layout_centerHorizontal="true"
         android:textColor="#000000"
-        android:background="#ff55ff29"
+
 
         />
 
@@ -232,7 +280,7 @@
         android:text="Zeitpunkt"
         android:id="@+id/zeitpunktHeader"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/btnGPSAbfrage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -240,27 +288,34 @@
         android:background="#ffff2211"
         android:textColor="#FFFFFF"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLfürZeitpunkt"
+        android:layout_below="@+id/zeitpunktHeader">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Datum"
         android:id="@+id/datumHeader"
-        android:layout_below="@+id/zeitpunktHeader"
+
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"/>
+
+        android:textSize="18sp"/>
 
     <EditText
         android:onClick="editEventDatum"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editTextEventDatum"
-        android:layout_below="@+id/zeitpunktHeader"
+
         android:layout_alignLeft="@id/datumHeader"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+
         android:editable="false"
 
         />
@@ -271,37 +326,40 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Uhrzeit"
         android:id="@+id/uhrzeitHeader"
-        android:layout_below="@+id/zeitpunktHeader"
+
         android:layout_alignLeft="@id/editTextEventDatum"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="100dp"/>
+
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
 
     <EditText
         android:onClick="editEventUhrzeit"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editTextEventUhrzeit"
-        android:layout_below="@+id/zeitpunktHeader"
+
         android:layout_alignLeft="@id/uhrzeitHeader"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+
         android:editable="false"
 
 
         />
 
+    </LinearLayout>
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="0dp"
         android:text="Event veröffentlichen"
         android:id="@+id/btnPublishEvent"
-        android:layout_below="@+id/datumHeader"
+        android:layout_below="@+id/LLfürZeitpunkt"
         android:layout_centerHorizontal="true"
         android:textColor="#000000"
-        android:background="#ff55ff29"
+
             />
 
 
