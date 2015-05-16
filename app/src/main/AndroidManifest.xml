@@ -39,18 +39,10 @@
             android:label="@string/title_activity_maps" >
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:parentActivityName=".LoginActivity" >
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RezeptActivity"
@@ -69,8 +61,13 @@
                 android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
         <activity
-            android:name=".IndexActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_index" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".TerminvermittlungActivity"
@@ -107,10 +104,10 @@
         <activity
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
-            android:parentActivityName=".IndexActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.IndexActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".DesignTestActivity"
