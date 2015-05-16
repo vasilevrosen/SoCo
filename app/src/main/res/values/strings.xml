@@ -29,4 +29,6 @@
     <string name="title_activity_meineevents">Meine Events</string>
     <string name="title_activity_wissensDb">Wissensdatenbank</string>
     <string name="title_activity_rezeptsuchen">Rezept suchen</string>
+    <string name="title_activity_design_test">DesignTestActivity</string>
+    <string name="title_activity_fragment_test">FragmentTest</string>
 </resources>
