@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AppTheme2" parent="@style/_AppTheme2"/>
+
+  <style name="_AppTheme2" parent="android:Theme.Holo.Light.DarkActionBar">
+
+    <item name="@android:editTextBackground">@drawable/apptheme2_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#99669900</item>
+    <item name="android:textSelectHandleLeft">@drawable/apptheme2_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/apptheme2_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/apptheme2_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppTheme2</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme2_btn_check_holo_light</item>
+
+  </style>
+
+</resources>

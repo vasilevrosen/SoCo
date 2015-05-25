@@ -41,8 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="46dp"
-        android:layout_marginBottom="30dp"
-        android:height="50dp" />
+        android:layout_marginBottom="30dp" />
 
     <Switch
         android:layout_margin="5dp"
@@ -72,23 +71,22 @@
         android:id="@+id/editText_max_zubereitungszeit"
         android:inputType="number"
         android:layout_below="@+id/switch_beschreibung_durchsuchen"
-        android:layout_marginTop="31dp"
-        android:layout_alignRight="@+id/switch_beschreibung_durchsuchen"
-        android:layout_alignEnd="@+id/switch_beschreibung_durchsuchen"
+        android:layout_alignRight="@+id/editText_rezept_suche"
+        android:layout_alignEnd="@+id/editText_rezept_suche"
         android:layout_toRightOf="@+id/textView_rezept_suchen"
-        android:layout_toEndOf="@+id/textView_rezept_suchen" />
+        android:layout_toEndOf="@+id/textView_rezept_suchen"
+        android:layout_margin="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Zubereitungszeit"
-        android:textColor="#000000"
         android:id="@+id/textView_zubereitungszeit"
-        android:textSize="18dp"
         android:layout_alignWithParentIfMissing="false"
         android:layout_alignBottom="@+id/editText_max_zubereitungszeit"
-        android:layout_alignLeft="@+id/switch_beschreibung_durchsuchen"
-        android:layout_alignStart="@+id/switch_beschreibung_durchsuchen" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -96,9 +94,8 @@
         android:text="@string/btn_rezept_suche"
         android:id="@+id/btn_rezept_suchen"
         android:onClick="rezeptSuchen"
-        android:textSize="20sp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -41,7 +41,10 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
-            android:parentActivityName=".LoginActivity" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -63,10 +66,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_index" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -75,7 +74,10 @@
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.MainActivity" />
+            android:value="com.soco.ebusiness.soco.MainActivity" />
+            <intent-filter>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".KocheventAnbietenActivity"
@@ -105,7 +107,7 @@
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
             android:parentActivityName=".MainActivity" >
-            <meta-data
+            <meta-data-
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
