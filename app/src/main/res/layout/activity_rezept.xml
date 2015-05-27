@@ -10,7 +10,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Rezepte suchen"
+        android:text="@string/btn_rezept_suche"
         android:id="@+id/btn_rezept_suchen"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -22,7 +22,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Rezepte erstellrn"
+        android:text="@string/rezept_erstellen"
         android:id="@+id/btn_rezept_erstellen"
         android:height="80dp"
         android:layout_centerVertical="true"

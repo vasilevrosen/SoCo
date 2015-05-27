@@ -1,5 +1,6 @@
 package com.soco.ebusiness.soco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -42,4 +43,6 @@ public class RezeptSuchenActivity extends ActionBarActivity {
 //        Intent intent = new Intent(this, MapsActivity.class);
 //        startActivity(intent);
     }
+
+
 }

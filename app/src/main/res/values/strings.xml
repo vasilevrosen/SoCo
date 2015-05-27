@@ -31,4 +31,19 @@
     <string name="title_activity_rezeptsuchen">Rezept suchen</string>
     <string name="title_activity_design_test">DesignTestActivity</string>
     <string name="title_activity_fragment_test">FragmentTest</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="username">Benutzername</string>
+    <string name="password_label">Passwort</string>
+    <string name="sign_up_label">Registrieren</string>
+    <string name="already_have_an_account_label">Sie haben ein Account?</string>
+    <string name="sign_in_label">Einloggen</string>
+    <string name="dont_have_an_account_label">Registrieren</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="action_example">Example action</string>
+    <string name="title_activity_rezept_erstellen">RezeptErstellenActivity</string>
+    <string name="rezept_erstellen">Rezept erstellen</string>
 </resources>

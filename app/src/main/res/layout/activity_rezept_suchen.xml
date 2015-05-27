@@ -65,29 +65,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText_max_zubereitungszeit"
-        android:inputType="number"
-        android:layout_below="@+id/switch_beschreibung_durchsuchen"
-        android:layout_alignRight="@+id/editText_rezept_suche"
-        android:layout_alignEnd="@+id/editText_rezept_suche"
-        android:layout_toRightOf="@+id/textView_rezept_suchen"
-        android:layout_toEndOf="@+id/textView_rezept_suchen"
-        android:layout_margin="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zubereitungszeit"
-        android:id="@+id/textView_zubereitungszeit"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_alignBottom="@+id/editText_max_zubereitungszeit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -95,7 +72,8 @@
         android:id="@+id/btn_rezept_suchen"
         android:onClick="rezeptSuchen"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="41dp" />
 
 </RelativeLayout>
