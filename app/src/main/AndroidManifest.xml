@@ -127,6 +127,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptActivity" />
         </activity>
+        <activity
+            android:name=".RezeptListeActivity"
+            android:label="@string/title_activity_rezept_liste"
+            android:parentActivityName=".RezeptSuchenActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.RezeptSuchenActivity" />
+        </activity>
     </application>
 
 </manifest>

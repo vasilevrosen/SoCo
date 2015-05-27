@@ -46,4 +46,5 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_rezept_erstellen">RezeptErstellenActivity</string>
     <string name="rezept_erstellen">Rezept erstellen</string>
+    <string name="title_activity_rezept_liste">RezeptListeActivity</string>
 </resources>

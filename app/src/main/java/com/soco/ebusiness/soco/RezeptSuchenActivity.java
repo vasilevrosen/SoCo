@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.parse.ParseObject;
+
 
 public class RezeptSuchenActivity extends ActionBarActivity {
 
@@ -14,6 +16,7 @@ public class RezeptSuchenActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rezept_suchen);
+        ParseObject.registerSubclass(Rezept.class);
     }
 
     @Override
@@ -40,8 +43,8 @@ public class RezeptSuchenActivity extends ActionBarActivity {
 
     public void rezeptSuchen(View view)
     {
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, RezeptListeActivity.class);
+        startActivity(intent);
     }
 
 

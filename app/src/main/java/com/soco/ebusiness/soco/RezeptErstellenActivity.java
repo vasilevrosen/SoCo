@@ -1,5 +1,6 @@
 package com.soco.ebusiness.soco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 
@@ -25,7 +27,7 @@ public class RezeptErstellenActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_erstellen);
         ParseObject.registerSubclass(Rezept.class);
 
-        titel = (EditText) findViewById(R.id.action_bar_title);
+        titel = (EditText) findViewById(R.id.titel);
         kategorie = (EditText) findViewById(R.id.kategorie);
         zutaten = (EditText) findViewById(R.id.zutaten);
         zubereitungszeit = (EditText) findViewById(R.id.zubereitungszeit);
@@ -34,12 +36,6 @@ public class RezeptErstellenActivity extends ActionBarActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Rezept rezept = new Rezept();
-//                rezept.setTitle("Title");
-//                rezept.setKategorie("Kat");
-//                rezept.setZutaten("zutaten");
-//                rezept.setZubereitungszeit("33");
-//                rezept.saveEventually();
 
                 Rezept rezept = new Rezept();
                 rezept.setTitle(titel.getText().toString());
@@ -47,6 +43,11 @@ public class RezeptErstellenActivity extends ActionBarActivity {
                 rezept.setZutaten(zutaten.getText().toString());
                 rezept.setZubereitungszeit(zubereitungszeit.getText().toString());
                 rezept.saveEventually();
+
+                Intent intent = new Intent(RezeptErstellenActivity.this, RezeptActivity.class);
+                startActivity(intent);
+
+                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept " + titel.getText().toString() + " wurde erfolgreich gespeichert", Toast.LENGTH_LONG).show();
 
             }
         });
