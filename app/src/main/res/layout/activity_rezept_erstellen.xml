@@ -10,7 +10,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_rezeptTitel"
+        android:id="@+id/titel"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -22,25 +22,25 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_kategorie"
+        android:id="@+id/kategorie"
         android:singleLine="true"
         android:hint="Kategorie"
-        android:layout_below="@+id/editText_rezeptTitel"
+        android:layout_below="@+id/titel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText_rezeptTitel"
-        android:layout_alignEnd="@+id/editText_rezeptTitel" />
+        android:layout_alignRight="@+id/titel"
+        android:layout_alignEnd="@+id/titel" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text|textMultiLine"
         android:ems="10"
-        android:id="@+id/editText_zutaten"
+        android:id="@+id/zutaten"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="Zutaten"
-        android:layout_below="@+id/editText_kategorie"
+        android:layout_below="@+id/kategorie"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:lines="4" />
@@ -48,10 +48,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_zubereitungszeit"
+        android:id="@+id/zubereitungszeit"
         android:singleLine="true"
         android:hint="Zubereitungszeit"
-        android:layout_below="@+id/editText_zutaten"
+        android:layout_below="@+id/zutaten"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
