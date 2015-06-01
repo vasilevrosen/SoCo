@@ -9,6 +9,7 @@
      option is required to comply with the Google+ Sign-In developer policies
     -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- To retrieve the account name (email) as part of sign-in: -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -38,12 +39,8 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".RezeptActivity"
             android:label="@string/rezeptkatalog"
@@ -62,8 +59,13 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_index"
-            android:launchMode="singleTop" >
+            android:exported="true"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".TerminvermittlungActivity"
@@ -117,8 +119,7 @@
             android:label="@string/title_activity_fragment_test" />
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
-        </activity>
+            android:label="@string/title_activity_register" />
         <activity
             android:name=".RezeptErstellenActivity"
             android:label="@string/title_activity_rezept_erstellen"
@@ -134,6 +135,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptSuchenActivity" />
+        </activity>
+        <activity
+            android:name=".PostActivity"
+            android:label="@string/title_activity_post" >
+        </activity>
+        <activity
+            android:name=".GooglePlayServicesActivity"
+            android:label="@string/title_activity_google_play_services" >
         </activity>
     </application>
 
