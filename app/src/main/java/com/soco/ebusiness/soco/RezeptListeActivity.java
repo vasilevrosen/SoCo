@@ -1,5 +1,6 @@
 package com.soco.ebusiness.soco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,8 +20,8 @@ import java.util.List;
 
 public class RezeptListeActivity extends ActionBarActivity {
 
-    String x;
     public ArrayList<String> listOfSharedWord = new ArrayList<String>();
+    String x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,15 @@ public class RezeptListeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_liste);
         ParseObject.registerSubclass(Rezept.class);
 
+        Intent i = getIntent();
+        // Receiving the Data
+        String rezeptgesucht = i.getStringExtra("RezeptSuche");
+
+
         findViewById(R.id.rezept_liste);
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
+        query.whereEqualTo("titel", rezeptgesucht);
+        query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

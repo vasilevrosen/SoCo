@@ -6,17 +6,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.parse.ParseObject;
 
 
 public class RezeptSuchenActivity extends ActionBarActivity {
 
+    EditText rezeptSuchen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rezept_suchen);
         ParseObject.registerSubclass(Rezept.class);
+
+        rezeptSuchen = (EditText) findViewById(R.id.editText_rezept_suche);
     }
 
     @Override
@@ -24,6 +29,8 @@ public class RezeptSuchenActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_rezept_suchen, menu);
         return true;
+
+
     }
 
     @Override
@@ -44,6 +51,7 @@ public class RezeptSuchenActivity extends ActionBarActivity {
     public void rezeptSuchen(View view)
     {
         Intent intent = new Intent(this, RezeptListeActivity.class);
+        intent.putExtra("RezeptSuche", rezeptSuchen.getText().toString());
         startActivity(intent);
     }
 
