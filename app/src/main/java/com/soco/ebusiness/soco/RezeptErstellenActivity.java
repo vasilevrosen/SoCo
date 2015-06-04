@@ -27,9 +27,9 @@ public class RezeptErstellenActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_erstellen);
         ParseObject.registerSubclass(Rezept.class);
 
-        titel = (EditText) findViewById(R.id.titel);
-        kategorie = (EditText) findViewById(R.id.kategorie);
-        zutaten = (EditText) findViewById(R.id.zutaten);
+        titel = (EditText) findViewById(R.id.titel_details);
+        kategorie = (EditText) findViewById(R.id.kategorie_details);
+        zutaten = (EditText) findViewById(R.id.zutaten_details);
         zubereitungszeit = (EditText) findViewById(R.id.zubereitungszeit);
         btn_save = (Button) findViewById(R.id.button_speichern);
 

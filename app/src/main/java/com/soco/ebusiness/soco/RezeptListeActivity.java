@@ -1,9 +1,11 @@
 package com.soco.ebusiness.soco;
 
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,16 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RezeptListeActivity extends ActionBarActivity {
+public class RezeptListeActivity extends ListActivity {
 
     public ArrayList<String> listOfSharedWord = new ArrayList<String>();
     String x;
     String query;
+    ListView lv;
+    List<ParseObject> objectsl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rezept_liste);
+        //setContentView(R.layout.activity_rezept_liste);
+
         ParseObject.registerSubclass(Rezept.class);
 
         Bundle i = getIntent().getExtras();
@@ -35,8 +40,9 @@ public class RezeptListeActivity extends ActionBarActivity {
         boolean sw_name = i.getBoolean("SwitchName");
         boolean sw_kategorie = i.getBoolean("SwitchKategorie");
         boolean sw_zutaten = i.getBoolean("SwitchZutaten");
+        lv = getListView();
 
-        findViewById(R.id.rezept_liste);
+
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
         if (sw_name) {
             query.whereEqualTo("titel", rezeptgesucht);
@@ -52,12 +58,13 @@ public class RezeptListeActivity extends ActionBarActivity {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
+                    objectsl = objects;
                     for (int i = 0; i < objects.size(); i++) {
                         x = objects.get(i).getString("titel");
                         listOfSharedWord.add(x);
                     }
                     Toast.makeText(getApplicationContext(), "Es wurden " + listOfSharedWord.size() + " Rezepte gefunden", Toast.LENGTH_LONG).show();
-                    ListView lv = (ListView) findViewById(R.id.rezept_liste);
+
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(RezeptListeActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
                     lv.setAdapter(arrayAdapter);
                 } else {
@@ -89,5 +96,17 @@ public class RezeptListeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String objectId = objectsl.get(position).getObjectId();
+
+        Intent intent = new Intent(RezeptListeActivity.this, RezeptDetailsActivity.class);
+        intent.putExtra("objectId",objectId);
+        startActivity(intent);
+
     }
 }

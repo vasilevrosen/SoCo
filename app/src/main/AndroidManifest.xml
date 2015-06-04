@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.soco.ebusiness.soco">
+    package="com.soco.ebusiness.soco" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -19,7 +19,6 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -28,13 +27,16 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <!--
-      IMPORTANT: Change "com.parse.tutorials.pushnotifications.permission.C2D_MESSAGE" in the lines below
-      to match your app's package name + ".permission.C2D_MESSAGE".
-    -->
-    <permission android:protectionLevel="signature"
-        android:name="com.soco.ebusiness.soco.permission.C2D_MESSAGE" />
+    <permission
+        android:name="com.soco.ebusiness.soco.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.soco.ebusiness.soco.permission.C2D_MESSAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:name=".App"
@@ -42,9 +44,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/ic_logo"
-        android:theme="@style/AppTheme">
-
-
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -52,7 +52,7 @@
         <activity
             android:name=".RezeptActivity"
             android:label="@string/rezeptkatalog"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -60,7 +60,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -68,7 +68,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +78,7 @@
         <activity
             android:name=".TerminvermittlungActivity"
             android:label="@string/title_activity_terminvermittlung"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -90,7 +90,7 @@
         <activity
             android:name=".KocheventAnbietenActivity"
             android:label="@string/title_activity_kochevent"
-            android:parentActivityName=".TerminvermittlungActivity">
+            android:parentActivityName=".TerminvermittlungActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
@@ -98,7 +98,7 @@
         <activity
             android:name=".MeineEventsActivity"
             android:label="@string/title_activity_meineevents"
-            android:parentActivityName=".TerminvermittlungActivity">
+            android:parentActivityName=".TerminvermittlungActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
@@ -106,7 +106,7 @@
         <activity
             android:name=".RezeptSuchenActivity"
             android:label="@string/title_activity_rezeptsuchen"
-            android:parentActivityName=".RezeptActivity">
+            android:parentActivityName=".RezeptActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptActivity" />
@@ -114,7 +114,7 @@
         <activity
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data-
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -131,7 +131,7 @@
         <activity
             android:name=".RezeptErstellenActivity"
             android:label="@string/title_activity_rezept_erstellen"
-            android:parentActivityName=".RezeptActivity">
+            android:parentActivityName=".RezeptActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptActivity" />
@@ -139,7 +139,7 @@
         <activity
             android:name=".RezeptListeActivity"
             android:label="@string/title_activity_rezept_liste"
-            android:parentActivityName=".RezeptSuchenActivity">
+            android:parentActivityName=".RezeptSuchenActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptSuchenActivity" />
@@ -147,7 +147,7 @@
 
         <service android:name="com.parse.PushService" />
 
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -155,22 +155,36 @@
         </receiver>
         <receiver
             android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.soco.ebusiness.soco" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.parse.ParsePushBroadcastReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBXpSEACVnO9SXbT1ko4BgyukEEz62rXVk" />
+
+        <activity
+            android:name=".RezeptDetailsActivity"
+            android:label="@string/title_activity_rezept_details"
+            android:parentActivityName=".RezeptListeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.RezeptListeActivity" />
+        </activity>
     </application>
 
 </manifest>
