@@ -1,4 +1,4 @@
-<resources>
+<>
     <string name="app_name">SoCo - Social Cooking</string>
 
     <string name="hello_world">Hello world!</string>
@@ -38,7 +38,8 @@
     <string name="already_have_an_account_label">Sie haben ein Account?</string>
     <string name="sign_in_label">Einloggen</string>
     <string name="dont_have_an_account_label">Registrieren</string>
-
+    <string name="title_activity_post">Post</string>
+    <string name="title_activity_google_play_services">Google Play Service</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
