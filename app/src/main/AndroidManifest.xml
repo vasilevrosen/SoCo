@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.soco.ebusiness.soco" >
+    package="com.soco.ebusiness.soco">
 
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="22" />
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--
- To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
-     option is required to comply with the Google+ Sign-In developer policies
-    -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- To retrieve the account name (email) as part of sign-in: -->
@@ -18,10 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <!--
- The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but are recommended.
-    -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -30,16 +25,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:logo="@drawable/ic_logo"
+        android:theme="@style/AppTheme">
 
 
-    <activity
+        <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"
+            android:logo="@drawable/ic_logo" />
         <activity
             android:name=".RezeptActivity"
             android:label="@string/rezeptkatalog"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -47,7 +44,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -55,7 +52,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,7 +62,7 @@
         <activity
             android:name=".TerminvermittlungActivity"
             android:label="@string/title_activity_terminvermittlung"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
@@ -77,7 +74,7 @@
         <activity
             android:name=".KocheventAnbietenActivity"
             android:label="@string/title_activity_kochevent"
-            android:parentActivityName=".TerminvermittlungActivity" >
+            android:parentActivityName=".TerminvermittlungActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
@@ -85,7 +82,7 @@
         <activity
             android:name=".MeineEventsActivity"
             android:label="@string/title_activity_meineevents"
-            android:parentActivityName=".TerminvermittlungActivity" >
+            android:parentActivityName=".TerminvermittlungActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.TerminvermittlungActivity" />
@@ -93,7 +90,7 @@
         <activity
             android:name=".RezeptSuchenActivity"
             android:label="@string/title_activity_rezeptsuchen"
-            android:parentActivityName=".RezeptActivity" >
+            android:parentActivityName=".RezeptActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptActivity" />
@@ -101,7 +98,7 @@
         <activity
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data-
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -118,7 +115,7 @@
         <activity
             android:name=".RezeptErstellenActivity"
             android:label="@string/title_activity_rezept_erstellen"
-            android:parentActivityName=".RezeptActivity" >
+            android:parentActivityName=".RezeptActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptActivity" />
@@ -126,7 +123,7 @@
         <activity
             android:name=".RezeptListeActivity"
             android:label="@string/title_activity_rezept_liste"
-            android:parentActivityName=".RezeptSuchenActivity" >
+            android:parentActivityName=".RezeptSuchenActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptSuchenActivity" />

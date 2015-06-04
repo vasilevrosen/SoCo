@@ -227,7 +227,7 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
 
             case 1:
-                mTitle = getString(R.string.home);
+                mTitle = getString(R.string.app_name);
 //                Intent intent = new Intent(this, TerminvermittlungActivity.class);
 //                startActivity(intent);
                 break;
