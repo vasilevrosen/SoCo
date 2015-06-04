@@ -1,6 +1,5 @@
 package com.soco.ebusiness.soco;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -22,6 +21,7 @@ public class RezeptListeActivity extends ActionBarActivity {
 
     public ArrayList<String> listOfSharedWord = new ArrayList<String>();
     String x;
+    String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +29,24 @@ public class RezeptListeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_liste);
         ParseObject.registerSubclass(Rezept.class);
 
-        Intent i = getIntent();
+        Bundle i = getIntent().getExtras();
         // Receiving the Data
-        String rezeptgesucht = i.getStringExtra("RezeptSuche");
-
+        String rezeptgesucht = i.getString("RezeptSuche");
+        boolean sw_name = i.getBoolean("SwitchName");
+        boolean sw_kategorie = i.getBoolean("SwitchKategorie");
+        boolean sw_zutaten = i.getBoolean("SwitchZutaten");
 
         findViewById(R.id.rezept_liste);
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
-        query.whereEqualTo("titel", rezeptgesucht);
+        if (sw_name) {
+            query.whereEqualTo("titel", rezeptgesucht);
+        }
+        if (sw_kategorie) {
+            query.whereEqualTo("kategorie", rezeptgesucht);
+        }
+        if (sw_zutaten) {
+            query.whereEqualTo("zutaten", rezeptgesucht);
+        }
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

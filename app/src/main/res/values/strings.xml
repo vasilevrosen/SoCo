@@ -47,4 +47,5 @@
     <string name="title_activity_rezept_erstellen">RezeptErstellenActivity</string>
     <string name="rezept_erstellen">Rezept erstellen</string>
     <string name="title_activity_rezept_liste">RezeptListeActivity</string>
+    <string name="rb_name">Rezeptname Durchsuchen</string>
 </resources>
