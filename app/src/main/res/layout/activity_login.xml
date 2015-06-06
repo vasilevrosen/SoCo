@@ -61,6 +61,7 @@
         android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:onClick="signIn"
+        android:textColor="@color/btn_text_color"
         android:text="@string/sign_in_label" />
 
     <Button
@@ -68,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showRegistration"
+        android:textColor="@color/btn_text_color"
         android:text="@string/dont_have_an_account_label" />
 
 </LinearLayout>
