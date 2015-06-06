@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity
@@ -33,6 +34,15 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO USER RESTRICTED ACCESS
+        if(true==false) {
+            Button btn = (Button) findViewById(R.id.btn_event_erstellen);
+            btn.setEnabled(true);
+            btn.setVisibility(View.VISIBLE);
+            Button btn2 = (Button) findViewById(R.id.btn_meine_events);
+            btn2.setEnabled(true);
+            btn2.setVisibility(View.VISIBLE);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -44,6 +54,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
@@ -59,12 +71,13 @@ public class MainActivity extends ActionBarActivity
 
 
         switch (number) {
-
+            //Hauptseite anzeigen
             case 1:
                 mTitle = getString(R.string.app_name);
-//                Intent intent = new Intent(this, TerminvermittlungActivity.class);
-//                startActivity(intent);
                 break;
+
+                //folgend, alle weiteren Seiten
+
             case 2:
                 mTitle = getString(R.string.terminvermittlung);
                 Intent intent = new Intent(this, TerminvermittlungActivity.class);
@@ -78,6 +91,19 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.wissensdb);
                 intent = new Intent(this, WissensDBActivity.class);
+                startActivity(intent);
+                break;
+            case 5:
+                mTitle = getString(R.string.user_profile);
+                intent = new Intent(this, Facebook_activity.class);
+                startActivity(intent);
+                break;
+            case 6:
+                if(App.login){
+                    mTitle = getString(R.string.logout);
+                }
+                mTitle = getString(R.string.login);
+                intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -157,6 +183,24 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    public void meine_events(View view) {
+        if(App.login) {
+            Intent intent = new Intent(this, MeineEventsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void create_event(View view) {
+        if(App.login) {
+            Intent intent = new Intent(this, KocheventAnbietenActivity.class);
+            startActivity(intent);
+        }
+    }
+    public void event_map(View view) {
+        // Intent intent = new Intent(this, KocheventsuchenActivity.class);
+        // startActivity(intent);
     }
 
 }

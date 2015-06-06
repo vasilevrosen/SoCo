@@ -45,10 +45,27 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_logo"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:logo="@drawable/ic_logo" />
+            android:logo="@drawable/ic_logo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TerminvermittlungActivity"
+            android:label="@string/title_activity_terminvermittlung"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+            <intent-filter>
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".RezeptActivity"
             android:label="@string/rezeptkatalog"
@@ -68,25 +85,10 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".MainActivity">
         </activity>
-        <activity
-            android:name=".TerminvermittlungActivity"
-            android:label="@string/title_activity_terminvermittlung"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.MainActivity" />
 
-            <intent-filter>
-                <category android:name="android.intent.category.default" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".KocheventAnbietenActivity"
             android:label="@string/title_activity_kochevent"
@@ -115,7 +117,7 @@
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
             android:parentActivityName=".MainActivity" >
-            <meta-data-
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
@@ -185,6 +187,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.RezeptListeActivity" />
         </activity>
+        <activity android:name="com.soco.ebusiness.soco.Facebook_activity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1607702199484087"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+        <receiver android:name="com.soco.ebusiness.soco.HelloFacebookBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

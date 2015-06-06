@@ -2,7 +2,9 @@ package com.soco.ebusiness.soco;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Button;
 
+import com.facebook.FacebookSdk;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -15,10 +17,12 @@ import com.parse.SaveCallback;
 
 public class App extends Application {
 
+    public static boolean login = false;
+    public static String login_text;
     @Override
     public void onCreate() {
         super.onCreate();
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         ParseObject.registerSubclass(Rezept.class);
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "r5kFDsKD0dBiQpdiSxSxpQkiIAy1ytBUV1olpd0U", "C8XCXf6LQp2GBYfedTlaDnLFjQWctB7yc0DzZ2L5");
@@ -35,5 +39,15 @@ public class App extends Application {
         });
 
     }
+    public String islogin(){
+        if(login){
+            login_text= getString(R.string.login);
+            return login_text;
+        } else {
 
+            login_text= getString(R.string.logout);
+            return login_text;
+        }
+
+    }
 }

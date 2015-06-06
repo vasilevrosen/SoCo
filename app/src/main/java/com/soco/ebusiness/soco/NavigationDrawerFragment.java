@@ -96,6 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -104,7 +105,9 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.home),
                         getString(R.string.terminvermittlung),
                         getString(R.string.rezeptkatalog),
-                        getString(R.string.wissensdb)
+                        getString(R.string.wissensdb),
+                        getString(R.string.user_profile),
+                        getString(R.string.login)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
