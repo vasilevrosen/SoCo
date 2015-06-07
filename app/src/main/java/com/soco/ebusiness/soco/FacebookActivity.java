@@ -41,7 +41,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
 import com.facebook.share.ShareApi;
 import com.facebook.share.Sharer;
-import com.facebook.share.internal.ShareInternalUtility;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareLinkContent;
@@ -50,7 +49,7 @@ import com.facebook.share.widget.ShareDialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Facebook_activity extends FragmentActivity {
+public class FacebookActivity extends FragmentActivity {
 
     private static final String PERMISSION = "publish_actions";
     private static final Location SEATTLE_LOCATION = new Location("") {
@@ -99,7 +98,7 @@ public class Facebook_activity extends FragmentActivity {
         }
 
         private void showResult(String title, String alertMessage) {
-            new AlertDialog.Builder(Facebook_activity.this)
+            new AlertDialog.Builder(FacebookActivity.this)
                     .setTitle(title)
                     .setMessage(alertMessage)
                     .setPositiveButton(R.string.ok, null)
@@ -148,7 +147,7 @@ public class Facebook_activity extends FragmentActivity {
                     }
 
                     private void showAlert() {
-                        new AlertDialog.Builder(Facebook_activity.this)
+                        new AlertDialog.Builder(FacebookActivity.this)
                                 .setTitle(R.string.cancelled)
                                 .setMessage(R.string.permission_not_granted)
                                 .setPositiveButton(R.string.ok, null)

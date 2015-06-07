@@ -95,7 +95,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 5:
                 mTitle = getString(R.string.user_profile);
-                intent = new Intent(this, Facebook_activity.class);
+                intent = new Intent(this, FacebookActivity.class);
                 startActivity(intent);
                 break;
             case 6:
