@@ -205,4 +205,12 @@ public class MainActivity extends ActionBarActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+    public void onBackPressed()
+    {
+        //do whatever you want the 'Back' button to do
+        //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
+        this.startActivity(new Intent(this, FirstActivity.class));
+
+        return;
+    }
 }

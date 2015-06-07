@@ -62,36 +62,30 @@
         </activity>
         <activity
             android:name=".TerminvermittlungActivity"
-            android:label="@string/title_activity_terminvermittlung"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.MainActivity" />
+            android:label="@string/title_activity_terminvermittlung">
+
             <intent-filter>
                 <category android:name="android.intent.category.default" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RezeptActivity"
-            android:label="@string/rezeptkatalog"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.MainActivity" />
+            android:label="@string/rezeptkatalog">
+
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".FirstActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.MainActivity" />
+                android:value="com.soco.ebusiness.soco.FirstActivity" />
         </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:parentActivityName=".MainActivity">
+            >
         </activity>
 
         <activity
@@ -121,10 +115,7 @@
         <activity
             android:name=".WissensDBActivity"
             android:label="@string/wissensdb"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+             >
         </activity>
         <activity
             android:name=".DesignTestActivity"
@@ -195,10 +186,8 @@
         <activity
             android:name=".FacebookActivity"
             android:label="@string/user_profile"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.RezeptListeActivity" />
+             >
+
         </activity>
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
