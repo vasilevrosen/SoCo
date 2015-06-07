@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
+        android:background="@color/navigation_drawler"
         android:divider="#e5e5e5"
         android:dividerHeight="1dp" />
 

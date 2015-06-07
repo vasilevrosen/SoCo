@@ -3,14 +3,6 @@
     android:id="@+id/drawer_layout"
     android:layout_height="match_parent"
     tools:context="com.soco.ebusiness.soco.TerminvermittlungActivity">
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="260dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="#e5e5e5"
-        android:dividerHeight="1dp" />
 
 <RelativeLayout android:id="@+id/content_frame"
     android:layout_width="match_parent"
@@ -65,5 +57,14 @@
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
     <!-- The navigation drawer -->
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:background="@color/navigation_drawler"
+        android:divider="#e5e5e5"
+        android:dividerHeight="1dp" />
 
 </android.support.v4.widget.DrawerLayout>
