@@ -23,6 +23,7 @@ package com.soco.ebusiness.soco;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageInstaller;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -50,9 +51,11 @@ import com.facebook.share.widget.ShareDialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FacebookActivity extends FragmentActivity {
+public class FacebookActivity extends MainActivity {
 
     private static final String PERMISSION = "publish_actions";
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
     private static final Location SEATTLE_LOCATION = new Location("") {
         {
             setLatitude(47.6097);
@@ -117,6 +120,16 @@ public class FacebookActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
+        // titles
+        // from
+        // strings.xml
+
+        navMenuIcons = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        // strings.xml
+
+        set(navMenuTitles, navMenuIcons);
 
         callbackManager = CallbackManager.Factory.create();
 

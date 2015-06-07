@@ -1,18 +1,32 @@
 package com.soco.ebusiness.soco;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class TerminvermittlungActivity extends ActionBarActivity {
+public class TerminvermittlungActivity extends MainActivity {
+
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terminvermittlung);
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
+        // titles
+        // from
+        // strings.xml
+
+        navMenuIcons = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        // strings.xml
+
+        set(navMenuTitles, navMenuIcons);
     }
 
 

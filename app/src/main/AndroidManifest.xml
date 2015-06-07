@@ -50,6 +50,11 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:logo="@drawable/ic_logo">
+        </activity>
+        <activity
+            android:name=".FirstActivity"
+            android:label="@string/title_activity_main"
+            android:logo="@drawable/ic_logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
