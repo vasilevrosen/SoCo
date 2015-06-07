@@ -9,7 +9,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.parse.ParseObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,14 +28,53 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kochevent_anbieten);
         gesetztesDatum = (EditText) findViewById(R.id.editTextEventDatum);
         gesetzteZeit = (EditText) findViewById(R.id.editTextEventUhrzeit);
+        ParseObject.registerSubclass(Event.class);
+
+
+
+
+
+
+    }
+
+    public void eventErstellen(View view){
+
+        String titel = ((EditText) findViewById(R.id.editTextEventTitel)).getText().toString();
+        int maxTeilnehmer = Integer.parseInt(((EditText) findViewById(R.id.editTextMaxTeilnehmerzahl)).getText().toString());
+        int plz = Integer.parseInt(((EditText) findViewById(R.id.editTextEventPLZ)).getText().toString());
+        String ort = ((EditText) findViewById(R.id.editTextEventOrt)).getText().toString();
+        String strasse = ((EditText) findViewById(R.id.editTextEventStraße)).getText().toString();
+        int hausnummer = Integer.parseInt(((EditText) findViewById(R.id.editTextEventNummer)).getText().toString());
+        String uhrzeit = ((EditText) findViewById(R.id.editTextEventUhrzeit)).getText().toString();
+
+
+
+
+        Event neuesEvent = new Event();
+
+        neuesEvent.setTitel(titel);
+        neuesEvent.setMaxTeilnehmer(maxTeilnehmer);
+        neuesEvent.setPLZ(plz);
+        neuesEvent.setOrt(ort);
+        neuesEvent.setStrasse(strasse);
+        neuesEvent.setHausnummer(hausnummer);
+        neuesEvent.setUhrzeit(uhrzeit);
+
+
+        neuesEvent.saveEventually();
+
+        Intent intent = new Intent(KocheventAnbietenActivity.this, MeineEventsActivity.class);
+        startActivity(intent);
+
+        Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();
+
+
 
     }
 

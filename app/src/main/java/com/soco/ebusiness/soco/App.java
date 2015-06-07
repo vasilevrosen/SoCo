@@ -33,6 +33,7 @@ public class App extends Application {
         super.onCreate();
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         ParseObject.registerSubclass(Rezept.class);
+        ParseObject.registerSubclass(Event.class);
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "r5kFDsKD0dBiQpdiSxSxpQkiIAy1ytBUV1olpd0U", "C8XCXf6LQp2GBYfedTlaDnLFjQWctB7yc0DzZ2L5");
 
