@@ -129,8 +129,6 @@ public class FacebookActivity extends MainActivity {
 
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);// load icons from
         // strings.xml
-        int length =navMenuTitles.length;
-        sendToast(String.valueOf(length));
 
 
         callbackManager = CallbackManager.Factory.create();
@@ -217,7 +215,7 @@ public class FacebookActivity extends MainActivity {
         // Can we present the share dialog for photos?
         canPresentShareDialogWithPhotos = ShareDialog.canShow(
                 SharePhotoContent.class);
-
+        //Navigation erstellen
         set(navMenuTitles, navMenuIcons);
     }
 
