@@ -33,14 +33,18 @@ public class TerminvermittlungActivity extends MainActivity {
     // OnClick Handler der die RezeptActivity startet
     public void navigateToMeineEvents(View view)
     {
-        Intent intent = new Intent(TerminvermittlungActivity.this, MeineEventsActivity.class);
-        startActivity(intent);
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(TerminvermittlungActivity.this, MeineEventsActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void navigateToKocheventAnbieten(View view)
     {
-        Intent intent = new Intent(TerminvermittlungActivity.this, KocheventAnbietenActivity.class);
-        startActivity(intent);
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(TerminvermittlungActivity.this, KocheventAnbietenActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

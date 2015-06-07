@@ -19,6 +19,11 @@ public class App extends Application {
 
     public static boolean login = false;
     public static String login_text;
+
+    public static boolean get_loginstate() {
+        return login;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

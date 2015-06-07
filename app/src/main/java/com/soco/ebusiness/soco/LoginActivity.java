@@ -62,7 +62,7 @@ public class LoginActivity extends MainActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
                     startActivity(intent);
                     App.login = true;
                     finish();
