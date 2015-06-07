@@ -71,6 +71,7 @@
     <string name="exception">Exception: %1$s</string>
     <string name="user_profile">User Profil</string>
     <string name="facebook_msg">Die App für deinen unvergesslichen Kochevent</string>
+    <string name="msg_loginmissing">Bitte Loggen Sie sich hierfür ein</string>
 
     <string-array name="nav_drawer_items">
         <item>Startseite</item>

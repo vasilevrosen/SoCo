@@ -17,11 +17,15 @@ import com.parse.SaveCallback;
 
 public class App extends Application {
 
-    public static boolean login = false;
-    public static String login_text;
+    private static boolean loginstate = false;
+    private static String login_text;
 
     public static boolean get_loginstate() {
-        return login;
+        return loginstate;
+    }
+
+    public static void setloginstate(boolean loginstate) {
+        App.loginstate = loginstate;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class App extends Application {
 
     }
     public String islogin(){
-        if(login){
+        if(loginstate){
             login_text= getString(R.string.login);
             return login_text;
         } else {

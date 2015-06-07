@@ -26,17 +26,18 @@ public class FirstActivity extends MainActivity {
     }
 
     public void meine_events(View view) {
-        if(App.login) {
+        if(App.get_loginstate()) {
             Intent intent = new Intent(this, MeineEventsActivity.class);
             startActivity(intent);
         }
+        else sendToast(getString(R.string.msg_loginmissing));
     }
 
     public void create_event(View view) {
-        if(App.login) {
+        if(App.get_loginstate()) {
             Intent intent = new Intent(this, KocheventAnbietenActivity.class);
             startActivity(intent);
-        }
+        }else sendToast(getString(R.string.msg_loginmissing));
     }
     public void event_map(View view) {
         // Intent intent = new Intent(this, KocheventsuchenActivity.class);

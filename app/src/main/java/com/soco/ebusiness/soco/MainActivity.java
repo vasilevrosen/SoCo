@@ -1,6 +1,7 @@
 package com.soco.ebusiness.soco;
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
@@ -212,5 +214,30 @@ public class MainActivity extends ActionBarActivity {
         this.startActivity(new Intent(this, FirstActivity.class));
 
         return;
+    }
+    public boolean sendToast(){
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        if(toast!=null){
+            return true;
+        }
+        return false;
+    }
+    public boolean sendToast(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        if(toast!=null){
+            return true;
+        }
+        return false;
     }
 }
