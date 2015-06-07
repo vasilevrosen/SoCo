@@ -22,6 +22,7 @@ package com.soco.ebusiness.soco;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -115,7 +116,7 @@ public class FacebookActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -203,6 +204,7 @@ public class FacebookActivity extends FragmentActivity {
                 SharePhotoContent.class);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -285,10 +287,10 @@ public class FacebookActivity extends FragmentActivity {
     private void postStatusUpdate() {
         Profile profile = Profile.getCurrentProfile();
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentTitle("Hello Facebook")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentDescription(
-                        "The 'Hello Facebook' sample  showcases simple Facebook integration")
-                .setContentUrl(Uri.parse("http://developers.facebook.com/docs/android"))
+                        getString(R.string.facebook_msg))
+                .setContentUrl(Uri.parse("http://www.hs-karlsruhe.de"))
                 .build();
         if (canPresentShareDialog) {
             shareDialog.show(linkContent);
