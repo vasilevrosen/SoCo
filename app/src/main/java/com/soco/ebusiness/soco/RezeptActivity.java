@@ -41,8 +41,10 @@ public class RezeptActivity extends MainActivity {
 
     public void rezeptErstellen(View view)
     {
-        Intent intent = new Intent(this, RezeptErstellenActivity.class);
-        startActivity(intent);
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, RezeptErstellenActivity.class);
+            startActivity(intent);
+        } else sendToast(getString(R.string.msg_loginmissing));
     }
     public void onBackPressed()
     {

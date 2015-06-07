@@ -33,8 +33,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
@@ -125,11 +127,11 @@ public class FacebookActivity extends MainActivity {
         // from
         // strings.xml
 
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);// load icons from
         // strings.xml
+        int length =navMenuTitles.length;
+        sendToast(String.valueOf(length));
 
-        set(navMenuTitles, navMenuIcons);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -215,7 +217,10 @@ public class FacebookActivity extends MainActivity {
         // Can we present the share dialog for photos?
         canPresentShareDialogWithPhotos = ShareDialog.canShow(
                 SharePhotoContent.class);
+
+        set(navMenuTitles, navMenuIcons);
     }
+
 
 
     @Override
