@@ -60,6 +60,13 @@ public class MainActivity extends ActionBarActivity {
                         navMenuIcons.getResourceId(i, -1)));
             }
         }
+        String[] navLoginTitles;
+        navLoginTitles = getResources().getStringArray(R.array.login_states);
+        if(App.get_loginstate()){
+            navDrawerItems.add(new NavDrawerItem(navLoginTitles[1]));
+        } else {
+            navDrawerItems.add(new NavDrawerItem(navLoginTitles[0]));
+        }
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
@@ -169,9 +176,14 @@ public class MainActivity extends ActionBarActivity {
             finish();
             break;
             case 5:
-            Intent intent5 = new Intent(this, LoginActivity.class);
-            startActivity(intent5);
-            finish();
+                if(!App.get_loginstate()) {
+                Intent intent5 = new Intent(this, LoginActivity.class);
+                startActivity(intent5);
+                finish();
+            } else{
+                App.setloginstate(false);
+            }
+
             break;
             default:
                 break;

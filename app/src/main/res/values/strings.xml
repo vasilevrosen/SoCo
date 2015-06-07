@@ -79,7 +79,6 @@
         <item>Rezepte</item>
         <item>Wissenswertes</item>
         <item>Mein Profil</item>
-        <item>Login</item>
     </string-array>
     <array name="nav_drawer_icons">
       <item>@drawable/ic_launcher</item>
@@ -89,6 +88,10 @@
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
     </array>
+    <string-array name="login_states">
+        <item>Login</item>
+        <item>Logout</item>
+    </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
