@@ -3,11 +3,18 @@ package com.soco.ebusiness.soco;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -18,11 +25,11 @@ public class LoginActivity extends Activity {
     private EditText mPasswordField;
     private TextView mErrorField;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
 
         mUsernameField = (EditText) findViewById(R.id.login_username);
@@ -37,7 +44,7 @@ public class LoginActivity extends Activity {
         return true;
     }
 
-    public void signIn(final View v){
+    public void signIn(final View v) {
         v.setEnabled(false);
         ParseUser.logInInBackground(mUsernameField.getText().toString(), mPasswordField.getText().toString(), new LogInCallback() {
             @Override
@@ -45,7 +52,7 @@ public class LoginActivity extends Activity {
                 if (user != null) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
-                    App.login=true;
+                    App.login = true;
                     finish();
                 } else {
                     // Signup failed. Look at the ParseException to see what happened.

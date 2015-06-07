@@ -74,12 +74,11 @@
 
         android:text="@string/dont_have_an_account_label" />
 
-<com.facebook.login.widget.LoginButton
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginTop="5dp"
-android:layout_gravity="center_horizontal"
-facebook:com_facebook_confirm_logout="false"
-facebook:com_facebook_tooltip_mode="never_display"
-    />
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
 </LinearLayout>
