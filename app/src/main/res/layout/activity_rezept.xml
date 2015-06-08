@@ -3,31 +3,19 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.soco.ebusiness.soco.RezeptActivity">
+    tools:context="com.soco.ebusiness.soco.RezeptActivity"
+    android:background="@drawable/second_background">
 
     <!-- The main content view -->
 
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@drawable/second_background">
 
 
-
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_rezept_suche"
-        android:id="@+id/btn_rezept_suchen"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:height="80dp"
-        android:onClick="rezeptSuchen"
-        android:singleLine="false" />
-
-    <Button
+        <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/rezept_erstellen"
@@ -36,9 +24,23 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="rezeptErstellen" />
+        android:onClick="rezeptErstellen"
+            android:layout_gravity="center" />
 
-</FrameLayout>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_rezept_suche"
+            android:id="@+id/btn_rezept_suchen"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:height="80dp"
+            android:onClick="rezeptSuchen"
+            android:singleLine="false"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
 
     <!-- The navigation drawer -->
 
