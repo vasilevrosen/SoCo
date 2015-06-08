@@ -20,6 +20,9 @@ public class App extends Application {
     private static boolean loginstate = false;
     private static String login_text;
 
+
+
+
     public static boolean get_loginstate() {
         return loginstate;
     }
@@ -27,6 +30,8 @@ public class App extends Application {
     public static void setloginstate(boolean loginstate) {
         App.loginstate = loginstate;
     }
+
+
 
     @Override
     public void onCreate() {

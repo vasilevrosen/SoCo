@@ -87,11 +87,22 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Noch kein Rezept ausgewählt ..."
+        android:id="@+id/ausgewählesRezeptTitel"
+        android:layout_below="@+id/LLfürRezeptsuche"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textIsSelectable="false" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LLfürMaximaleTeilnehmerzahl"
-        android:layout_below="@+id/LLfürRezeptsuche"
+        android:layout_below="@+id/ausgewählesRezeptTitel"
         android:layout_marginTop="5dp">
 
 
@@ -220,7 +231,7 @@
             android:textSize="18sp"/>
 
         <EditText
-            android:layout_width="160dp"
+            android:layout_width="171dp"
             android:layout_height="40dp"
             android:text=""
             android:id="@+id/editTextEventStraße"
@@ -310,12 +321,12 @@
 
         <EditText
             android:onClick="editEventDatum"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
             android:id="@+id/editTextEventDatum"
 
             android:layout_alignLeft="@id/datumHeader"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
 
             android:editable="false"
 
@@ -330,17 +341,17 @@
 
             android:layout_alignLeft="@id/editTextEventDatum"
 
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:textSize="18sp"/>
 
         <EditText
             android:onClick="editEventUhrzeit"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/editTextEventUhrzeit"
 
             android:layout_alignLeft="@id/uhrzeitHeader"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
 
             android:editable="false"
 

@@ -71,7 +71,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rezept für Kochevent auswählen"
+        android:id="@+id/btn_Rezept_Auswählen"
+        android:layout_above="@+id/button_speichern_details"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/button_speichern_details"
+        android:layout_alignEnd="@+id/button_speichern_details"
+        android:onClick="rezeptAuswahlKochevent"/>
 
     <TextView
         android:layout_width="wrap_content"

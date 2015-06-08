@@ -114,5 +114,14 @@ public class Event extends ParseObject{
         return getString("Uhrzeit");
     }
 
+    public String getRezeptID(){
+
+        return getString("Rezept_ID");
+    }
+
+    public void setRezeptID(String rezeptID){
+
+        put("Rezept_ID", rezeptID);
+    }
 
 }
