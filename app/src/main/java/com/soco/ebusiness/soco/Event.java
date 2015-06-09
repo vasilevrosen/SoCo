@@ -1,8 +1,13 @@
 package com.soco.ebusiness.soco;
 
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+
 
 import java.util.Date;
 
@@ -44,13 +49,23 @@ public class Event extends ParseObject{
 
     public void addNeuerTeilnehmer(){
 
-        int neueTeilnehmerzahl = getAktuelleTeilnehmer() + 1;
-        put("AktuelleTeilnehmer", neueTeilnehmerzahl);
+
+        JSONArray aktuelleTeilnehmer = getAktuelleTeilnehmer();
+
+        if(aktuelleTeilnehmer == null){
+            aktuelleTeilnehmer = new JSONArray();
+        }
+
+        String aktuelleUserId = ParseUser.getCurrentUser().getObjectId();
+
+        aktuelleTeilnehmer.put(aktuelleUserId);
+
+        put("aktuelleTeilnehmer", aktuelleTeilnehmer);
     }
 
-    public int getAktuelleTeilnehmer(){
+    public JSONArray getAktuelleTeilnehmer(){
 
-        return getInt("AktuelleTeilnehmer");
+        return getJSONArray("aktuelleTeilnehmer");
     }
 
     public void setPLZ(int plz){

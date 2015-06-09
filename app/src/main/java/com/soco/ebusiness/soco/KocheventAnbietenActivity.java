@@ -16,7 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -205,7 +212,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
 
-        Event neuesEvent = new Event();
+        final Event neuesEvent = new Event();
 
         neuesEvent.setTitel(titel.getText().toString());
         neuesEvent.setMaxTeilnehmer(Integer.parseInt(maxTeilnehmer.getText().toString()));
@@ -220,7 +227,38 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
 
-        neuesEvent.saveEventually();
+        neuesEvent.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+
+
+                ParseUser aktuellerUser = ParseUser.getCurrentUser();
+
+                JSONArray eventsMitAktuellenUser = aktuellerUser.getJSONArray("userEvents");
+
+                if (eventsMitAktuellenUser == null) {
+                    eventsMitAktuellenUser = new JSONArray();
+                }
+
+                String neuErstelltesEventId = neuesEvent.getObjectId();
+
+                eventsMitAktuellenUser.put(neuErstelltesEventId);
+
+
+
+
+                aktuellerUser.put("userEvents", eventsMitAktuellenUser);
+
+                aktuellerUser.saveEventually();
+
+
+            }
+        });
+
+
+
+
 
         Intent intent = new Intent(KocheventAnbietenActivity.this, MeineEventsActivity.class);
         startActivity(intent);
