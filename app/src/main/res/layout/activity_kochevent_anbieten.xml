@@ -47,7 +47,7 @@
         android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF" />
 
     <LinearLayout
@@ -149,7 +149,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF"/>
 
     <LinearLayout
@@ -300,7 +300,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF"/>
 
     <LinearLayout
