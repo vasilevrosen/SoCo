@@ -3,6 +3,7 @@ package com.soco.ebusiness.soco;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
@@ -50,6 +51,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
     private static String datumOnPause = "";
     private static String zeitOnPause = "";
 
+    private static Date datum;
 
     private static TextView ausgewaehltesRezeptTitelTextView;
 
@@ -57,11 +59,17 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
     private static String ausgewaehltesRezeptTitelText = "Bitte Rezept auswählen";
 
+    private static boolean rezeptAusgewaehlt;
+
+
     public static void rezeptFuerKochevent(String rezeptID, String rezeptTitel){
 
 
         ausgewaehltesRezeptTitelText = rezeptTitel;
         ausgewaehltesRezeptID = rezeptID;
+
+        rezeptAusgewaehlt = true;
+
     }
 
     public static String getAusgewaehltesRezeptID(){
@@ -96,6 +104,9 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         gesetztesDatum = (EditText) findViewById(R.id.editTextEventDatum);
         gesetzteZeit = (EditText) findViewById(R.id.editTextEventUhrzeit);
 
+
+
+
     }
 
 
@@ -118,6 +129,12 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         gesetzteZeit.setText(zeitOnPause);
 
 
+        ausgewaehltesRezeptTitelTextView.setClickable(rezeptAusgewaehlt);
+
+
+        if(rezeptAusgewaehlt){
+            ausgewaehltesRezeptTitelTextView.setTextColor(Color.parseColor("#003CFF"));
+        }
     }
 
     @Override
@@ -136,8 +153,12 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         gesetztesDatum.setText(datumOnPause);
         gesetzteZeit.setText(zeitOnPause);
 
+        ausgewaehltesRezeptTitelTextView.setClickable(rezeptAusgewaehlt);
 
 
+        if(rezeptAusgewaehlt){
+            ausgewaehltesRezeptTitelTextView.setTextColor(Color.parseColor("#003CFF"));
+        }
 
     }
 
@@ -194,7 +215,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         neuesEvent.setHausnummer(Integer.parseInt(hausnummer.getText().toString()));
         neuesEvent.setUhrzeit(gesetzteZeit.getText().toString());
         neuesEvent.setRezeptID(ausgewaehltesRezeptID);
-
+        neuesEvent.setDatum(gesetztesDatum.getText().toString());
 
 
 
@@ -204,8 +225,15 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         Intent intent = new Intent(KocheventAnbietenActivity.this, MeineEventsActivity.class);
         startActivity(intent);
 
-        Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();
+        Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel.getText().toString() + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();
 
+
+
+
+        ausgewaehltesRezeptID = null;
+
+        ausgewaehltesRezeptTitelTextView.setClickable(false);
+        ausgewaehltesRezeptTitelTextView.setTextColor(Color.parseColor("#000000"));
 
         ortOnPause = "";
         plzOnPause = "";
@@ -243,6 +271,8 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
         String neuesDatum = String.format("%02d", tag) + "." + String.format("%02d", monat + 1) + "." + String.format("%02d", jahr);
 
+
+
         gesetztesDatum.setText(neuesDatum);
 
 
@@ -256,6 +286,17 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         String neueZeit = String.format("%02d", stunden) + ":" + String.format("%02d", minuten);
         gesetzteZeit.setText(neueZeit);
     }
+
+
+    public void navigateToRezept(View view){
+
+        Intent intent = new Intent(KocheventAnbietenActivity.this, RezeptDetailsActivity.class);
+        intent.putExtra("objectId", ausgewaehltesRezeptID);
+        startActivity(intent);
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -94,14 +94,14 @@ public class Event extends ParseObject{
         return getInt("Hausnummer");
     }
 
-    public void setDatum(Date datum){
+    public void setDatum(String datum){
 
         put("Datum", datum);
     }
 
-    public Date getDatum(){
+    public String getDatum(){
 
-        return getDate("Datum");
+        return getString("Datum");
     }
 
     public void setUhrzeit(String uhrzeit){
