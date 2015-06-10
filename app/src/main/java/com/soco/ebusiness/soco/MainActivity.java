@@ -113,6 +113,8 @@ public class MainActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
         actionBar.setTitle(mTitle);
     }
 

@@ -182,10 +182,10 @@
         <activity
             android:name=".RezeptDetailsActivity"
             android:label="@string/title_activity_rezept_details"
-            android:parentActivityName=".RezeptListeActivity" >
+            android:parentActivityName=".RezeptSuchenActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.RezeptListeActivity" />
+                android:value="com.soco.ebusiness.soco.RezeptSuchenActivity" />
         </activity>
         <activity
             android:name=".FacebookActivity"

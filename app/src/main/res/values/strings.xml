@@ -47,11 +47,11 @@
     <string name="title_section3">Section 3</string>
 
     <string name="action_example">Example action</string>
-    <string name="title_activity_rezept_erstellen">RezeptErstellenActivity</string>
+    <string name="title_activity_rezept_erstellen">Rezept Erstellen</string>
     <string name="rezept_erstellen">Rezept erstellen</string>
-    <string name="title_activity_rezept_liste">RezeptListeActivity</string>
+    <string name="title_activity_rezept_liste">Rezeptliste</string>
     <string name="rb_name">Rezeptname Durchsuchen</string>
-    <string name="title_activity_rezept_details">RezeptDetailsActivity</string>
+    <string name="title_activity_rezept_details">Rezeptdetails</string>
     <string name="details_rezept">Details Rezept</string>
     <!--Facebook-->
     <string name="cancelled">Cancelled</string>

@@ -132,9 +132,8 @@ public class NavigationDrawerFragment extends Fragment {
         // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setIcon(R.drawable.ic_drawer);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
@@ -260,9 +259,6 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
