@@ -2,6 +2,7 @@ package com.soco.ebusiness.soco;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,17 +21,28 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends MainActivity {
     private EditText mUsernameField;
     private EditText mPasswordField;
     private TextView mErrorField;
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
+        // titles
+        // from
+        // strings.xml
 
+        navMenuIcons = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        // strings.xml
+
+        set(navMenuTitles, navMenuIcons);
 
         mUsernameField = (EditText) findViewById(R.id.login_username);
         mPasswordField = (EditText) findViewById(R.id.login_password);
@@ -50,9 +62,9 @@ public class LoginActivity extends Activity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
                     startActivity(intent);
-                    App.login = true;
+                    App.setloginstate(true);
                     finish();
                 } else {
                     // Signup failed. Look at the ParseException to see what happened.

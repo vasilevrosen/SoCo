@@ -14,24 +14,24 @@
         android:layout_marginTop="5dp">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Titel"
-        android:id="@+id/titelHeader"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Titel"
+            android:id="@+id/titelHeader"
 
-        android:textSize="18sp"/>
+            android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:text=""
-        android:id="@+id/editTextEventTitel"
-        android:layout_alignLeft="@+id/titelHeader"
-        android:layout_marginLeft="10dp"
-        android:textSize="18sp"
-        />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/editTextEventTitel"
+            android:layout_alignLeft="@+id/titelHeader"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:singleLine="true" />
 
     </LinearLayout>
 
@@ -47,7 +47,7 @@
         android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF" />
 
     <LinearLayout
@@ -87,11 +87,25 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Noch kein Rezept ausgewählt ..."
+        android:id="@+id/ausgewählesRezeptTitel"
+        android:layout_below="@+id/LLfürRezeptsuche"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textIsSelectable="false"
+        android:clickable="false"
+        android:textColor="#000000"
+        android:onClick="navigateToRezept"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LLfürMaximaleTeilnehmerzahl"
-        android:layout_below="@+id/LLfürRezeptsuche"
+        android:layout_below="@+id/ausgewählesRezeptTitel"
         android:layout_marginTop="5dp">
 
 
@@ -108,15 +122,16 @@
 
             android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:text=""
-        android:id="@+id/editTextMaxTeilnehmerzahl"
-        android:layout_alignLeft="@+id/TVMaxTeilnehmer"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/btnNavToRezeptsuche"
-        android:inputType="number"/>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/editTextMaxTeilnehmerzahl"
+            android:layout_alignLeft="@+id/TVMaxTeilnehmer"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/btnNavToRezeptsuche"
+            android:inputType="number"
+            android:singleLine="true" />
 
 
 
@@ -134,7 +149,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF"/>
 
     <LinearLayout
@@ -144,56 +159,56 @@
         android:layout_below="@+id/treffpunktHeader"
         android:layout_marginTop="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="PLZ"
-        android:id="@+id/PLZHeader"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PLZ"
+            android:id="@+id/PLZHeader"
 
 
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
-        android:textSize="18sp"/>
+            android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:inputType="number"
-        android:text=""
-        android:id="@+id/editTextEventPLZ"
-        android:layout_alignLeft="@+id/PLZHeader"
-        android:layout_marginLeft="10dp"
-
-
-        />
+        <EditText
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:text=""
+            android:id="@+id/editTextEventPLZ"
+            android:layout_alignLeft="@+id/PLZHeader"
+            android:layout_marginLeft="10dp"
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ort"
-        android:id="@+id/ortHeader"
+            android:singleLine="true" />
 
 
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        android:layout_marginLeft="10dp"
-        android:textSize="18sp"/>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:text=""
-        android:id="@+id/editTextEventPLZ2"
-        android:layout_alignLeft="@+id/ortHeader"
-        android:layout_marginLeft="10dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Ort"
+            android:id="@+id/ortHeader"
 
 
-        />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/editTextEventOrt"
+            android:layout_alignLeft="@+id/ortHeader"
+            android:layout_marginLeft="10dp"
+
+
+            android:singleLine="true" />
 
     </LinearLayout>
 
@@ -205,54 +220,54 @@
         android:layout_below="@+id/LLfürPLZundOrt"
         android:layout_marginTop="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Straße"
-        android:id="@+id/straßeHeader"
-        android:layout_below="@+id/LLfürPLZundOrt"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Straße"
+            android:id="@+id/straßeHeader"
+            android:layout_below="@+id/LLfürPLZundOrt"
 
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
-        android:textSize="18sp"/>
+            android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:text=""
-        android:id="@+id/editTextEventStraße"
-        android:layout_alignLeft="@+id/straßeHeader"
-        android:layout_marginLeft="10dp"
+        <EditText
+            android:layout_width="171dp"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/editTextEventStraße"
+            android:layout_alignLeft="@+id/straßeHeader"
+            android:layout_marginLeft="10dp"
 
-        android:layout_below="@+id/LLfürPLZundOrt"
-        />
+            android:layout_below="@+id/LLfürPLZundOrt"
+            android:singleLine="true" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Nr."
-        android:id="@+id/nummerHeader"
-        android:layout_below="@+id/LLfürPLZundOrt"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nr."
+            android:id="@+id/nummerHeader"
+            android:layout_below="@+id/LLfürPLZundOrt"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
-        android:textSize="18sp"/>
+            android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:text=""
-        android:id="@+id/editTextEventNummer"
-        android:layout_alignLeft="@+id/nummerHeader"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/LLfürPLZundOrt"
-        android:inputType="number"
-        />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/editTextEventNummer"
+            android:layout_alignLeft="@+id/nummerHeader"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/LLfürPLZundOrt"
+            android:inputType="number"
+            android:singleLine="true" />
 
     </LinearLayout>
 
@@ -285,7 +300,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center"
-        android:background="#ffff2211"
+        android:background="#FF8F0606"
         android:textColor="#FFFFFF"/>
 
     <LinearLayout
@@ -294,57 +309,57 @@
         android:id="@+id/LLfürZeitpunkt"
         android:layout_below="@+id/zeitpunktHeader">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Datum"
-        android:id="@+id/datumHeader"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Datum"
+            android:id="@+id/datumHeader"
 
 
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
-        android:textSize="18sp"/>
+            android:textSize="18sp"/>
 
-    <EditText
-        android:onClick="editEventDatum"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:id="@+id/editTextEventDatum"
+        <EditText
+            android:onClick="editEventDatum"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/editTextEventDatum"
 
-        android:layout_alignLeft="@id/datumHeader"
-        android:layout_marginLeft="10dp"
+            android:layout_alignLeft="@id/datumHeader"
+            android:layout_marginLeft="5dp"
 
-        android:editable="false"
+            android:editable="false"
 
-        />
+            android:singleLine="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Uhrzeit"
-        android:id="@+id/uhrzeitHeader"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Uhrzeit"
+            android:id="@+id/uhrzeitHeader"
 
-        android:layout_alignLeft="@id/editTextEventDatum"
+            android:layout_alignLeft="@id/editTextEventDatum"
 
-        android:layout_marginLeft="10dp"
-        android:textSize="18sp"/>
+            android:layout_marginLeft="5dp"
+            android:textSize="18sp"/>
 
-    <EditText
-        android:onClick="editEventUhrzeit"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:id="@+id/editTextEventUhrzeit"
+        <EditText
+            android:onClick="editEventUhrzeit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/editTextEventUhrzeit"
 
-        android:layout_alignLeft="@id/uhrzeitHeader"
-        android:layout_marginLeft="10dp"
+            android:layout_alignLeft="@id/uhrzeitHeader"
+            android:layout_marginLeft="5dp"
 
-        android:editable="false"
+            android:editable="false"
 
 
-        />
+            android:singleLine="true" />
 
     </LinearLayout>
 
@@ -359,8 +374,9 @@
         android:layout_below="@+id/LLfürZeitpunkt"
         android:layout_centerHorizontal="true"
         android:textColor="#000000"
+        android:onClick="eventErstellen"
 
-            />
+        />
 
 
 </RelativeLayout>

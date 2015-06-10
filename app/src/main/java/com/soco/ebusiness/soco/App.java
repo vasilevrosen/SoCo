@@ -17,13 +17,29 @@ import com.parse.SaveCallback;
 
 public class App extends Application {
 
-    public static boolean login = false;
-    public static String login_text;
+    private static boolean loginstate = false;
+    private static String login_text;
+
+
+
+
+    public static boolean get_loginstate() {
+        return loginstate;
+    }
+
+    public static void setloginstate(boolean loginstate) {
+        App.loginstate = loginstate;
+    }
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         ParseObject.registerSubclass(Rezept.class);
+        ParseObject.registerSubclass(Event.class);
+
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "r5kFDsKD0dBiQpdiSxSxpQkiIAy1ytBUV1olpd0U", "C8XCXf6LQp2GBYfedTlaDnLFjQWctB7yc0DzZ2L5");
 
@@ -40,7 +56,7 @@ public class App extends Application {
 
     }
     public String islogin(){
-        if(login){
+        if(loginstate){
             login_text= getString(R.string.login);
             return login_text;
         } else {

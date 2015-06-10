@@ -1,2 +1,2 @@
-include ':app', ':backend'
+include ':app', ':backend', ':libraries'
 include ':libraries:facebook'

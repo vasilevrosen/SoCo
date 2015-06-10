@@ -51,5 +51,11 @@
   <style name="ToggleAppTheme" parent="android:Widget.Holo.Light.Button.Toggle">
       <item name="android:background">@drawable/apptheme_btn_toggle_holo_light</item>
   </style>
+    <style name="Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+    </style>
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:icon">@drawable/icon_btn_drawler</item>
+    </style>
 
 </resources>

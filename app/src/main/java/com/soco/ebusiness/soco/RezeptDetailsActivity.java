@@ -1,9 +1,11 @@
 package com.soco.ebusiness.soco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
     EditText zut;
     EditText zubereitung;
     TextView rezeptdetails;
+
 
 
     @Override
@@ -78,5 +81,21 @@ public class RezeptDetailsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void rezeptAuswahlKochevent(View view) {
+
+
+
+        KocheventAnbietenActivity.rezeptFuerKochevent(id, tit.getText().toString());
+
+
+
+
+        Intent intent = new Intent(RezeptDetailsActivity.this, KocheventAnbietenActivity.class);
+        startActivity(intent);
+
+
     }
 }

@@ -1,209 +1,255 @@
-
-
-
 package com.soco.ebusiness.soco;
+import java.util.ArrayList;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+public class MainActivity extends ActionBarActivity {
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    protected RelativeLayout _completeLayout, _activityLayout;
+    // nav drawer title
+    private CharSequence mDrawerTitle;
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
+    // used to store app title
     private CharSequence mTitle;
+
+    private ArrayList<NavDrawerItem> navDrawerItems;
+    private NavDrawerListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO USER RESTRICTED ACCESS
-        if(true==false) {
-            Button btn = (Button) findViewById(R.id.btn_event_erstellen);
-            btn.setEnabled(true);
-            btn.setVisibility(View.VISIBLE);
-            Button btn2 = (Button) findViewById(R.id.btn_meine_events);
-            btn2.setEnabled(true);
-            btn2.setVisibility(View.VISIBLE);
-        }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawer);
+        // if (savedInstanceState == null) {
+        // // on first time display view for first nav item
+        // // displayView(0);
+        // }
+    }
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+    public void set(String[] navMenuTitles, TypedArray navMenuIcons) {
+        mTitle = mDrawerTitle = getTitle();
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        navDrawerItems = new ArrayList<NavDrawerItem>();
+
+        // adding nav drawer items
+        if (navMenuIcons == null) {
+            for (int i = 0; i < navMenuTitles.length; i++) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i]));
+            }
+        } else {
+            for (int i = 0; i < navMenuTitles.length; i++) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i],
+                        navMenuIcons.getResourceId(i, -1)));
+            }
+        }
+        String[] navLoginTitles;
+        navLoginTitles = getResources().getStringArray(R.array.login_states);
+        if(App.get_loginstate()){
+            navDrawerItems.add(new NavDrawerItem(navLoginTitles[1]));
+        } else {
+            navDrawerItems.add(new NavDrawerItem(navLoginTitles[0]));
+        }
+
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+        // setting the nav drawer list adapter
+        adapter = new NavDrawerListAdapter(getApplicationContext(),
+                navDrawerItems);
+        mDrawerList.setAdapter(adapter);
+
+        // enabling action bar app icon and behaving it as toggle button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        // getSupportActionBar().setIcon(R.drawable.ic_drawer);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer, // nav menu toggle icon
+                R.string.app_name, // nav drawer open - description for
+                // accessibility
+                R.string.app_name // nav drawer close - description for
+                // accessibility
+        ) {
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(mTitle);
+                // calling onPrepareOptionsMenu() to show action bar icons
+                supportInvalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(mDrawerTitle);
+                // calling onPrepareOptionsMenu() to hide action bar icons
+                supportInvalidateOptionsMenu();
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-    }
-
-    public void onSectionAttached(int number) {
-
-
-        switch (number) {
-            //Hauptseite anzeigen
-            case 1:
-                mTitle = getString(R.string.app_name);
-                break;
-
-                //folgend, alle weiteren Seiten
-
-            case 2:
-                mTitle = getString(R.string.terminvermittlung);
-                Intent intent = new Intent(this, TerminvermittlungActivity.class);
-                startActivity(intent);
-                break;
-            case 3:
-                mTitle = getString(R.string.rezeptkatalog);
-                intent = new Intent(this, RezeptActivity.class);
-                startActivity(intent);
-                break;
-            case 4:
-                mTitle = getString(R.string.wissensdb);
-                intent = new Intent(this, WissensDBActivity.class);
-                startActivity(intent);
-                break;
-            case 5:
-                mTitle = getString(R.string.user_profile);
-                intent = new Intent(this, FacebookActivity.class);
-                startActivity(intent);
-                break;
-            case 6:
-                if(App.login){
-                    mTitle = getString(R.string.logout);
-                }
-                mTitle = getString(R.string.login);
-                intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                break;
+    private class SlideMenuClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            // display view for selected nav drawer item
+            displayView(position);
         }
     }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-
-        actionBar.setTitle(mTitle);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+        // getSupportMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (item.getItemId() == android.R.id.home) {
+            if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                mDrawerLayout.closeDrawer(mDrawerList);
+            } else {
+                mDrawerLayout.openDrawer(mDrawerList);
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
+    /***
+     * Called when invalidateOptionsMenu() is triggered
      */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // if nav drawer is opened, hide the action items
+        // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        // menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
     }
 
-    public void meine_events(View view) {
-        if(App.login) {
-            Intent intent = new Intent(this, MeineEventsActivity.class);
-            startActivity(intent);
+    /**
+     * Diplaying fragment view for selected nav drawer list item
+     * */
+    private void displayView(int position) {
+
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(this, FirstActivity.class);
+                startActivity(intent);
+                finish();// finishes the current activity
+                break;
+            case 1:
+                Intent intent1 = new Intent(this, TerminvermittlungActivity.class);
+                startActivity(intent1);
+                finish();// finishes the current activity
+                break;
+             case 2:
+             Intent intent2 = new Intent(this, RezeptActivity.class);
+             startActivity(intent2);
+             finish();
+             break;
+             case 3:
+             Intent intent3 = new Intent(this, WissensDBActivity.class);
+             startActivity(intent3);
+             finish();
+            break;
+            case 4:
+            Intent intent4 = new Intent(this, FacebookActivity.class);
+            startActivity(intent4);
+            finish();
+            break;
+            case 5:
+                if(!App.get_loginstate()) {
+                Intent intent5 = new Intent(this, LoginActivity.class);
+                startActivity(intent5);
+                finish();
+            } else{
+                App.setloginstate(false);
+            }
+
+            break;
+            default:
+                break;
         }
+
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
-    public void create_event(View view) {
-        if(App.login) {
-            Intent intent = new Intent(this, KocheventAnbietenActivity.class);
-            startActivity(intent);
-        }
-    }
-    public void event_map(View view) {
-        // Intent intent = new Intent(this, KocheventsuchenActivity.class);
-        // startActivity(intent);
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
     }
 
+    /**
+     * When using the ActionBarDrawerToggle, you must call it during
+     * onPostCreate() and onConfigurationChanged()...
+     */
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    public void onBackPressed()
+    {
+        //do whatever you want the 'Back' button to do
+        //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
+        this.startActivity(new Intent(this, FirstActivity.class));
+
+        return;
+    }
+    public boolean sendToast(){
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        if(toast!=null){
+            return true;
+        }
+        return false;
+    }
+    public boolean sendToast(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        if(toast!=null){
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,6 +1,7 @@
 package com.soco.ebusiness.soco;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,35 +9,29 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class RezeptActivity extends ActionBarActivity {
+public class RezeptActivity extends MainActivity {
+
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rezept);
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
+        // titles
+        // from
+        // strings.xml
+
+        navMenuIcons = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        // strings.xml
+
+        set(navMenuTitles, navMenuIcons);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_rezept, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void rezeptSuchen(View view)
     {
@@ -46,7 +41,17 @@ public class RezeptActivity extends ActionBarActivity {
 
     public void rezeptErstellen(View view)
     {
-        Intent intent = new Intent(this, RezeptErstellenActivity.class);
-        startActivity(intent);
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, RezeptErstellenActivity.class);
+            startActivity(intent);
+        } else sendToast(getString(R.string.msg_loginmissing));
+    }
+    public void onBackPressed()
+    {
+        //do whatever you want the 'Back' button to do
+        //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
+        this.startActivity(new Intent(this, FirstActivity.class));
+
+        return;
     }
 }

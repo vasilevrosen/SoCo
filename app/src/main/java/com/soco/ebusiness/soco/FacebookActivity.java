@@ -23,6 +23,7 @@ package com.soco.ebusiness.soco;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageInstaller;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -32,8 +33,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
@@ -50,9 +53,11 @@ import com.facebook.share.widget.ShareDialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FacebookActivity extends FragmentActivity {
+public class FacebookActivity extends MainActivity {
 
     private static final String PERMISSION = "publish_actions";
+    private String[] navMenuTitles;
+    private TypedArray navMenuIcons;
     private static final Location SEATTLE_LOCATION = new Location("") {
         {
             setLatitude(47.6097);
@@ -117,6 +122,14 @@ public class FacebookActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
+        // titles
+        // from
+        // strings.xml
+
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);// load icons from
+        // strings.xml
+
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -202,7 +215,10 @@ public class FacebookActivity extends FragmentActivity {
         // Can we present the share dialog for photos?
         canPresentShareDialogWithPhotos = ShareDialog.canShow(
                 SharePhotoContent.class);
+        //Navigation erstellen
+        set(navMenuTitles, navMenuIcons);
     }
+
 
 
     @Override

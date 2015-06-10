@@ -71,17 +71,28 @@
     <string name="exception">Exception: %1$s</string>
     <string name="user_profile">User Profil</string>
     <string name="facebook_msg">Die App für deinen unvergesslichen Kochevent</string>
+    <string name="msg_loginmissing">Bitte Loggen Sie sich hierfür ein</string>
 
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string-array name="nav_drawer_items">
+        <item>Startseite</item>
+        <item>Events</item>
+        <item>Rezepte</item>
+        <item>Wissenswertes</item>
+        <item>Mein Profil</item>
     </string-array>
+    <array name="nav_drawer_icons">
+      <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </array>
+    <string-array name="login_states">
+        <item>Login</item>
+        <item>Logout</item>
+    </string-array>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
