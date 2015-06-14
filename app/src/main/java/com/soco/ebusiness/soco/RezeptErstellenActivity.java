@@ -34,23 +34,32 @@ public class RezeptErstellenActivity extends ActionBarActivity {
         btn_save = (Button) findViewById(R.id.button_speichern);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                                        @Override
+                                        public void onClick(View view) {
 
-                Rezept rezept = new Rezept();
-                rezept.setTitle(titel.getText().toString());
-                rezept.setKategorie(kategorie.getText().toString());
-                rezept.setZutaten(zutaten.getText().toString());
-                rezept.setZubereitungszeit(zubereitungszeit.getText().toString());
-                rezept.saveEventually();
+                                            if (titel.getText().toString().matches("") ||
+                                                    kategorie.getText().toString().matches("") ||
+                                                    zutaten.getText().toString().matches("") ||
+                                                    zubereitungszeit.getText().toString().matches("")) {
+                                                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Rezept rezept = new Rezept();
+                                                rezept.setTitle(titel.getText().toString());
+                                                rezept.setKategorie(kategorie.getText().toString());
+                                                rezept.setZutaten(zutaten.getText().toString());
+                                                rezept.setZubereitungszeit(zubereitungszeit.getText().toString());
+                                                rezept.saveEventually();
 
-                Intent intent = new Intent(RezeptErstellenActivity.this, RezeptActivity.class);
-                startActivity(intent);
+                                                Intent intent = new Intent(RezeptErstellenActivity.this, RezeptActivity.class);
+                                                startActivity(intent);
 
-                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept " + titel.getText().toString() + " wurde erfolgreich gespeichert", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept " + titel.getText().toString() + " wurde erfolgreich gespeichert", Toast.LENGTH_SHORT).show();
+                                            }
 
-            }
-        });
+                                        }
+                                    }
+
+        );
     }
 
     @Override
