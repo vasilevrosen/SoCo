@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/titel_details"
         android:singleLine="true"
-        android:editable="false"
-        android:autoText="false"
         android:layout_above="@+id/kategorie_details"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -24,8 +22,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/kategorie_details"
         android:singleLine="true"
-        android:editable="false"
-        android:autoText="false"
         android:layout_above="@+id/zutaten_details"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -38,8 +34,6 @@
         android:inputType="text|textMultiLine"
         android:ems="10"
         android:id="@+id/zutaten_details"
-        android:editable="false"
-        android:autoText="false"
         android:lines="4"
         android:layout_above="@+id/zubereitungszeit_details"
         android:layout_alignParentLeft="true"
@@ -52,8 +46,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/zubereitungszeit_details"
         android:singleLine="true"
-        android:editable="false"
-        android:autoText="false"
         android:inputType="number"
         android:layout_above="@+id/button_speichern_details"
         android:layout_alignParentLeft="true"
@@ -65,15 +57,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Speichern"
+        android:text="Update"
         android:id="@+id/button_speichern_details"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
 
-        />
+        android:layout_toLeftOf="@+id/btn_delete"
+        android:layout_toStartOf="@+id/btn_delete" />
 
     <Button
         android:layout_width="wrap_content"
@@ -83,9 +74,9 @@
         android:layout_above="@+id/button_speichern_details"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button_speichern_details"
-        android:layout_alignEnd="@+id/button_speichern_details"
-        android:onClick="rezeptAuswahlKochevent"/>
+        android:onClick="rezeptAuswahlKochevent"
+        android:layout_alignRight="@+id/zutaten_details"
+        android:layout_alignEnd="@+id/zutaten_details" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,6 +89,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:id="@+id/btn_delete"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btn_Rezept_Auswählen"
+        android:layout_alignEnd="@+id/btn_Rezept_Auswählen" />
 
 
 </RelativeLayout>

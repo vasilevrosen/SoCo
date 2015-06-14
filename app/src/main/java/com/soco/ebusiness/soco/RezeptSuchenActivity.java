@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
+import android.widget.RadioButton;
 
 import com.parse.ParseObject;
 
@@ -15,9 +15,9 @@ import com.parse.ParseObject;
 public class RezeptSuchenActivity extends ActionBarActivity {
 
     private EditText rezeptSuchen;
-    private Switch sw_name;
-    private Switch sw_kategorie;
-    private Switch sw_zutaten;
+    private RadioButton rb_name;
+    private RadioButton rb_kategorie;
+    private RadioButton rb_zutaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,9 @@ public class RezeptSuchenActivity extends ActionBarActivity {
         ParseObject.registerSubclass(Rezept.class);
 
         rezeptSuchen = (EditText) findViewById(R.id.editText_rezept_suche);
-        sw_name = (Switch) findViewById(R.id.switch_name_suchen);
-        sw_kategorie = (Switch) findViewById(R.id.switch_beschreibung_durchsuchen);
-        sw_zutaten = (Switch) findViewById(R.id.switch_zutaten_durchsuchen);
+        rb_name = (RadioButton) findViewById(R.id.rb_name);
+        rb_kategorie = (RadioButton) findViewById(R.id.rb_beschreibung);
+        rb_zutaten = (RadioButton) findViewById(R.id.rb_zutaten);
     }
 
     @Override
@@ -59,9 +59,9 @@ public class RezeptSuchenActivity extends ActionBarActivity {
     {
         Intent intent = new Intent(this, RezeptListeActivity.class);
         intent.putExtra("RezeptSuche", rezeptSuchen.getText().toString());
-        intent.putExtra("SwitchName", sw_name.isChecked());
-        intent.putExtra("SwitchKategorie", sw_kategorie.isChecked());
-        intent.putExtra("SwitchZutaten", sw_zutaten.isChecked());
+        intent.putExtra("rbName", rb_name.isChecked());
+        intent.putExtra("rbKategorie", rb_kategorie.isChecked());
+        intent.putExtra("rbZutaten", rb_zutaten.isChecked());
         startActivity(intent);
     }
 

@@ -1,5 +1,4 @@
 package com.soco.ebusiness.soco;
-import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
@@ -62,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         }
         String[] navLoginTitles;
         navLoginTitles = getResources().getStringArray(R.array.login_states);
-        if(App.get_loginstate()){
+        if (App.get_loginstate()) {
             navDrawerItems.add(new NavDrawerItem(navLoginTitles[1]));
         } else {
             navDrawerItems.add(new NavDrawerItem(navLoginTitles[0]));
@@ -133,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /***
+    /**
      * Called when invalidateOptionsMenu() is triggered
      */
     @Override
@@ -146,7 +147,7 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * Diplaying fragment view for selected nav drawer list item
-     * */
+     */
     private void displayView(int position) {
 
         switch (position) {
@@ -160,31 +161,31 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent1);
                 finish();// finishes the current activity
                 break;
-             case 2:
-             Intent intent2 = new Intent(this, RezeptActivity.class);
-             startActivity(intent2);
-             finish();
-             break;
-             case 3:
-             Intent intent3 = new Intent(this, WissensDBActivity.class);
-             startActivity(intent3);
-             finish();
-            break;
-            case 4:
-            Intent intent4 = new Intent(this, FacebookActivity.class);
-            startActivity(intent4);
-            finish();
-            break;
-            case 5:
-                if(!App.get_loginstate()) {
-                Intent intent5 = new Intent(this, LoginActivity.class);
-                startActivity(intent5);
+            case 2:
+                Intent intent2 = new Intent(this, RezeptActivity.class);
+                startActivity(intent2);
                 finish();
-            } else{
-                App.setloginstate(false);
-            }
+                break;
+            case 3:
+                Intent intent3 = new Intent(this, WissensDBActivity.class);
+                startActivity(intent3);
+                finish();
+                break;
+            case 4:
+                Intent intent4 = new Intent(this, FacebookActivity.class);
+                startActivity(intent4);
+                finish();
+                break;
+            case 5:
+                if (!App.get_loginstate()) {
+                    Intent intent5 = new Intent(this, LoginActivity.class);
+                    startActivity(intent5);
+                    finish();
+                } else {
+                    App.setloginstate(false);
+                }
 
-            break;
+                break;
             default:
                 break;
         }
@@ -219,15 +220,16 @@ public class MainActivity extends ActionBarActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-    public void onBackPressed()
-    {
+
+    public void onBackPressed() {
         //do whatever you want the 'Back' button to do
         //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
         this.startActivity(new Intent(this, FirstActivity.class));
 
         return;
     }
-    public boolean sendToast(){
+
+    public boolean sendToast() {
         Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
         int duration = Toast.LENGTH_SHORT;
@@ -235,19 +237,20 @@ public class MainActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        if(toast!=null){
+        if (toast != null) {
             return true;
         }
         return false;
     }
-    public boolean sendToast(CharSequence text){
+
+    public boolean sendToast(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        if(toast!=null){
+        if (toast != null) {
             return true;
         }
         return false;

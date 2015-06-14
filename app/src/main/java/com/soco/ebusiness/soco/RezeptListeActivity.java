@@ -37,22 +37,23 @@ public class RezeptListeActivity extends ListActivity {
         Bundle i = getIntent().getExtras();
         // Receiving the Data
         String rezeptgesucht = i.getString("RezeptSuche");
-        boolean sw_name = i.getBoolean("SwitchName");
-        boolean sw_kategorie = i.getBoolean("SwitchKategorie");
-        boolean sw_zutaten = i.getBoolean("SwitchZutaten");
+        boolean rb_name = i.getBoolean("rbName");
+        boolean rb_kategorie = i.getBoolean("rbKategorie");
+        boolean rb_zutaten = i.getBoolean("rbZutaten");
         lv = getListView();
 
 
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
-        if (sw_name) {
+        if (rb_name) {
             query.whereEqualTo("titel", rezeptgesucht);
         }
-        if (sw_kategorie) {
+        else if (rb_kategorie) {
             query.whereEqualTo("kategorie", rezeptgesucht);
         }
-        if (sw_zutaten) {
+        else {
             query.whereEqualTo("zutaten", rezeptgesucht);
         }
+
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -63,7 +64,7 @@ public class RezeptListeActivity extends ListActivity {
                         x = objects.get(i).getString("titel");
                         listOfSharedWord.add(x);
                     }
-                    Toast.makeText(getApplicationContext(), "Es wurden " + listOfSharedWord.size() + " Rezepte gefunden", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Es wurde(n) " + listOfSharedWord.size() + " Rezept(e) gefunden", Toast.LENGTH_SHORT).show();
 
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(RezeptListeActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
                     lv.setAdapter(arrayAdapter);
