@@ -45,13 +45,13 @@ public class RezeptListeActivity extends ListActivity {
 
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
         if (rb_name) {
-            query.whereEqualTo("titel", rezeptgesucht);
+            query.whereContains("titel", rezeptgesucht);
         }
         else if (rb_kategorie) {
-            query.whereEqualTo("kategorie", rezeptgesucht);
+            query.whereContains("kategorie", rezeptgesucht);
         }
         else {
-            query.whereEqualTo("zutaten", rezeptgesucht);
+            query.whereContains("zutaten", rezeptgesucht);
         }
 
         query.addDescendingOrder("createdAt");

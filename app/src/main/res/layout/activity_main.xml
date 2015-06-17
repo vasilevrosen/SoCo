@@ -52,7 +52,8 @@ A DrawerLayout is intended to be used as the top-level content view using match_
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="52dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:drawableLeft="@android:drawable/ic_menu_search" />
     </FrameLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/left_drawer"

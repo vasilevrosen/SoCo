@@ -1,36 +1,68 @@
 package com.soco.ebusiness.soco;
 
-import android.content.res.TypedArray;
-import android.support.v7.app.ActionBarActivity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
-public class WissensDBActivity extends MainActivity {
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
+import java.util.ArrayList;
+import java.util.List;
+
+public class WissensDBActivity extends ListActivity {
+
+    public ArrayList<String> listOfSharedWord = new ArrayList<String>();
+    String x;
+    String query;
+    ListView lv;
+    List<ParseObject> objectsl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wissens_db);
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
-        // titles
-        // from
-        // strings.xml
+        //setContentView(R.layout.activity_rezept_liste);
 
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);// load icons from
-        // strings.xml
+        ParseObject.registerSubclass(Rezept.class);
+        lv = getListView();
 
-        set(navMenuTitles, navMenuIcons);
+
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
+        query.addDescendingOrder("createdAt");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    objectsl = objects;
+                    for (int i = 0; i < objects.size(); i++) {
+                        x = objects.get(i).getString("titel");
+                        listOfSharedWord.add(x);
+                    }
+                    Toast.makeText(getApplicationContext(), "Es wurde(n) " + listOfSharedWord.size() + " Rezept(e) gefunden", Toast.LENGTH_SHORT).show();
+
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(WissensDBActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
+                    lv.setAdapter(arrayAdapter);
+                } else {
+                    e.getMessage();
+                    Toast.makeText(getApplicationContext(), "failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_wissens_db, menu);
+        getMenuInflater().inflate(R.menu.menu_rezept_liste, menu);
         return true;
     }
 
@@ -48,4 +80,17 @@ public class WissensDBActivity extends MainActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String objectId = objectsl.get(position).getObjectId();
+
+        Intent intent = new Intent(WissensDBActivity.this, RezeptDetailsActivity.class);
+        intent.putExtra("objectId",objectId);
+        startActivity(intent);
+
+    }
+
 }

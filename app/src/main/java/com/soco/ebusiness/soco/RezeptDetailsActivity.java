@@ -92,6 +92,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                                              Toast.makeText(getApplicationContext(),
                                                                      "Das Rezept wurde erfolgreich gelöscht", Toast.LENGTH_SHORT)
                                                                      .show();
+                                                             obj.put("zubereitungszeit", zubereitung.getText().toString());
 
                                                              Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
                                                              startActivity(intent);
@@ -114,7 +115,6 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                          public void onClick(View view) {
                                              obj.put("titel", tit.getText().toString());
                                              obj.put("kategorie", kat.getText().toString());
-                                             obj.put("zubereitungszeit", zubereitung.getText().toString());
                                              obj.put("zutaten", zut.getText().toString());
                                              obj.saveEventually();
 
