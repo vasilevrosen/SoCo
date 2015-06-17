@@ -100,4 +100,7 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="login_state">invisible</string>
     <string name="delete">Löschen</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_event_liste">EventListe</string>
+    <string name="title_activity_meine_events_tabbed">MeineEventsTabbed</string>
 </resources>

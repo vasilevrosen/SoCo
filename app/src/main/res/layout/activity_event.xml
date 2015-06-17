@@ -1,0 +1,252 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.soco.ebusiness.soco.EventActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLTitel">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Hier kommt der Titel rein"
+        android:textSize="22dp"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLBeschreibung"
+        android:layout_below="@+id/LLTitel"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="hjads jah djasjkhasj dhh asjhj sadhjahs dj hsajd hja hdjkasdj kjkdslaj kslaj daklj dkls"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:layout_margin="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLWoWirKochen"
+        android:layout_below="@+id/LLBeschreibung"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Wo wir kochen?"
+            android:id="@+id/woWirKochen"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="#FF8F0606"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLPLZundOrt"
+        android:layout_below="@+id/LLWoWirKochen"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="In 71665 Vaihingen Enz"
+            android:id="@+id/TV_PLZundOrt"
+            android:gravity="center"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLWannWirKochen"
+        android:layout_below="@+id/LLPLZundOrt"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Wann wir kochen?"
+            android:id="@+id/wannWirKochenHeader"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="#FF8F0606"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLUhrzeitUndDatum"
+        android:layout_below="@+id/LLWannWirKochen"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="Am 20.06.2015 um 18:00"
+            android:id="@+id/TV_UhrzeitUndDatum"
+            android:gravity="center"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLWasWirKochen"
+        android:layout_below="@+id/LLUhrzeitUndDatum"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Was wir kochen?"
+            android:id="@+id/wasWirKochenHeader"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="#FF8F0606"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LLWasWirKochen"
+        android:id="@+id/LLRezeptlink"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hier steht das Rezept"
+            android:id="@+id/ausgewählesRezept"
+            android:layout_below="@+id/wasWirKochenHeader"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:clickable="true"
+            android:textColor="#FF8F0606"
+            android:onClick="navigateToRezept"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LLRezeptlink"
+        android:layout_marginTop="10dp"
+        android:id="@+id/LLBewerbenHeader">
+
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Bist du dabei?"
+            android:id="@+id/BewerbenHeader"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="#FF8F0606"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLBewerben"
+        android:layout_below="@+id/LLBewerbenHeader"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Bewerben"
+            android:text="Aktuelle Teilnehmerzahl: 3 von max. 4\nEs hat für dich noch einen Platz frei"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AnfrageSenden"
+        android:layout_below="@+id/LLBewerben"
+        android:layout_marginTop="10dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="0dp"
+            android:text="Anfrage senden"
+            android:id="@+id/btnAnfrage"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:onClick="eventErstellen"
+
+            />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/favoritStern"
+            android:src="@drawable/apptheme_btn_rating_star_off_normal_holo_light"
+            android:clickable="true"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

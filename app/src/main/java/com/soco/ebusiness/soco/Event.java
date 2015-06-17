@@ -21,7 +21,7 @@ public class Event extends ParseObject{
 
     public Event(){
 
-        addNeuerTeilnehmer();
+
     }
 
     public void setTitel(String titel){
@@ -63,7 +63,9 @@ public class Event extends ParseObject{
         put("aktuelleTeilnehmer", aktuelleTeilnehmer);
     }
 
+
     public JSONArray getAktuelleTeilnehmer(){
+
 
         return getJSONArray("aktuelleTeilnehmer");
     }

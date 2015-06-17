@@ -32,7 +32,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.soco.ebusiness.soco.permission.C2D_MESSAGE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -45,33 +44,31 @@
         android:label="@string/app_name"
         android:logo="@drawable/ic_logo"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:logo="@drawable/ic_logo">
+            android:logo="@drawable/ic_logo" >
         </activity>
         <activity
             android:name=".FirstActivity"
             android:label="@string/app_name"
-            android:logo="@drawable/ic_logo">
+            android:logo="@drawable/ic_logo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".TerminvermittlungActivity"
-            android:label="@string/title_activity_terminvermittlung">
-
+            android:label="@string/title_activity_terminvermittlung" >
             <intent-filter>
                 <category android:name="android.intent.category.default" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RezeptActivity"
-            android:label="@string/rezeptkatalog">
-
+            android:label="@string/rezeptkatalog" >
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -84,10 +81,8 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_main"
-            >
+            android:label="@string/title_activity_main" >
         </activity>
-
         <activity
             android:name=".KocheventAnbietenActivity"
             android:label="@string/title_activity_kochevent"
@@ -114,8 +109,7 @@
         </activity>
         <activity
             android:name=".WissensDBActivity"
-            android:label="@string/wissensdb"
-             >
+            android:label="@string/wissensdb" >
         </activity>
         <activity
             android:name=".DesignTestActivity"
@@ -185,27 +179,48 @@
         </activity>
         <activity
             android:name=".FacebookActivity"
-            android:label="@string/user_profile"
-             >
-
+            android:label="@string/user_profile" >
         </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
-        <meta-data android:name="com.facebook.sdk.ApplicationName"
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
             android:value="@string/app_name" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1607702199484087"
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
-        <receiver android:name="com.soco.ebusiness.soco.HelloFacebookBroadcastReceiver">
+            android:authorities="com.facebook.app.FacebookContentProvider1607702199484087"
+            android:exported="true" />
+
+        <receiver android:name=".HelloFacebookBroadcastReceiver" >
             <intent-filter>
                 <action android:name="com.facebook.platform.AppCallResultBroadcast" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".EventActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
+            android:name=".EventListe"
+            android:label="@string/title_activity_event_liste" >
+        </activity>
+        <activity
+            android:name=".MeineEventsTabbed"
+            android:label="@string/title_activity_meine_events_tabbed"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class TerminvermittlungActivity extends MainActivity {
 
@@ -47,6 +48,18 @@ public class TerminvermittlungActivity extends MainActivity {
         } else sendToast(getString(R.string.msg_loginmissing));
     }
 
+    public void navigateToEventSuche(View view){
+
+        String gesuchterOrt = ((EditText) findViewById(R.id.eventortSuchtext)).getText().toString();
+
+
+            Intent intent = new Intent(TerminvermittlungActivity.this, EventListe.class);
+
+            intent.putExtra("Ort", gesuchterOrt);
+            startActivity(intent);
+
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

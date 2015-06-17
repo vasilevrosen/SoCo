@@ -26,6 +26,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/favoritenHeader"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Meine Teilnahmen"
         android:id="@+id/meineTeilnahmenHeader"
@@ -36,8 +37,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="0dp"
 
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meineTeilnahmenHeader"
+        android:id="@+id/meineTeilnahmenListe"
+        android:layout_marginTop="10dp"
+        />
+
+
+
+
 
 
     <TextView
@@ -49,10 +62,16 @@
         android:gravity="center"
         android:background="#FF8F0606"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/meineTeilnahmenHeader"
+        android:layout_below="@+id/meineTeilnahmenListe"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meineVeranstaltungenHeader"
+        android:id="@+id/meineVeranstalungenList" />
 
 </RelativeLayout>

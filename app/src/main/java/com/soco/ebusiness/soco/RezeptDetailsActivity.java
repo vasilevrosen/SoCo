@@ -90,7 +90,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                                              obj.deleteInBackground();
 
                                                              Toast.makeText(getApplicationContext(),
-                                                                     "Das Rezept wurde erfolgreich gelöscht", Toast.LENGTH_SHORT)
+                                                                     "Das Rezept wurde erfolgreich geloescht", Toast.LENGTH_SHORT)
                                                                      .show();
                                                              obj.put("zubereitungszeit", zubereitung.getText().toString());
 
