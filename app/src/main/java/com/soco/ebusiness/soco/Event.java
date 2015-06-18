@@ -47,7 +47,7 @@ public class Event extends ParseObject{
         return getInt("MaxTeilnehmer");
     }
 
-    public void addNeuerTeilnehmer(){
+    public void addNeuerTeilnehmer(String neuerUserID){
 
 
         JSONArray aktuelleTeilnehmer = getAktuelleTeilnehmer();
@@ -56,9 +56,9 @@ public class Event extends ParseObject{
             aktuelleTeilnehmer = new JSONArray();
         }
 
-        String aktuelleUserId = ParseUser.getCurrentUser().getObjectId();
 
-        aktuelleTeilnehmer.put(aktuelleUserId);
+
+        aktuelleTeilnehmer.put(neuerUserID);
 
         put("aktuelleTeilnehmer", aktuelleTeilnehmer);
     }

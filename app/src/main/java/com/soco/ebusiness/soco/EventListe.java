@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -61,6 +62,8 @@ public class EventListe extends ListActivity {
                         Toast.makeText(getApplicationContext(), "Es wurden " + Integer.toString(gefundeneEvents.size()) + " gefunden", Toast.LENGTH_SHORT).show();
 
 
+                        allObjects = gefundeneEvents;
+
                         for (int i = 0; i < gefundeneEvents.size(); i++) {
 
 
@@ -114,4 +117,21 @@ public class EventListe extends ListActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String objectId = allObjects.get(position).getObjectId();
+
+        Intent intent = new Intent(EventListe.this, EventActivity.class);
+        intent.putExtra("objectId",objectId);
+        startActivity(intent);
+
+
+
+    }
+
+
+
 }

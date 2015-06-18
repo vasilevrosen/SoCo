@@ -39,12 +39,13 @@
         android:hint="Suchtext hier eingeben..."
         android:textColorHint="#989995"
         android:height="50dp"
-        android:text="..."
+        android:text=""
         android:layout_below="@+id/zuKocheventErstellung"
         android:layout_marginTop="46dp"
         android:layout_alignLeft="@+id/zuMeineEvents"
         android:layout_marginLeft="5dp"
-        />
+        android:singleLine="true"
+        android:textColor="#000000"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -54,7 +55,7 @@
         android:layout_below="@+id/eventortSuchtext"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="navigateToEventSuche"/>

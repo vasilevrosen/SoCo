@@ -1,5 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content">
+
+<RelativeLayout  android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -16,7 +21,7 @@
         android:layout_height="fill_parent"
         android:text="Hier kommt der Titel rein"
         android:textSize="22dp"
-        android:id="@+id/textView"
+        android:id="@+id/eventTitel"
         android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -41,7 +46,8 @@
             android:text="hjads jah djasjkhasj dhh asjhj sadhjahs dj hsajd hja hdjkasdj kjkdslaj kslaj daklj dkls"
             android:textSize="18dp"
             android:textColor="#000000"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:id="@+id/beschreibungsText"/>
 
 
     </LinearLayout>
@@ -167,7 +173,7 @@
             android:textSize="18dp"
             android:clickable="true"
             android:textColor="#FF8F0606"
-            android:onClick="navigateToRezept"/>
+            android:onClick="navigateToRezept2"/>
 
 
     </LinearLayout>
@@ -208,7 +214,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Bewerben"
+            android:id="@+id/TeilnehmerText"
             android:text="Aktuelle Teilnehmerzahl: 3 von max. 4\nEs hat für dich noch einen Platz frei"
             android:textSize="18dp"
             android:textColor="#000000"
@@ -250,3 +256,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

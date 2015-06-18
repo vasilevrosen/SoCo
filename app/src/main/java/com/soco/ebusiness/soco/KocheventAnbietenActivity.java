@@ -224,7 +224,9 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         neuesEvent.setRezeptID(ausgewaehltesRezeptID);
         neuesEvent.setDatum(gesetztesDatum.getText().toString());
 
+        String neueUserID = ParseUser.getCurrentUser().getObjectId();
 
+        neuesEvent.addNeuerTeilnehmer(neueUserID);
 
 
         neuesEvent.saveInBackground(new SaveCallback() {
