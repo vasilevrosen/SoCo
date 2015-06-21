@@ -4,4 +4,5 @@
     <item type="id" name="menu_auto_focus" />
     <item type="id" name="menu_formats" />
     <item type="id" name="menu_camera_selector" />
+    <item name="fb_send_button" type="id">Empfehlen</item>
 </resources>

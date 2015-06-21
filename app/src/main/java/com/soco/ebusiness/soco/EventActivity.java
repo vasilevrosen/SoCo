@@ -1,10 +1,12 @@
 package com.soco.ebusiness.soco;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.SendButton;
 import com.google.zxing.WriterException;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -35,11 +43,55 @@ public class EventActivity extends ActionBarActivity {
     Bitmap img_qrcode;
     Bitmap bmp_qrcode;
 
+    private CallbackManager callbackManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event);
+        //Empfehlung für Facebook
+        SendButton sendButton = (SendButton)findViewById(R.id.btn_event_empfehlen);
+        String msg= getString(R.string.app_name)+":" + titel+" : Wann: "+datumUndUhrzeit;
+        Bitmap bmp = bmp_qrcode;
+       SharePhotoContent shareContent= MainActivity.publishPhoto(bmp_qrcode,msg);
+        sendButton.setShareContent(shareContent);
+        callbackManager = CallbackManager.Factory.create();
+        sendButton.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onCancel() {
+                Log.d("HelloFacebook", "Canceled");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
+                String title = getString(R.string.error);
+                String alertMessage = error.getMessage();
+                showResult(title, alertMessage);
+            }
+
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Log.d("HelloFacebook", "Success!");
+                if (result.getPostId() != null) {
+                    String title = getString(R.string.success);
+                    String id = result.getPostId();
+                    String alertMessage = getString(R.string.successfully_posted_post, id);
+                    showResult(title, alertMessage);
+                }
+            }
+
+            private void showResult(String title, String alertMessage) {
+                new AlertDialog.Builder(EventActivity.this)
+                        .setTitle(title)
+                        .setMessage(alertMessage)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+            }
+        });
 
         titel = (TextView) findViewById(R.id.eventTitel);
         beschreibung = (TextView) findViewById(R.id.beschreibungsText);
@@ -161,7 +213,6 @@ public class EventActivity extends ActionBarActivity {
 
     }
     public void onclicksaveqr(View view){
-        App.saveqrcode(this,bmp_qrcode);
+        App.saveqrcode(this, bmp_qrcode);
     }
-
 }

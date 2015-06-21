@@ -123,4 +123,5 @@
     <string name="bitmap">bitmap</string>
     <string name="img_saved">QR Code gespeichert</string>
     <string name="qrcodefalse">QR Code nicht erkannt</string>
+    <string name="empfehlen">Empfehlen</string>
 </resources>
