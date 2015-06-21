@@ -23,13 +23,28 @@
                 android:enabled="true"
                 android:visibility="visible"
                 android:layout_height="wrap_content"
-                android:text="@string/title_activity_meineevents"
-                android:id="@+id/btn_meine_events"
+                android:text="Meine Veranstaltungen"
+                android:id="@+id/btn_meine_veranstaltungen"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:height="80dp"
-                android:onClick="meine_events"
+                android:onClick="meine_veranstaltungen"
+                android:singleLine="false"
+                android:layout_gravity="center_horizontal|top" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:enabled="true"
+                android:visibility="visible"
+                android:layout_height="wrap_content"
+                android:text="Meine Teilnahmen"
+                android:id="@+id/btn_meine_teilnahmen"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:height="80dp"
+                android:onClick="meine_teilnahmen"
                 android:singleLine="false"
                 android:layout_gravity="center_horizontal|top" />
 
@@ -43,10 +58,10 @@
                 android:visibility="visible"
                 android:height="80dp"
                 android:onClick="create_event"
-                android:layout_below="@+id/btn_meine_events"
+                android:layout_below="@+id/btn_meine_teilnahmen"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="65dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal|bottom" />
 
             <Button
@@ -59,7 +74,7 @@
                 android:layout_below="@+id/btn_event_suchen"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center" />
         </LinearLayout>
     </FrameLayout>
