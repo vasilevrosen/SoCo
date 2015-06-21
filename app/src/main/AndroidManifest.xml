@@ -229,6 +229,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
+        <activity
+            android:name=".MeineTeilnahmenListActivity"
+            android:label="@string/title_activity_meine_teilnahmen_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

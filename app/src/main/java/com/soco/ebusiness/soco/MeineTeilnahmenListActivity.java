@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MeineVeranstaltungenListActivity extends ListActivity {
+public class MeineTeilnahmenListActivity extends ListActivity {
 
 
     String x;
@@ -34,7 +34,7 @@ public class MeineVeranstaltungenListActivity extends ListActivity {
     ListView lv;
     List<ParseObject> objectlist;
 
-    List<String> alleUserEventIdStr;
+
     List<String> alleUserEventsTitel;
 
 
@@ -42,54 +42,53 @@ public class MeineVeranstaltungenListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meine_veranstaltungen_list);
+        setContentView(R.layout.activity_meine_teilnahmen_list);
 
         ParseObject.registerSubclass(Event.class);
-        alleUserEventIdStr = new ArrayList<String>();
+
         alleUserEventsTitel = new ArrayList<String>();
 
         objectlist = new ArrayList<ParseObject>();
+
 
 
         lv = getListView();
 
 
 
-        JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userEvents");
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Event");
 
-        for (int i = 0; i < alleUserEventId.length(); i++){
+        List<ParseObject> alleEvents = null;
 
-           alleUserEventIdStr.add(alleUserEventId.optString(i));
-
+        try {
+            alleEvents = query.find();
+        } catch (ParseException e) {
+            Toast.makeText(MeineTeilnahmenListActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
-        for(String s: alleUserEventIdStr){
+        for(ParseObject po: alleEvents){
 
-            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Event");
+            JSONArray jsonArray = po.getJSONArray("aktuelleTeilnehmer");
 
-            query.whereEqualTo("objectId", s);
+            for(int i = 0; i < jsonArray.length(); i++){
 
-            ParseObject po = null;
+                String nutzerID = jsonArray.optString(i);
+                String aktuellerNutzerID = ParseUser.getCurrentUser().getObjectId();
 
-            try {
-                po = query.getFirst();
+                if(nutzerID.equals(aktuellerNutzerID)){
 
-            } catch (ParseException e) {
-                Toast.makeText(MeineVeranstaltungenListActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    objectlist.add(po);
+
+                    alleUserEventsTitel.add(po.getString("Titel"));
+
+                }
             }
 
-            objectlist.add(po);
-            alleUserEventsTitel.add(po.getString("Titel"));
-
-
-
-
-
-
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MeineVeranstaltungenListActivity.this, android.R.layout.simple_list_item_1, alleUserEventsTitel);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MeineTeilnahmenListActivity.this, android.R.layout.simple_list_item_1, alleUserEventsTitel);
 
         lv.setAdapter(arrayAdapter);
 
@@ -101,7 +100,7 @@ public class MeineVeranstaltungenListActivity extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_meine_veranstaltungen_list, menu);
+        getMenuInflater().inflate(R.menu.menu_meine_teilnahmen_list, menu);
         return true;
     }
 
@@ -127,7 +126,7 @@ public class MeineVeranstaltungenListActivity extends ListActivity {
 
         String objectId = objectlist.get(position).getObjectId();
 
-        Intent intent = new Intent(MeineVeranstaltungenListActivity.this, EventActivity.class);
+        Intent intent = new Intent(MeineTeilnahmenListActivity.this, EventActivity.class);
         intent.putExtra("objectId",objectId);
         startActivity(intent);
 

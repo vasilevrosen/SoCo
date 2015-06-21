@@ -33,6 +33,14 @@ public class FirstActivity extends MainActivity {
         else sendToast(getString(R.string.msg_loginmissing));
     }
 
+    public void meine_teilnahmen(View view) {
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, MeineTeilnahmenListActivity.class);
+            startActivity(intent);
+        }
+        else sendToast(getString(R.string.msg_loginmissing));
+    }
+
     public void create_event(View view) {
         if(App.get_loginstate()) {
             Intent intent = new Intent(this, KocheventAnbietenActivity.class);
