@@ -50,10 +50,13 @@ public class MeineFavoritenListActivity extends ListActivity {
 
         JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
 
-        for (int i = 1; i < alleUserEventId.length(); i++){
 
-            alleUserEventIdStr.add(alleUserEventId.optString(i));
+        if(alleUserEventId != null) {
+            for (int i = 0; i < alleUserEventId.length(); i++) {
 
+                alleUserEventIdStr.add(alleUserEventId.optString(i));
+
+            }
         }
 
 
@@ -82,6 +85,7 @@ public class MeineFavoritenListActivity extends ListActivity {
 
         }
 
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MeineFavoritenListActivity.this, android.R.layout.simple_list_item_1, alleUserEventsTitel);
 
         lv.setAdapter(arrayAdapter);
@@ -105,10 +109,13 @@ public class MeineFavoritenListActivity extends ListActivity {
 
         JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
 
-        for (int i = 1; i < alleUserEventId.length(); i++){
 
-            alleUserEventIdStr.add(alleUserEventId.optString(i));
+        if(alleUserEventId != null) {
+            for (int i = 0; i < alleUserEventId.length(); i++) {
 
+                alleUserEventIdStr.add(alleUserEventId.optString(i));
+
+            }
         }
 
 
@@ -161,10 +168,12 @@ public class MeineFavoritenListActivity extends ListActivity {
 
         JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
 
-        for (int i = 1; i < alleUserEventId.length(); i++){
+        if(alleUserEventId != null) {
+            for (int i = 0; i < alleUserEventId.length(); i++) {
 
-            alleUserEventIdStr.add(alleUserEventId.optString(i));
+                alleUserEventIdStr.add(alleUserEventId.optString(i));
 
+            }
         }
 
 

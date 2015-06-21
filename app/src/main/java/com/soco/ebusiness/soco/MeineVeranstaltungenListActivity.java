@@ -54,10 +54,12 @@ public class MeineVeranstaltungenListActivity extends ListActivity {
 
         JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userEvents");
 
-        for (int i = 0; i < alleUserEventId.length(); i++){
+        if(alleUserEventId != null) {
+            for (int i = 0; i < alleUserEventId.length(); i++) {
 
-           alleUserEventIdStr.add(alleUserEventId.optString(i));
+                alleUserEventIdStr.add(alleUserEventId.optString(i));
 
+            }
         }
 
 
