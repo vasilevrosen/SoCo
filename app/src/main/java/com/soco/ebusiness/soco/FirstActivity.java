@@ -48,7 +48,7 @@ public class FirstActivity extends MainActivity {
         }else sendToast(getString(R.string.msg_loginmissing));
     }
     public void event_map(View view) {
-        // Intent intent = new Intent(this, KocheventsuchenActivity.class);
-        // startActivity(intent);
+         Intent intent = new Intent(this, MapsActivity.class);
+         startActivity(intent);
     }
 }

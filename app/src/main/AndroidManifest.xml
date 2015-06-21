@@ -239,27 +239,54 @@
                 android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
         <!-- Barcode Scanner -->
-        <activity android:name=".ScannerActivity"
-            android:theme="@style/AppOverlayTheme"
-            android:uiOptions="splitActionBarWhenNarrow"
+        <activity
+            android:name=".ScannerActivity"
             android:label="@string/scanner_activity"
-            android:parentActivityName=".FirstActivity">
-            <meta-data android:name="android.support.UI_OPTIONS"
-                android:value="splitActionBarWhenNarrow"
-                />
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soco.ebusiness.soco.FirstActivity"/>
-        </activity>
-
-        <activity android:name=".ScannerFragmentActivity"
+            android:parentActivityName=".FirstActivity"
             android:theme="@style/AppOverlayTheme"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:label="@string/scanner_fragment_activity">
-            <meta-data android:name="android.support.UI_OPTIONS"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.FirstActivity" />
+        </activity>
+        <activity
+            android:name=".ScannerFragmentActivity"
+            android:label="@string/scanner_fragment_activity"
+            android:theme="@style/AppOverlayTheme"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
                 android:parentActivityName=".FirstActivity"
                 android:value="splitActionBarWhenNarrow" />
-          <meta-data  android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.soco.ebusiness.soco.FirstActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.FirstActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.FirstActivity" />
+<!--
+Erstellt ein eigenes App-Icon für MAP
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
     </application>
 

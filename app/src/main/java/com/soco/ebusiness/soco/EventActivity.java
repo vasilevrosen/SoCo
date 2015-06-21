@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -63,6 +64,7 @@ public class EventActivity extends ActionBarActivity {
             @Override
             public void onCancel() {
                 Log.d("HelloFacebook", "Canceled");
+                Toast.makeText(EventActivity.this,getString(R.string.error),Toast.LENGTH_LONG).show();
             }
 
             @Override

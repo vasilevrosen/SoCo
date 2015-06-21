@@ -3,6 +3,7 @@ package com.soco.ebusiness.soco;
 
 import com.parse.Parse;
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -145,6 +146,14 @@ public class Event extends ParseObject{
 
         put("Beschreibung", beschr);
 
+    }
+    public void setGEOPoint(ParseGeoPoint point){
+
+        put("geoPoint", point);
+
+    }
+    public ParseGeoPoint getGEOPoint(){
+        return getParseGeoPoint("geoPoint");
     }
 
     public String getBeschreibung(){
