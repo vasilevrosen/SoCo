@@ -28,9 +28,6 @@ import java.util.List;
 
 public class MeineVeranstaltungenListActivity extends ListActivity {
 
-
-    String x;
-    String query;
     ListView lv;
     List<ParseObject> objectlist;
 

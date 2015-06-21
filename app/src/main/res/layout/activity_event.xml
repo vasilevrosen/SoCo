@@ -15,11 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LLTitel">
-    <com.facebook.share.widget.SendButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_event_empfehlen"
-        android:text="@string/empfehlen"/>
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -54,13 +50,30 @@
             android:id="@+id/beschreibungsText"/>
 
 
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLEmpfehlen"
+        android:layout_below="@+id/LLBeschreibung">
+
+        <com.facebook.share.widget.SendButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_event_empfehlen"
+            android:text="@string/empfehlen"
+            android:gravity="center"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LLWoWirKochen"
-        android:layout_below="@+id/LLBeschreibung"
+        android:layout_below="@+id/LLEmpfehlen"
         android:layout_marginTop="10dp">
 
 
@@ -254,6 +267,7 @@
             android:id="@+id/favoritStern"
             android:src="@drawable/apptheme_btn_rating_star_off_normal_holo_light"
             android:clickable="true"
+            android:onClick="onClickFavorit"
             android:layout_gravity="right"/>
 
     </LinearLayout>

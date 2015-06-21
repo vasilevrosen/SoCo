@@ -27,6 +27,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
@@ -43,6 +44,10 @@ public class EventActivity extends ActionBarActivity {
     Button btnAnfrage;
     Bitmap img_qrcode;
     Bitmap bmp_qrcode;
+
+    ImageView favoritStern;
+    boolean istFavorit;
+    private static String id;
 
     private CallbackManager callbackManager;
 
@@ -103,11 +108,13 @@ public class EventActivity extends ActionBarActivity {
         teilnehmerText = (TextView) findViewById(R.id.TeilnehmerText);
         ImageView img_qrcode = (ImageView) findViewById(R.id.img_qrcode);
 
+        favoritStern = (ImageView) findViewById(R.id.favoritStern);
+        istFavorit = false;
 
         btnAnfrage = (Button) findViewById(R.id.btnAnfrage);
 
         Bundle i = getIntent().getExtras();
-        String id = i.getString("objectId");
+        id = i.getString("objectId");
         try {
              bmp_qrcode = App.generateQrCode("Event-"+id);
             img_qrcode.setImageBitmap(bmp_qrcode);
@@ -116,9 +123,19 @@ public class EventActivity extends ActionBarActivity {
         }
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+
+        ParseObject object = null;
+
+        try {
+            object = query.get(id);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        /*
         query.getInBackground(id, new GetCallback<ParseObject>() {
             public void done(final ParseObject object, ParseException e) {
-                if (e == null) {
+                if (e == null) {*/
 
                     titel.setText(object.get("Titel").toString());
 
@@ -159,23 +176,58 @@ public class EventActivity extends ActionBarActivity {
                     teilnehmerText.setText(teilnehmerString);
 
 
+                    JSONArray userFavoriten = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
+
+
+                    if(userFavoriten != null) {
+                        for (int j = 0; j < userFavoriten.length(); j++) {
+
+                            if (userFavoriten.optString(j).equals(id)) {
+
+                                favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_on_normal_holo_light);
+                                istFavorit = true;
+                                break;
+
+                            }
+
+                        }
+                    }
+
+
 
                     ParseQuery<ParseObject> rezeptQuery = ParseQuery.getQuery("Rezept");
+
+
+                    ParseObject ausgewRezept = null;
+
+
+        try {
+            ausgewRezept = rezeptQuery.get(ausgewaehltesRezeptID);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        rezeptLink.setText(ausgewRezept.get("titel").toString());
+
+        /*
+
                     rezeptQuery.getInBackground(ausgewaehltesRezeptID, new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject parseObject, ParseException e) {
                             rezeptLink.setText(parseObject.get("titel").toString());
                         }
                     });
+*/
 
 
 
 
+/*
                 } else {
 
                 }
             }
-        });
+        });*/
 
 
 
@@ -214,6 +266,58 @@ public class EventActivity extends ActionBarActivity {
 
 
     }
+
+    public void onClickFavorit(View view){
+
+        ParseUser aktuellerUser = ParseUser.getCurrentUser();
+
+        JSONArray userFavoriten = aktuellerUser.getJSONArray("userFavoriten");
+        if(userFavoriten == null){
+            userFavoriten = new JSONArray();
+        }
+
+
+
+        if(istFavorit){
+
+            int index = 0;
+            for(int i = 0; i < userFavoriten.length(); i++){
+                if(userFavoriten.optString(i).equals(id)){
+                    index = i;
+                    break;
+                }
+            }
+
+            userFavoriten.remove(index);
+
+
+            favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_off_normal_holo_light);
+
+            istFavorit = false;
+
+
+        }
+        else
+        {
+
+
+           userFavoriten.put(id);
+
+
+            favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_on_normal_holo_light);
+            istFavorit = true;
+
+        }
+
+        aktuellerUser.put("userFavoriten", userFavoriten);
+        aktuellerUser.saveEventually();
+
+
+
+
+
+    }
+
     public void onclicksaveqr(View view){
         App.saveqrcode(this, bmp_qrcode);
     }

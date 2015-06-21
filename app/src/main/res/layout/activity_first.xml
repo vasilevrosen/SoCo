@@ -48,6 +48,21 @@
                 android:singleLine="false"
                 android:layout_gravity="center_horizontal|top" />
 
+            <Button
+                android:layout_width="fill_parent"
+                android:enabled="true"
+                android:visibility="visible"
+                android:layout_height="wrap_content"
+                android:text="Meine Favoriten"
+                android:id="@+id/btn_meine_favoriten"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:height="80dp"
+                android:onClick="meine_favoriten"
+                android:singleLine="false"
+                android:layout_gravity="center_horizontal|top" />
+
 
             <Button
                 android:layout_width="fill_parent"

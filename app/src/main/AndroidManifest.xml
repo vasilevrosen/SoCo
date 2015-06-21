@@ -279,7 +279,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.FirstActivity" />
-<!--
+            <!--
 Erstellt ein eigenes App-Icon für MAP
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -287,6 +287,14 @@ Erstellt ein eigenes App-Icon für MAP
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
+        </activity>
+        <activity
+            android:name=".MeineFavoritenListActivity"
+            android:label="@string/title_activity_meine_favoriten_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
     </application>
 
