@@ -68,7 +68,7 @@
     <string name="no_friends_selected">&lt;No friends selected&gt;</string>
     <string name="no_place_selected">&lt;No place selected&gt;</string>
     <string name="pick_seattle_place">Pick a Seattle Place</string>
-    <string name="app_id">1607702199484087</string>
+    <string name="FACEBOOK_app_id">1607702199484087</string>
     <string name="exception">Exception: %1$s</string>
     <string name="user_profile">User Profil</string>
     <string name="facebook_msg">Die App für deinen unvergesslichen Kochevent</string>

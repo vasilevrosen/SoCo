@@ -262,7 +262,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
 
-        Intent intent = new Intent(KocheventAnbietenActivity.this, MeineEventsActivity.class);
+        Intent intent = new Intent(KocheventAnbietenActivity.this, FirstActivity.class);
         startActivity(intent);
 
         Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel.getText().toString() + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();

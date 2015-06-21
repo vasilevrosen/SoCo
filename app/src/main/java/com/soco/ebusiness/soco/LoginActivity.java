@@ -1,24 +1,28 @@
 package com.soco.ebusiness.soco;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class LoginActivity extends MainActivity {
@@ -27,12 +31,21 @@ public class LoginActivity extends MainActivity {
     private TextView mErrorField;
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
+    private Button loginButton;
+    private Dialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loginButton = (Button) findViewById(R.id.facebook_loginbtn);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFacebookloginButtonClicked();
+            }
+        });
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load
         // titles
         // from
@@ -96,4 +109,53 @@ public class LoginActivity extends MainActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private void onFacebookloginButtonClicked() {
+        LoginActivity.this.progressDialog = ProgressDialog.show(
+                LoginActivity.this, "", "Logging in...", true);
+        List<String> permissions = Arrays.asList("basic_info", "user_about_me",
+                "user_relationships", "user_birthday", "user_location");
+        ParseFacebookUtils.logInWithReadPermissionsInBackground( this,permissions, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException err) {
+                LoginActivity.this.progressDialog.dismiss();
+                if (user == null) {
+                    Toast.makeText(getApplicationContext(), "Uh oh. The user cancelled the Facebook login.",
+                            Toast.LENGTH_SHORT).show();
+
+                } else if (user.isNew()) {
+                    Toast.makeText(getApplicationContext(), "User signed up and logged in through Facebook.",
+                            Toast.LENGTH_SHORT).show();
+                    App.setloginstate(true);
+
+
+                    showFirstActivity();
+                } else {
+                    Toast.makeText(getApplicationContext(), "User logged in through Facebook!",
+                            Toast.LENGTH_SHORT).show();
+                    App.setloginstate(true);
+
+
+                    showFirstActivity();
+                }
+            }
+        });
+    }
+
+    private void showUserDetailsActivity() {
+     //   Intent intent = new Intent(this, UserDetailsActivity.class);
+     //   startActivity(intent);
+    }
+    private void showFirstActivity() {
+          Intent intent = new Intent(this, FirstActivity.class);
+          startActivity(intent);
+    }
+
 }

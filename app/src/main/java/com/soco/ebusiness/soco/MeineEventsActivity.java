@@ -1,5 +1,6 @@
 package com.soco.ebusiness.soco;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -55,5 +56,12 @@ public class MeineEventsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        //Display alert message when back button has been pressed
+        Intent intent = new Intent(this, FirstActivity.class);
+        startActivity(intent);
+        return;
     }
 }
