@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
@@ -42,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         // }
     }
 
-    public void set(String[] navMenuTitles, TypedArray navMenuIcons) {
+    public void set(final String[] navMenuTitles, final TypedArray navMenuIcons) {
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,12 +91,14 @@ public class MainActivity extends ActionBarActivity {
                 // accessibility
         ) {
             public void onDrawerClosed(View view) {
+                set(navMenuTitles,navMenuIcons);
                 getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 supportInvalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
+                set(navMenuTitles,navMenuIcons);
                 getSupportActionBar().setTitle(mDrawerTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 supportInvalidateOptionsMenu();
@@ -183,6 +187,9 @@ public class MainActivity extends ActionBarActivity {
                     finish();
                 } else {
                     App.setloginstate(false);
+                    ParseUser.logOut();
+                    ParseUser currentUser = ParseUser.getCurrentUser();
+
                 }
 
                 break;

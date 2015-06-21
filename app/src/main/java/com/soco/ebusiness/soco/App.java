@@ -9,6 +9,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 /**
@@ -53,6 +54,14 @@ public class App extends Application {
                 }
             }
         });
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            // do stuff with the user
+            loginstate = true;
+        } else {
+            loginstate= false;
+            // show the signup or login screen
+        }
 
     }
     public String islogin(){
