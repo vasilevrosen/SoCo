@@ -26,6 +26,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.android.support:appcompat-v7:22.1.1'
         compile 'com.facebook.android:facebook-android-sdk:4.1.0'
+    compile 'me.dm7.barcodescanner:zxing:1.7.2'
     //compile files('libs/Parse-1.9.2.jar')
 }
 repositories {

@@ -76,6 +76,7 @@
 
     <string-array name="nav_drawer_items">
         <item>Startseite</item>
+        <item>QR Code</item>
         <item>Events</item>
         <item>Rezepte</item>
         <item>Wissenswertes</item>
@@ -83,6 +84,7 @@
     </string-array>
     <array name="nav_drawer_icons">
       <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
@@ -106,4 +108,19 @@
     <string name="title_activity_meine_veranstaltungen_list">MeineVeranstaltungenListActivity
     </string>
     <string name="title_activity_meine_teilnahmen_list">MeineTeilnahmenListActivity</string>
+    <!--Barcode Scanner-->
+    <string name="ok_button">OK</string>
+    <string name="choose_formats">Wähle Format</string>
+    <string name="cancel_button">Abbrechen</string>
+    <string name="select_camera">Wähle Kamera</string>
+    <string name="flash_on">Blitz an</string>
+    <string name="flash_off">Blitz aus</string>
+    <string name="auto_focus_on">Focus an</string>
+    <string name="auto_focus_off">Auto Focus aus</string>
+    <string name="formats">Formate</string>
+    <string name="scanner_activity">ZXing Scanner - Full Activity</string>
+    <string name="scanner_fragment_activity">ZXing Scanner - Full Fragment Activity</string>
+    <string name="bitmap">bitmap</string>
+    <string name="img_saved">QR Code gespeichert</string>
+    <string name="qrcodefalse">QR Code nicht erkannt</string>
 </resources>

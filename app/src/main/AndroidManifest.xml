@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- To retrieve the account name (email) as part of sign-in: -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -236,6 +237,29 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
+        <!-- Barcode Scanner -->
+        <activity android:name=".ScannerActivity"
+            android:theme="@style/AppOverlayTheme"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:label="@string/scanner_activity"
+            android:parentActivityName=".FirstActivity">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow"
+                />
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.FirstActivity"/>
+        </activity>
+
+        <activity android:name=".ScannerFragmentActivity"
+            android:theme="@style/AppOverlayTheme"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:label="@string/scanner_fragment_activity">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                android:parentActivityName=".FirstActivity"
+                android:value="splitActionBarWhenNarrow" />
+          <meta-data  android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.soco.ebusiness.soco.FirstActivity"/>
         </activity>
     </application>
 

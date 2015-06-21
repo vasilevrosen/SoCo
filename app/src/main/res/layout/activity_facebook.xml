@@ -79,10 +79,8 @@
                     android:layout_height="wrap_content"
                     android:text="Post Photo"
                     />
-
         </LinearLayout>
     </LinearLayout>
-
     <!-- The navigation drawer -->
 
     </FrameLayout>

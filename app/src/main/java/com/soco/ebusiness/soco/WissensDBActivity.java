@@ -92,5 +92,12 @@ public class WissensDBActivity extends ListActivity {
         startActivity(intent);
 
     }
+    @Override
+    public void onBackPressed() {
+        //Display alert message when back button has been pressed
+        Intent intent = new Intent(this, FirstActivity.class);
+        startActivity(intent);
+        return;
+    }
 
 }

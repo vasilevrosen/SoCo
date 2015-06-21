@@ -378,4 +378,5 @@ public class FacebookActivity extends MainActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

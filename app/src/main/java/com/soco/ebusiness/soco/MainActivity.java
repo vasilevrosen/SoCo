@@ -161,26 +161,31 @@ public class MainActivity extends ActionBarActivity {
                 finish();// finishes the current activity
                 break;
             case 1:
+                Intent intent11 = new Intent(this, ScannerActivity.class);
+                startActivity(intent11);
+                finish();// finishes the current activity
+                break;
+            case 2:
                 Intent intent1 = new Intent(this, TerminvermittlungActivity.class);
                 startActivity(intent1);
                 finish();// finishes the current activity
                 break;
-            case 2:
+            case 3:
                 Intent intent2 = new Intent(this, RezeptActivity.class);
                 startActivity(intent2);
                 finish();
                 break;
-            case 3:
+            case 4:
                 Intent intent3 = new Intent(this, WissensDBActivity.class);
                 startActivity(intent3);
                 finish();
                 break;
-            case 4:
+            case 5:
                 Intent intent4 = new Intent(this, FacebookActivity.class);
                 startActivity(intent4);
                 finish();
                 break;
-            case 5:
+            case 6:
                 if (!App.get_loginstate()) {
                     Intent intent5 = new Intent(this, LoginActivity.class);
                     startActivity(intent5);
@@ -250,7 +255,7 @@ public class MainActivity extends ActionBarActivity {
         return false;
     }
 
-    public boolean sendToast(CharSequence text) {
+    public  boolean sendToast(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 

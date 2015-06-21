@@ -253,6 +253,16 @@
             android:layout_gravity="right"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/qrcode"
+        android:layout_below="@+id/AnfrageSenden">
+    <ImageView android:id="@+id/img_qrcode" android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:onClick="onclicksaveqr"
+        android:contentDescription="@string/bitmap" />
+    </LinearLayout>
 
 
 </RelativeLayout>

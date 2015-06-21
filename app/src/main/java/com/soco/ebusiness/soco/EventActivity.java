@@ -1,6 +1,8 @@
 package com.soco.ebusiness.soco;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -28,6 +32,8 @@ public class EventActivity extends ActionBarActivity {
     TextView teilnehmerText;
     String ausgewaehltesRezeptID;
     Button btnAnfrage;
+    Bitmap img_qrcode;
+    Bitmap bmp_qrcode;
 
 
     @Override
@@ -41,11 +47,19 @@ public class EventActivity extends ActionBarActivity {
         datumUndUhrzeit = (TextView) findViewById(R.id.TV_UhrzeitUndDatum);
         rezeptLink = (TextView) findViewById(R.id.ausgewählesRezept);
         teilnehmerText = (TextView) findViewById(R.id.TeilnehmerText);
+        ImageView img_qrcode = (ImageView) findViewById(R.id.img_qrcode);
+
 
         btnAnfrage = (Button) findViewById(R.id.btnAnfrage);
 
         Bundle i = getIntent().getExtras();
         String id = i.getString("objectId");
+        try {
+             bmp_qrcode = App.generateQrCode("Event-"+id);
+            img_qrcode.setImageBitmap(bmp_qrcode);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.getInBackground(id, new GetCallback<ParseObject>() {
@@ -146,4 +160,8 @@ public class EventActivity extends ActionBarActivity {
 
 
     }
+    public void onclicksaveqr(View view){
+        App.saveqrcode(this,bmp_qrcode);
+    }
+
 }
