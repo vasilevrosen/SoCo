@@ -41,6 +41,14 @@ public class FirstActivity extends MainActivity {
         else sendToast(getString(R.string.msg_loginmissing));
     }
 
+    public void meine_favoriten(View view) {
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, MeineFavoritenListActivity.class);
+            startActivity(intent);
+        }
+        else sendToast(getString(R.string.msg_loginmissing));
+    }
+
     public void create_event(View view) {
         if(App.get_loginstate()) {
             Intent intent = new Intent(this, KocheventAnbietenActivity.class);

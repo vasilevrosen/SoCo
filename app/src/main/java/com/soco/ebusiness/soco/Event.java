@@ -147,6 +147,10 @@ public class Event extends ParseObject{
         put("Beschreibung", beschr);
 
     }
+
+
+
+
     public void setGEOPoint(ParseGeoPoint point){
 
         put("geoPoint", point);
