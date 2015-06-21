@@ -141,4 +141,14 @@ public class Event extends ParseObject{
         put("Rezept_ID", rezeptID);
     }
 
+    public void setBeschreibung(String beschr){
+
+        put("Beschreibung", beschr);
+
+    }
+
+    public String getBeschreibung(){
+        return getString("Beschreibung");
+    }
+
 }

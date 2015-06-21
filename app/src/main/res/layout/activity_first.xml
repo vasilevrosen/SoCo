@@ -23,13 +23,13 @@
                 android:enabled="true"
                 android:visibility="visible"
                 android:layout_height="wrap_content"
-                android:text="@string/title_activity_meineevents"
-                android:id="@+id/btn_meine_events"
+                android:text="Meine Veranstaltungen"
+                android:id="@+id/btn_meine_veranstaltungen"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
                 android:height="80dp"
-                android:onClick="meine_events"
+                android:onClick="meine_veranstaltungen"
                 android:singleLine="false"
                 android:layout_gravity="center_horizontal|top" />
 

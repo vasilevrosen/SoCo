@@ -103,4 +103,6 @@
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_event_liste">EventListe</string>
     <string name="title_activity_meine_events_tabbed">MeineEventsTabbed</string>
+    <string name="title_activity_meine_veranstaltungen_list">MeineVeranstaltungenListActivity
+    </string>
 </resources>

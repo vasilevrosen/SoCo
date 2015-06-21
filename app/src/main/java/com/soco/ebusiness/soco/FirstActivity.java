@@ -25,9 +25,9 @@ public class FirstActivity extends MainActivity {
         set(navMenuTitles, navMenuIcons);
     }
 
-    public void meine_events(View view) {
+    public void meine_veranstaltungen(View view) {
         if(App.get_loginstate()) {
-            Intent intent = new Intent(this, MeineEventsActivity.class);
+            Intent intent = new Intent(this, MeineVeranstaltungenListActivity.class);
             startActivity(intent);
         }
         else sendToast(getString(R.string.msg_loginmissing));
