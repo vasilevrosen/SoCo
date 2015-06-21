@@ -286,6 +286,7 @@
         android:layout_marginRight="0dp"
         android:text="Daten per GPS eintragen"
         android:id="@+id/btnGPSAbfrage"
+        android:onClick="onclickgps"
         android:layout_below="@+id/LLfürStrundNr"
         android:layout_centerHorizontal="true"
         android:textColor="#000000"

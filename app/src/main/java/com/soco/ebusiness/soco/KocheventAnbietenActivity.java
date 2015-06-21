@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -67,6 +68,8 @@ public class KocheventAnbietenActivity extends FragmentActivity {
     private static String ausgewaehltesRezeptTitelText = "Bitte Rezept auswählen";
 
     private static boolean rezeptAusgewaehlt;
+
+    private static ParseGeoPoint currentGPS;
 
 
     public static void rezeptFuerKochevent(String rezeptID, String rezeptTitel){
@@ -223,6 +226,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         neuesEvent.setUhrzeit(gesetzteZeit.getText().toString());
         neuesEvent.setRezeptID(ausgewaehltesRezeptID);
         neuesEvent.setDatum(gesetztesDatum.getText().toString());
+        neuesEvent.setGEOPoint(currentGPS);
 
         String neueUserID = ParseUser.getCurrentUser().getObjectId();
 
@@ -357,5 +361,16 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onclickgps(View view){
+        if(MainActivity.getmAdressRequested()){
+         String adress =   MainActivity.getmAdressOutput();
+            Toast.makeText(this, adress,Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this,getString(R.string.gps_error),Toast.LENGTH_LONG);
+        }
+
     }
 }
