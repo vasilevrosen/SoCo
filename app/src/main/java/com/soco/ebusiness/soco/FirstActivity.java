@@ -4,6 +4,7 @@ package com.soco.ebusiness.soco;
         import android.content.res.TypedArray;
         import android.os.Bundle;
         import android.view.View;
+        import android.widget.EditText;
 
 public class FirstActivity extends MainActivity {
     private String[] navMenuTitles;
@@ -58,5 +59,18 @@ public class FirstActivity extends MainActivity {
     public void event_map(View view) {
          Intent intent = new Intent(this, SlideMapActivity.class);
          startActivity(intent);
+    }
+
+    public void navigateToEventSuche(View view){
+
+        String gesuchterOrt = ((EditText) findViewById(R.id.OrtText)).getText().toString();
+
+
+        Intent intent = new Intent(FirstActivity.this, EventListe.class);
+
+        intent.putExtra("Ort", gesuchterOrt);
+        startActivity(intent);
+
+
     }
 }

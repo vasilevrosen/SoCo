@@ -61,6 +61,8 @@ public class EventActivity extends ListActivity {
     List<String> alleBewerbernamen;
     TextView listeDerTeilnehmer;
 
+    List<ParseUser> alleBewerber;
+
 
     private CallbackManager callbackManager;
     @Override
@@ -245,6 +247,10 @@ public class EventActivity extends ListActivity {
                             username = "Benny Foronkel";
                         }
 
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
+                        }
+
                         alleTeilnehmernahmen += username + "\n";
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -265,7 +271,7 @@ public class EventActivity extends ListActivity {
 
             JSONArray aktuelleAnfragen = object.getJSONArray("Bewerber");
 
-            List<ParseUser> alleBewerber = new ArrayList<>();
+            alleBewerber = new ArrayList<>();
             alleBewerbernamen = new ArrayList<>();
 
             if(aktuelleAnfragen != null){
@@ -291,6 +297,9 @@ public class EventActivity extends ListActivity {
 
                         if(username.equals("AnB3opymmRJccwAQ7sVRXCrQg")){
                             username = "Benny Foronkel";
+                        }
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
                         }
 
                         alleBewerbernamen.add(username);
@@ -524,6 +533,9 @@ public class EventActivity extends ListActivity {
                         if(username.equals("AnB3opymmRJccwAQ7sVRXCrQg")){
                             username = "Benny Foronkel";
                         }
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
+                        }
 
                         alleTeilnehmernahmen += username + "\n";
                     } catch (ParseException e) {
@@ -545,7 +557,7 @@ public class EventActivity extends ListActivity {
 
             JSONArray aktuelleAnfragen = object.getJSONArray("Bewerber");
 
-            List<ParseUser> alleBewerber = new ArrayList<>();
+            alleBewerber = new ArrayList<>();
             alleBewerbernamen = new ArrayList<>();
 
             if(aktuelleAnfragen != null){
@@ -571,6 +583,9 @@ public class EventActivity extends ListActivity {
 
                         if(username.equals("AnB3opymmRJccwAQ7sVRXCrQg")){
                             username = "Benny Foronkel";
+                        }
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
                         }
 
                         alleBewerbernamen.add(username);
@@ -802,6 +817,9 @@ public class EventActivity extends ListActivity {
                         if(username.equals("AnB3opymmRJccwAQ7sVRXCrQg")){
                             username = "Benny Foronkel";
                         }
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
+                        }
 
                         alleTeilnehmernahmen += username + "\n";
                     } catch (ParseException e) {
@@ -823,7 +841,7 @@ public class EventActivity extends ListActivity {
 
             JSONArray aktuelleAnfragen = object.getJSONArray("Bewerber");
 
-            List<ParseUser> alleBewerber = new ArrayList<>();
+            alleBewerber = new ArrayList<>();
             alleBewerbernamen = new ArrayList<>();
 
             if(aktuelleAnfragen != null){
@@ -849,6 +867,9 @@ public class EventActivity extends ListActivity {
 
                         if(username.equals("AnB3opymmRJccwAQ7sVRXCrQg")){
                             username = "Benny Foronkel";
+                        }
+                        if(username.equals("GNIM4Sx6meHTS54Og1z5pVJ0v")){
+                            username = "Steffen Teichman";
                         }
 
                         alleBewerbernamen.add(username);
@@ -1019,4 +1040,21 @@ public class EventActivity extends ListActivity {
     public void onclicksaveqr(View view){
         App.saveqrcode(this, bmp_qrcode);
     }
+
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id2) {
+        super.onListItemClick(l, v, position, id2);
+
+        String objectId = alleBewerber.get(position).getObjectId();
+
+        Intent intent = new Intent(EventActivity.this, BewerberCheckActivity.class);
+        intent.putExtra("objectId",objectId);
+        intent.putExtra("eventId", id);
+        startActivity(intent);
+
+
+
+    }
+
 }

@@ -8,7 +8,9 @@
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <user-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <user-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- To retrieve the account name (email) as part of sign-in: -->
@@ -266,7 +268,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-     <meta-data
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
 
@@ -276,7 +278,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.FirstActivity" />
-<!--
+            <!--
 Erstellt ein eigenes App-Icon für MAP
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -304,7 +306,16 @@ Erstellt ein eigenes App-Icon für MAP
 
         <service
             android:name=".FetchAddressIntentService"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name=".BewerberCheckActivity"
+            android:label="@string/title_activity_bewerber_check"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

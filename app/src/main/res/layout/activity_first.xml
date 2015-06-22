@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/first_background">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     <!-- The main content view -->
     <FrameLayout
         android:id="@+id/content_frame"
@@ -79,20 +82,44 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal|bottom" />
 
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:id="@+id/OrtText"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:hint="Hier den gewünschten Ort eingeben"/>
+
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_event_suchen"
+                android:text="Event nach Ort suchen"
+                android:id="@+id/event_ortSuche"
+                android:height="80dp"
+                android:onClick="navigateToEventSuche"
+                android:layout_below="@+id/OrtText"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Event Map"
                 android:id="@+id/event_suchen"
                 android:height="80dp"
                 android:onClick="event_map"
-                android:layout_below="@+id/btn_event_suchen"
+                android:layout_below="@+id/event_ortSuche"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center" />
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
     </FrameLayout>
+    </ScrollView>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
