@@ -17,11 +17,14 @@
 package com.soco.ebusiness.soco;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
 public class LockableListView extends ListView {
+
+    Handler handler=new Handler();
 
     private boolean mScrollable = true;
 
