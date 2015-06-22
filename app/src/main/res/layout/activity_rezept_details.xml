@@ -1,4 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -58,29 +62,6 @@
         android:layout_alignStart="@+id/details_zubereitungszeit"
         android:layout_marginBottom="20dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/button_speichern_details"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/btn_delete"
-        android:layout_toStartOf="@+id/btn_delete" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rezept für Kochevent auswählen"
-        android:id="@+id/btn_Rezept_Auswählen"
-        android:layout_above="@+id/button_speichern_details"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="rezeptAuswahlKochevent"
-        android:layout_alignRight="@+id/zutaten_details"
-        android:layout_alignEnd="@+id/zutaten_details" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,14 +75,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:id="@+id/btn_delete"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -149,17 +123,70 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/LLdetailVorbereitung"
+        android:layout_below="@id/details_vorbereitung"
+        android:layout_marginTop="10dp">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
         android:id="@+id/et_details_vorbereitung"
-        android:lines="2"
+
         android:layout_below="@+id/details_vorbereitung"
+
+        android:layout_marginTop="10dp"
+        />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLUpdateundDelete"
+        android:layout_below="@id/LLdetailVorbereitung"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:id="@+id/btn_delete"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:id="@+id/button_speichern_details"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/btn_delete"
+            android:layout_toStartOf="@+id/btn_delete" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Rezept für Kochevent auswählen"
+        android:id="@+id/btn_Rezept_Auswählen"
+        android:onClick="rezeptAuswahlKochevent"
+
+        android:layout_below="@+id/LLUpdateundDelete"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>
+</ScrollView>
