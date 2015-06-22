@@ -56,7 +56,7 @@ public class FirstActivity extends MainActivity {
         }else sendToast(getString(R.string.msg_loginmissing));
     }
     public void event_map(View view) {
-         Intent intent = new Intent(this, MapsActivity.class);
+         Intent intent = new Intent(this, SlideMapActivity.class);
          startActivity(intent);
     }
 }

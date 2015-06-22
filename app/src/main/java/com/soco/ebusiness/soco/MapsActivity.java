@@ -3,12 +3,16 @@ package com.soco.ebusiness.soco;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -34,11 +38,14 @@ public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ParseGeoPoint lastEventGPS = new ParseGeoPoint(49.0017191, 8.4183314);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+        setupMarkerListener();
+        setupWindowListener();
         ParseUser userObject = ParseUser.getCurrentUser();
         ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
         if(userLocation==null){
@@ -129,6 +136,10 @@ public class MapsActivity extends FragmentActivity {
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(49.0017191, 8.4183314))
                     .title(getString(R.string.currentPosition)));
+            mMap.setMyLocationEnabled(true);
+           mMap.getMaxZoomLevel();
+            mMap.getMyLocation();
+            mMap.getUiSettings();
         }
 
     }
@@ -138,9 +149,12 @@ public class MapsActivity extends FragmentActivity {
                 double lat = objects.get(i).getParseGeoPoint("geoPoint").getLatitude();
                 double lng = objects.get(i).getParseGeoPoint("geoPoint").getLongitude();
                 String titel = objects.get(i).getString("Titel");
+                String date = objects.get(i).getString("Datum");
+                String time = objects.get(i).getString("Uhrzeit");
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(lat, lng))
-                        .title(titel));
+                        .title(titel)
+                        .snippet(getString(R.string.datetime)+ " "+date+" "+time));
 
                 //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
                 //    intent.putExtra("objectId",objectId);
@@ -164,5 +178,56 @@ public class MapsActivity extends FragmentActivity {
             Toast.makeText(getApplicationContext(), "failed!", Toast.LENGTH_LONG).show();
         }
         return lastEventGPS;
+    }
+    public boolean onMarkerClick(Marker marker) {
+        Log.i("GoogleMapActivity", "onMarkerClick");
+        Toast.makeText(getApplicationContext(),
+                "Marker Clicked: " + marker.getTitle(), Toast.LENGTH_LONG)
+                .show();
+        return false;
+    }
+    private void setupMarkerListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                moveCamera();
+                if (marker.isInfoWindowShown()) {
+                    marker.hideInfoWindow();
+                } else {
+                    marker.showInfoWindow();
+                }
+                return true;
+            }
+        });
+    }
+
+    private void setupWindowListener() {
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                Log.d("", marker.getTitle());
+            }
+        });
+    }
+
+    public boolean onInfoWindowClick(Marker marker) {
+        Log.i("GoogleMapActivity", "onMarkerClick");
+        Toast.makeText(getApplicationContext(),
+                "Marker Clicked: " + marker.getTitle(), Toast.LENGTH_LONG)
+                .show();
+        return false;
+    }
+
+    private void moveCamera() {
+        final LatLng NODES = new LatLng(lastEventGPS.getLatitude(), lastEventGPS.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(NODES)      // Sets the center of the map to Mountain View
+                .zoom(17)           // Sets the zoom
+                .bearing(90)        // Sets the orientation of the camera to east
+                .tilt(30)           // Sets the tilt of the camera to 30 degrees
+                .build();           // Creates a CameraPosition from the builder
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }

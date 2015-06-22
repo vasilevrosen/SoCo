@@ -40,6 +40,7 @@ public class App extends Application {
 
     private static boolean loginstate = false;
     private static String login_text;
+    private static Context sContext;
 
 
 
@@ -58,6 +59,7 @@ public class App extends Application {
     public void onCreate() {
 
         super.onCreate();
+        sContext= this;
         //FacebookSdk.sdkInitialize(this.getApplicationContext());
         ParseObject.registerSubclass(Rezept.class);
         ParseObject.registerSubclass(Event.class);
@@ -138,6 +140,9 @@ public class App extends Application {
             Log.e("MyLog", e.toString());
         }
         return true;
+    }
+    public static Context getAppContext() {
+        return sContext;
     }
 
 }
