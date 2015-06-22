@@ -15,7 +15,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:theme="@style/_AppTheme" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,7 +27,9 @@
         android:layout_below="@+id/details_rezeptkategorie"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toLeftOf="@+id/zubereitungszeit_details"
+        android:layout_toStartOf="@+id/zubereitungszeit_details"
+        android:layout_marginBottom="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,12 +37,13 @@
         android:inputType="text|textMultiLine"
         android:ems="10"
         android:id="@+id/zutaten_details"
-        android:lines="3"
+        android:lines="2"
         android:layout_below="@+id/details_zutaten"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,11 +51,12 @@
         android:id="@+id/zubereitungszeit_details"
         android:singleLine="true"
         android:inputType="number"
-        android:layout_below="@+id/details_zubereitungszeit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/zutaten_details"
-        android:layout_alignEnd="@+id/zutaten_details" />
+        android:layout_alignTop="@+id/kategorie_details"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/details_zubereitungszeit"
+        android:layout_alignStart="@+id/details_zubereitungszeit"
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -104,7 +110,8 @@
         android:id="@+id/details_titel"
         android:layout_below="@+id/details_rezept"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,16 +136,16 @@
         android:layout_height="wrap_content"
         android:text="Zubereitungszeit"
         android:id="@+id/details_zubereitungszeit"
-        android:layout_below="@+id/zutaten_details"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/titel_details"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vorbereitung"
         android:id="@+id/details_vorbereitung"
-        android:layout_below="@+id/zubereitungszeit_details"
+        android:layout_below="@+id/zutaten_details"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -146,12 +153,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/et_details_vorbereitung"
+        android:lines="2"
         android:layout_below="@+id/details_vorbereitung"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:lines="3" />
+        android:layout_marginBottom="20dp" />
 
 
 </RelativeLayout>
