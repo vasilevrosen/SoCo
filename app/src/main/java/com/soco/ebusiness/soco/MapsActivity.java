@@ -62,9 +62,16 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
       Location location =  MainActivity.getlastlocation();
+        if(location!=null){
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .title("Marker"));
+        } else{
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(45, 40))
+                    .title("Marker"));
+        }
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .title("Marker"));
+
     }
 }

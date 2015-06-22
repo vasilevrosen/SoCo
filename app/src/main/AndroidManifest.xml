@@ -166,10 +166,6 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXpSEACVnO9SXbT1ko4BgyukEEz62rXVk" />
-
         <activity
             android:name=".RezeptDetailsActivity"
             android:label="@string/title_activity_rezept_details"
@@ -269,7 +265,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <meta-data
+     <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
 
