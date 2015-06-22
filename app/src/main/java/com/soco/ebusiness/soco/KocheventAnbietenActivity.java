@@ -211,9 +211,8 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
     public void eventErstellen(View view){
-        boolean getgps =false;
 
-        if(currentGPS.getLatitude()==0){
+        boolean getgps =false;
             plzOnPause = plz.getText().toString();
             ortOnPause = ort.getText().toString();
             strasseOnPause = strasse.getText().toString();
@@ -229,10 +228,6 @@ public class KocheventAnbietenActivity extends FragmentActivity {
                 Toast.makeText(this,getString(R.string.no_address_found),Toast.LENGTH_LONG).show();
                 getgps=false;
             }
-        } else {
-            getgps =true;
-            Toast.makeText(this,getString(R.string.address_found),Toast.LENGTH_LONG).show();
-        }
 
         if(getgps==true) {
 

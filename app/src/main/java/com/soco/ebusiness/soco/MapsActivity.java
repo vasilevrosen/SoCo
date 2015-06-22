@@ -3,21 +3,80 @@ package com.soco.ebusiness.soco;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity {
 
+    public ArrayList<String> listOfSharedWord = new ArrayList<String>();
+    String x;
+    String query;
+    ListView lv;
+    List<ParseObject> objectsl;
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private ParseGeoPoint lastEventGPS = new ParseGeoPoint(49.0017191, 8.4183314);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+        ParseUser userObject = ParseUser.getCurrentUser();
+        ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
+        if(userLocation==null){
+            try {
+                userLocation= getLastEventGPS();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+       // if(){
+       //     query.whereWithinKilometers();
+       // }
+
+        query.whereNear("geoPoint", userLocation);
+       query.setLimit(10);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    objectsl = objects;
+                    for (int i = 0; i < objects.size(); i++) {
+                        x = objects.get(i).getString("titel");
+                        listOfSharedWord.add(x);
+                    }
+                    Toast.makeText(getApplicationContext(), "Es wurde(n) " + listOfSharedWord.size() + " Event(s) gefunden", Toast.LENGTH_SHORT).show();
+
+                    // ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MapsActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
+                    // lv.setAdapter(arrayAdapter);
+                    createEventMarker(objects);
+                } else {
+                    e.getMessage();
+                    Toast.makeText(getApplicationContext(), "failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -65,13 +124,45 @@ public class MapsActivity extends FragmentActivity {
         if(location!=null){
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .title("Marker"));
+                    .title(getString(R.string.currentPosition)));
         } else{
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(45, 40))
-                    .title("Marker"));
+                    .position(new LatLng(49.0017191, 8.4183314))
+                    .title(getString(R.string.currentPosition)));
         }
 
+    }
+    private void createEventMarker(List<ParseObject> objects){
+            for (int i = 0; i < objects.size(); i++) {
+                String objectId = objects.get(i).getObjectId();
+                double lat = objects.get(i).getParseGeoPoint("geoPoint").getLatitude();
+                double lng = objects.get(i).getParseGeoPoint("geoPoint").getLongitude();
+                String titel = objects.get(i).getString("Titel");
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .title(titel));
 
+                //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
+                //    intent.putExtra("objectId",objectId);
+                //    startActivity(intent);
+        }
+    }
+
+    public ParseGeoPoint getLastEventGPS() throws ParseException, JSONException {
+        try {
+        JSONArray UserlastEventId = ParseUser.getCurrentUser().getJSONArray("userEvents");
+       String objectid = UserlastEventId.getString((UserlastEventId.length() - 1));
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.whereEqualTo("objectid", objectid);
+        ParseGeoPoint gpslastevent = query.getFirst().getParseGeoPoint("geoPoint");
+            lastEventGPS.setLatitude(gpslastevent.getLatitude());
+            lastEventGPS.setLongitude(gpslastevent.getLongitude());
+        } catch (ParseException e) {
+            Toast.makeText(MapsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.getMessage();
+            Toast.makeText(getApplicationContext(), "failed!", Toast.LENGTH_LONG).show();
+        }
+        return lastEventGPS;
     }
 }
