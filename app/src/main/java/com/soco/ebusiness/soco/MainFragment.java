@@ -187,7 +187,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                         objectsl = objects;
                         for (int i = 0; i < objects.size(); i++) {
                             x = objects.get(i).getString("Titel");
-                           y = objects.get(i).getObjectId();
+                            y = objects.get(i).getObjectId();
                             eventids.add(y);
                             listOfSharedWord.add(x);
                         }
@@ -205,23 +205,25 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ParseGeoPoint eventgps = new ParseGeoPoint(0,0);
+                    ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
                     mSlidingUpPanelLayout.collapsePane();
-                    int ids = (int) id;
-                    String objectId = eventids.get(ids);
-                    try {
-                         eventgps =  eventquery.get(objectId).getParseGeoPoint("geoPoint");
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                    if (id > 0) {
+                        int ids = (int) id;
+                        String objectId = eventids.get(ids);
+                        try {
+                            eventgps = eventquery.get(objectId).getParseGeoPoint("geoPoint");
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        CameraUpdate center =
+                                CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
+                                        eventgps.getLongitude()));
+                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5);
+
+                        mMap.moveCamera(center);
+                        mMap.animateCamera(zoom);
                     }
-
-                    CameraUpdate center=
-                            CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
-                                    eventgps.getLongitude()));
-                    CameraUpdate zoom=CameraUpdateFactory.zoomTo(5);
-
-                    mMap.moveCamera(center);
-                    mMap.animateCamera(zoom);
                 }
             });
 
