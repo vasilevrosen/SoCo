@@ -53,7 +53,7 @@
     <string name="title_activity_rezept_liste">Rezeptliste</string>
     <string name="rb_name">Rezeptname Durchsuchen</string>
     <string name="title_activity_rezept_details">Rezeptdetails</string>
-    <string name="details_rezept">Details Rezept</string>
+    <string name="details_rezept">Detailansicht vom Rezept</string>
     <!--Facebook-->
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>

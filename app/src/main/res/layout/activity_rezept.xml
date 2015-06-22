@@ -38,7 +38,7 @@
             android:height="80dp"
             android:onClick="rezeptSuchen"
             android:singleLine="false"
-            android:layout_gravity="center" />
+            android:layout_gravity="right|center_vertical" />
 
     </FrameLayout>
 

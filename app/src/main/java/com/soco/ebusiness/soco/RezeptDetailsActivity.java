@@ -18,6 +18,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 public class RezeptDetailsActivity extends ActionBarActivity {
@@ -27,14 +28,23 @@ public class RezeptDetailsActivity extends ActionBarActivity {
     String kategorie;
     String zutaten;
     String zubereitungszeit;
-    EditText tit;
-    EditText kat;
-    EditText zut;
-    EditText zubereitung;
-    TextView rezeptdetails;
+    String vorbereitung;
+
+    EditText et_title;
+    EditText et_kategorie;
+    EditText et_zutaten;
+    EditText et_zubereitung;
+    EditText et_vorbereitung;
+    TextView tv_rezeptdetails;
+    TextView tv_title;
+    TextView tv_kategorie;
+    TextView tv_zutaten;
+    TextView tv_zubereitungszeit;
+    TextView tv_vorbereitung;
     Button btnDelete;
     Button btnUpdate;
     ParseObject obj;
+    String authorId;
 
 
     @Override
@@ -42,29 +52,39 @@ public class RezeptDetailsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rezept_details);
         ParseObject.registerSubclass(Rezept.class);
+        final ParseUser currentUser = ParseUser.getCurrentUser();
 
         Bundle i = getIntent().getExtras();
         id = i.getString("objectId");
 
-        tit = (EditText) findViewById(R.id.titel_details);
-        kat = (EditText) findViewById(R.id.kategorie_details);
-        zut = (EditText) findViewById(R.id.zutaten_details);
-        zubereitung = (EditText) findViewById(R.id.zubereitungszeit_details);
-        rezeptdetails = (TextView) findViewById(R.id.details_rezept);
-        final String details_text = rezeptdetails.getText().toString();
+        et_title = (EditText) findViewById(R.id.titel_details);
+        et_kategorie = (EditText) findViewById(R.id.kategorie_details);
+        et_zutaten = (EditText) findViewById(R.id.zutaten_details);
+        et_zubereitung = (EditText) findViewById(R.id.zubereitungszeit_details);
+        tv_rezeptdetails = (TextView) findViewById(R.id.details_rezept);
+
+        final String details_text = tv_rezeptdetails.getText().toString();
         btnDelete = (Button) findViewById(R.id.btn_delete);
         btnUpdate = (Button) findViewById(R.id.button_speichern_details);
+        tv_title = (TextView) findViewById(R.id.details_titel);
+        tv_kategorie = (TextView) findViewById(R.id.details_rezeptkategorie);
+        tv_vorbereitung = (TextView) findViewById(R.id.details_vorbereitung);
+        tv_zubereitungszeit = (TextView) findViewById(R.id.details_zubereitungszeit);
+        tv_zutaten = (TextView) findViewById(R.id.details_zutaten);
+        et_vorbereitung = (EditText) findViewById(R.id.et_details_vorbereitung);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Rezept");
         query.getInBackground(id, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     obj = object;
-                    tit.setText(object.get("titel").toString());
-                    kat.setText(object.get("kategorie").toString());
-                    zut.setText(object.get("zutaten").toString());
-                    zubereitung.setText(object.get("zubereitungszeit").toString());
-                    rezeptdetails.setText(details_text + " " + object.get("titel").toString());
+                    et_title.setText(object.get("titel").toString());
+                    et_kategorie.setText(object.get("kategorie").toString());
+                    et_zutaten.setText(object.get("zutaten").toString());
+                    et_vorbereitung.setText(object.get("vorbereitung").toString());
+                    et_zubereitung.setText(object.get("zubereitungszeit").toString());
+                    tv_rezeptdetails.setText(details_text + " " + object.get("titel").toString());
+                    authorId = object.get("userId").toString();
                 } else {
 
                 }
@@ -74,38 +94,44 @@ public class RezeptDetailsActivity extends ActionBarActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {
+                                             if (authorId.matches(currentUser.getObjectId().toString())) {
 
-                                             AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
-                                                     RezeptDetailsActivity.this);
+                                                 AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
+                                                         RezeptDetailsActivity.this);
 
-                                             alertDialog2.setTitle("Confirm delete");
-                                             alertDialog2.setMessage("Rezept delete?");
+                                                 alertDialog2.setTitle("Confirm delete");
+                                                 alertDialog2.setMessage("Rezept delete?");
 
-                                             //          alertDialog2.setIcon(R.drawable.delete);
+                                                 //          alertDialog2.setIcon(R.drawable.delete);
 
-                                             alertDialog2.setPositiveButton("Delete",
-                                                     new DialogInterface.OnClickListener() {
-                                                         public void onClick(DialogInterface dialog, int which) {
+                                                 alertDialog2.setPositiveButton("Delete",
+                                                         new DialogInterface.OnClickListener() {
+                                                             public void onClick(DialogInterface dialog, int which) {
 
-                                                             obj.deleteInBackground();
+                                                                 obj.deleteInBackground();
 
-                                                             Toast.makeText(getApplicationContext(),
-                                                                     "Das Rezept wurde erfolgreich geloescht", Toast.LENGTH_SHORT)
-                                                                     .show();
-                                                             obj.put("zubereitungszeit", zubereitung.getText().toString());
+                                                                 Toast.makeText(getApplicationContext(),
+                                                                         "Das Rezept wurde erfolgreich geloescht", Toast.LENGTH_SHORT)
+                                                                         .show();
+                                                                 obj.put("zubereitungszeit", et_zubereitung.getText().toString());
 
-                                                             Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
-                                                             startActivity(intent);
-                                                         }
-                                                     });
-                                             alertDialog2.setNegativeButton("Abbrechen",
-                                                     new DialogInterface.OnClickListener() {
-                                                         public void onClick(DialogInterface dialog, int which) {
-                                                             dialog.cancel();
-                                                         }
-                                                     });
+                                                                 Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
+                                                                 startActivity(intent);
+                                                             }
+                                                         });
+                                                 alertDialog2.setNegativeButton("Abbrechen",
+                                                         new DialogInterface.OnClickListener() {
+                                                             public void onClick(DialogInterface dialog, int which) {
+                                                                 dialog.cancel();
+                                                             }
+                                                         });
 
-                                             alertDialog2.show();
+                                                 alertDialog2.show();
+                                             }
+                                             else
+                                             {
+                                                 Toast.makeText(getApplicationContext(), "Sie duerfen nur Ihre Rezepte loeschen", Toast.LENGTH_LONG).show();
+                                             }
                                          }
                                      }
         );
@@ -113,15 +139,23 @@ public class RezeptDetailsActivity extends ActionBarActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {
-                                             obj.put("titel", tit.getText().toString());
-                                             obj.put("kategorie", kat.getText().toString());
-                                             obj.put("zutaten", zut.getText().toString());
-                                             obj.saveEventually();
+                                             if (authorId.matches(currentUser.getObjectId().toString())) {
+                                                 obj.put("titel", et_title.getText().toString());
+                                                 obj.put("kategorie", et_kategorie.getText().toString());
+                                                 obj.put("zutaten", et_zutaten.getText().toString());
+                                                 obj.put("zubereitungszeit", et_zubereitung.getText().toString());
+                                                 obj.put("vorbereitung", et_vorbereitung.getText().toString());
+                                                 obj.saveEventually();
 
-                                             Toast.makeText(getApplicationContext(), "Das Rezept " + tit.getText().toString() + " wurde erfolgreich gespeichert", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getApplicationContext(), "Das Rezept " + et_title.getText().toString() + " wurde erfolgreich gespeichert", Toast.LENGTH_SHORT).show();
 
-                                             Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
-                                             startActivity(intent);
+                                                 Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
+                                                 startActivity(intent);
+                                             }
+                                             else
+                                             {
+                                                 Toast.makeText(getApplicationContext(), "Sie duerfen nur Ihre Rezepte aendern.", Toast.LENGTH_LONG).show();
+                                             }
                                          }
                                      }
         );
@@ -154,7 +188,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
     public void rezeptAuswahlKochevent(View view) {
 
 
-        KocheventAnbietenActivity.rezeptFuerKochevent(id, tit.getText().toString());
+        KocheventAnbietenActivity.rezeptFuerKochevent(id, et_title.getText().toString());
 
 
         Intent intent = new Intent(RezeptDetailsActivity.this, KocheventAnbietenActivity.class);
