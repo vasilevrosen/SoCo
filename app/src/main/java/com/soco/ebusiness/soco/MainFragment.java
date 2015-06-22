@@ -207,7 +207,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
                     mSlidingUpPanelLayout.collapsePane();
-                    if (id > 0) {
+                    if (id >= 0) {
                         int ids = (int) id;
                         String objectId = eventids.get(ids);
                         try {
