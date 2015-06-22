@@ -155,6 +155,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         fragmentTransaction.add(R.id.mapContainer, mMapFragment, "map");
         fragmentTransaction.commit();
 
+
         //CurrentLocation
         ParseUser userObject = ParseUser.getCurrentUser();
         ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
@@ -224,6 +225,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
                         mMap.moveCamera(center);
                         mMap.animateCamera(zoom);
+                        setupWindowListener();
                     }
                 }
             });
@@ -234,14 +236,6 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                     .addOnConnectionFailedListener(this)
                     .build();
 
-            try {
-                setUpMapIfNeeded();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                setupWindowListener();
-            }
         }
     }
 
@@ -460,20 +454,13 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-
-                Log.d("", marker.getTitle());
+                String snippet = marker.getSnippet();
+                String[] snippets = snippet.split("::");
+                String eventid = snippets[1];
+                Intent intent = new Intent(App.getAppContext(), EventActivity.class);
+                intent.putExtra("objectId", eventid);
+                startActivity(intent);
             }
         });
-    }
-
-    public boolean onInfoWindowClick(Marker marker) {
-        String snippet = marker.getSnippet();
-       String[] snippets = snippet.split("::");
-        String eventid = snippets[1];
-        Intent intent = new Intent(App.getAppContext(), EventActivity.class);
-           intent.putExtra("objectId",eventid);
-           startActivity(intent);
-        return false;
-
     }
 }

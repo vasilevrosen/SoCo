@@ -136,4 +136,5 @@
     <string name="currentPosition">Du befindest dich hier</string>
     <string name="datetime">Wann:</string>
     <string name="titel_slidemaps">Event MAP</string>
+    <string name="event_found">Event wird geöffent</string>
 </resources>
