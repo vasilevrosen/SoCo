@@ -293,6 +293,14 @@ Erstellt ein eigenes App-Icon für MAP
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soco.ebusiness.soco.MainActivity" />
         </activity>
+        <activity
+            android:name=".SlideMapActivity"
+            android:label="@string/titel_slidemaps"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soco.ebusiness.soco.MainActivity" />
+        </activity>
 
         <service
             android:name=".FetchAddressIntentService"

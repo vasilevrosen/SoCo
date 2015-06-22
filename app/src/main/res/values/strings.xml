@@ -134,4 +134,6 @@
     <string name="title_activity_meine_favoriten_list">MeineFavoritenListActivity</string>
     <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAUXMFKpFr5xb8skyIRAue2A1hZFB5c9ts</string>
     <string name="currentPosition">Du befindest dich hier</string>
+    <string name="datetime">Wann:</string>
+    <string name="titel_slidemaps">Event MAP</string>
 </resources>
