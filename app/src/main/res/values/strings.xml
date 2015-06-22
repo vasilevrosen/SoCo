@@ -126,7 +126,7 @@
     <string name="empfehlen">Empfehlen</string>
     <string name="service_not_available">Service nicht erreichbar</string>
     <string name="invalid_lat_long_used">Falsche GPS Werte</string>
-    <string name="no_address_found">Keine passende Adrese</string>
+    <string name="no_address_found">Keine passende Adresse</string>
     <string name="address_found">Adresse gefunden</string>
     <string name="no_geocoder_available">Kein Geocoder Verfügbar</string>
     <string name="gps_error">Ortung nicht möglich</string>

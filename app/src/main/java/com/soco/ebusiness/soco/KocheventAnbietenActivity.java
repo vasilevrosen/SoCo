@@ -69,7 +69,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
     private static boolean rezeptAusgewaehlt;
 
-    private static ParseGeoPoint currentGPS;
+    private static ParseGeoPoint currentGPS = new ParseGeoPoint(0,0);
 
 
     public static void rezeptFuerKochevent(String rezeptID, String rezeptTitel){
@@ -211,84 +211,99 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
     public void eventErstellen(View view){
+        boolean getgps =false;
 
+        if(currentGPS.getLatitude()==0){
+            plzOnPause = plz.getText().toString();
+            ortOnPause = ort.getText().toString();
+            strasseOnPause = strasse.getText().toString();
+            hausnummerOnPause = hausnummer.getText().toString();
+            String address = hausnummerOnPause+ " " +strasseOnPause+" " + ortOnPause + " " + plzOnPause;
+            ParseGeoPoint newGPS = MainActivity.convertAddress(KocheventAnbietenActivity.this, address);
+            if(newGPS.getLatitude()!=0){
+                Toast.makeText(this,getString(R.string.address_found),Toast.LENGTH_LONG).show();
+                currentGPS = newGPS;
+                getgps=true;
 
-
-
-        final Event neuesEvent = new Event();
-
-        neuesEvent.setTitel(titel.getText().toString());
-        neuesEvent.setMaxTeilnehmer(Integer.parseInt(maxTeilnehmer.getText().toString()));
-        neuesEvent.setPLZ(Integer.parseInt(plz.getText().toString()));
-        neuesEvent.setOrt(ort.getText().toString());
-        neuesEvent.setStrasse(strasse.getText().toString());
-        neuesEvent.setHausnummer(Integer.parseInt(hausnummer.getText().toString()));
-        neuesEvent.setUhrzeit(gesetzteZeit.getText().toString());
-        neuesEvent.setRezeptID(ausgewaehltesRezeptID);
-        neuesEvent.setDatum(gesetztesDatum.getText().toString());
-        neuesEvent.setGEOPoint(currentGPS);
-
-        String neueUserID = ParseUser.getCurrentUser().getObjectId();
-
-        neuesEvent.addNeuerTeilnehmer(neueUserID);
-
-
-        neuesEvent.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-
-
-
-                ParseUser aktuellerUser = ParseUser.getCurrentUser();
-
-                JSONArray eventsMitAktuellenUser = aktuellerUser.getJSONArray("userEvents");
-
-                if (eventsMitAktuellenUser == null) {
-                    eventsMitAktuellenUser = new JSONArray();
-                }
-
-                String neuErstelltesEventId = neuesEvent.getObjectId();
-
-                eventsMitAktuellenUser.put(neuErstelltesEventId);
-
-
-
-
-                aktuellerUser.put("userEvents", eventsMitAktuellenUser);
-
-                aktuellerUser.saveEventually();
-
-
+            } else{
+                Toast.makeText(this,getString(R.string.no_address_found),Toast.LENGTH_LONG).show();
+                getgps=false;
             }
-        });
+        } else {
+            getgps =true;
+            Toast.makeText(this,getString(R.string.address_found),Toast.LENGTH_LONG).show();
+        }
+
+        if(getgps==true) {
+
+            final Event neuesEvent = new Event();
+
+            neuesEvent.setTitel(titel.getText().toString());
+            neuesEvent.setMaxTeilnehmer(Integer.parseInt(maxTeilnehmer.getText().toString()));
+            neuesEvent.setPLZ(Integer.parseInt(plz.getText().toString()));
+            neuesEvent.setOrt(ort.getText().toString());
+            neuesEvent.setStrasse(strasse.getText().toString());
+            neuesEvent.setHausnummer(Integer.parseInt(hausnummer.getText().toString()));
+            neuesEvent.setUhrzeit(gesetzteZeit.getText().toString());
+            neuesEvent.setRezeptID(ausgewaehltesRezeptID);
+            neuesEvent.setDatum(gesetztesDatum.getText().toString());
+            neuesEvent.setGEOPoint(currentGPS);
+
+            String neueUserID = ParseUser.getCurrentUser().getObjectId();
+
+            neuesEvent.addNeuerTeilnehmer(neueUserID);
 
 
+            neuesEvent.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
 
 
+                    ParseUser aktuellerUser = ParseUser.getCurrentUser();
 
-        Intent intent = new Intent(KocheventAnbietenActivity.this, FirstActivity.class);
-        startActivity(intent);
+                    JSONArray eventsMitAktuellenUser = aktuellerUser.getJSONArray("userEvents");
 
-        Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel.getText().toString() + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();
+                    if (eventsMitAktuellenUser == null) {
+                        eventsMitAktuellenUser = new JSONArray();
+                    }
 
+                    String neuErstelltesEventId = neuesEvent.getObjectId();
 
-
-
-        ausgewaehltesRezeptID = null;
-
-        ausgewaehltesRezeptTitelTextView.setClickable(false);
-        ausgewaehltesRezeptTitelTextView.setTextColor(Color.parseColor("#000000"));
-
-        ortOnPause = "";
-        plzOnPause = "";
-        zeitOnPause = "";
-        datumOnPause = "";
-        strasseOnPause = "";
-        hausnummerOnPause = "";
-        maxTeilnehmerOnPause = "";
-        titelOnPause = "";
+                    eventsMitAktuellenUser.put(neuErstelltesEventId);
 
 
+                    aktuellerUser.put("userEvents", eventsMitAktuellenUser);
+
+                    aktuellerUser.saveEventually();
+
+
+                }
+            });
+
+
+            Intent intent = new Intent(KocheventAnbietenActivity.this, FirstActivity.class);
+            startActivity(intent);
+
+            Toast.makeText(KocheventAnbietenActivity.this, "Das Kochevent " + titel.getText().toString() + " wurde erfolgreich angelegt. Jetzt fehlen nur noch die Teilnehmer ;)", Toast.LENGTH_LONG).show();
+
+
+            ausgewaehltesRezeptID = null;
+
+            ausgewaehltesRezeptTitelTextView.setClickable(false);
+            ausgewaehltesRezeptTitelTextView.setTextColor(Color.parseColor("#000000"));
+
+            ortOnPause = "";
+            plzOnPause = "";
+            zeitOnPause = "";
+            datumOnPause = "";
+            strasseOnPause = "";
+            hausnummerOnPause = "";
+            maxTeilnehmerOnPause = "";
+            titelOnPause = "";
+
+        } else {
+            Toast.makeText(this,getString(R.string.no_address_found),Toast.LENGTH_LONG).show();
+        }
     }
 
     public void navigateToRezeptsuche(View view){

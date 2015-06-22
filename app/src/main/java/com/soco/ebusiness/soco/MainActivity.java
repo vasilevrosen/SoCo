@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
@@ -30,9 +31,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.plus.Plus;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -474,4 +478,24 @@ public class MainActivity extends ActionBarActivity implements
             }
         }
     }
+    public static ParseGeoPoint convertAddress(Context context,String address) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+
+       ParseGeoPoint gpsconvert = new ParseGeoPoint(0,0);
+        if (address != null && !address.isEmpty()) {
+            try {
+                List<Address> addressList = geocoder.getFromLocationName(address, 1);
+                if (addressList != null && addressList.size() > 0) {
+                    double lat = addressList.get(0).getLatitude();
+                    double lng = addressList.get(0).getLongitude();
+                    gpsconvert.setLatitude(lat);
+                    gpsconvert.setLongitude(lng);
+                    return gpsconvert;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } // end catch
+        } // end if
+        return null;
+    } // end convertAddress
 }
