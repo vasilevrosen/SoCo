@@ -243,6 +243,23 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/LLTeilnehmer"
+        android:layout_below="@+id/LLBewerben"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listeDerTeilnehmer"
+            android:visibility="invisible"
+            android:textSize="18dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/AnfrageSenden"
         android:layout_below="@+id/LLBewerben"
         android:layout_marginTop="10dp">

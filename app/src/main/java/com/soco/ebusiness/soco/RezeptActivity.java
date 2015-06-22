@@ -2,10 +2,7 @@ package com.soco.ebusiness.soco;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 
@@ -53,5 +50,13 @@ public class RezeptActivity extends MainActivity {
         this.startActivity(new Intent(this, FirstActivity.class));
 
         return;
+    }
+    public void mapOpen(View view)
+    {
+
+
+        Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+            //sendToast(getString(R.string.msg_loginmissing));
     }
 }

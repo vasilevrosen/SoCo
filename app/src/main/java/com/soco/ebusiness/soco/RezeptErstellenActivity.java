@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class RezeptErstellenActivity extends ActionBarActivity {
@@ -19,6 +20,7 @@ public class RezeptErstellenActivity extends ActionBarActivity {
     EditText kategorie;
     EditText zutaten;
     EditText zubereitungszeit;
+    EditText vorbereitung;
     Button btn_save;
 
     @Override
@@ -27,10 +29,13 @@ public class RezeptErstellenActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_erstellen);
         ParseObject.registerSubclass(Rezept.class);
 
+        final ParseUser currentUser = ParseUser.getCurrentUser();
+
         titel = (EditText) findViewById(R.id.titel_details);
         kategorie = (EditText) findViewById(R.id.kategorie_details);
         zutaten = (EditText) findViewById(R.id.zutaten_details);
         zubereitungszeit = (EditText) findViewById(R.id.zubereitungszeit);
+        vorbereitung = (EditText) findViewById(R.id.et_rezepterstellen_vorbereitung);
         btn_save = (Button) findViewById(R.id.button_speichern);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -40,14 +45,17 @@ public class RezeptErstellenActivity extends ActionBarActivity {
                                             if (titel.getText().toString().matches("") ||
                                                     kategorie.getText().toString().matches("") ||
                                                     zutaten.getText().toString().matches("") ||
-                                                    zubereitungszeit.getText().toString().matches("")) {
-                                                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
+                                                    zubereitungszeit.getText().toString().matches("") ||
+                                                    vorbereitung.getText().toString().matches("")) {
+                                                Toast.makeText(RezeptErstellenActivity.this, "Das Rezept konnte nicht gespeichert werden. Bitte pruefen Sie die Eingabefelder.", Toast.LENGTH_LONG).show();
                                             } else {
                                                 Rezept rezept = new Rezept();
                                                 rezept.setTitle(titel.getText().toString());
                                                 rezept.setKategorie(kategorie.getText().toString());
                                                 rezept.setZutaten(zutaten.getText().toString());
                                                 rezept.setZubereitungszeit(zubereitungszeit.getText().toString());
+                                                rezept.setVorbereitung(vorbereitung.getText().toString());
+                                                rezept.setUserId(currentUser.getObjectId().toString());
                                                 rezept.saveEventually();
 
                                                 Intent intent = new Intent(RezeptErstellenActivity.this, RezeptActivity.class);
