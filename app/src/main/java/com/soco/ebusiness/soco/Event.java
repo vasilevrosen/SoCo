@@ -8,6 +8,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 
 import java.util.Date;
@@ -69,6 +70,53 @@ public class Event extends ParseObject{
 
 
         return getJSONArray("aktuelleTeilnehmer");
+    }
+
+
+    public void addNeuerBewerber(String neueBewerberID){
+
+
+        JSONArray aktuelleBewerber = getAktuelleBewerber();
+
+        if(aktuelleBewerber == null){
+            aktuelleBewerber = new JSONArray();
+        }
+
+
+
+        aktuelleBewerber.put(neueBewerberID);
+
+        put("Bewerber", aktuelleBewerber);
+
+    }
+
+    public void deleteBewerber(String bewerberID){
+
+        JSONArray aktuelleBewerber = getAktuelleBewerber();
+
+        int index = 0;
+
+        for(int i = 0; i < aktuelleBewerber.length(); i++){
+
+            try {
+                if(aktuelleBewerber.getString(i).equals(bewerberID)){
+                    index = i;
+                    break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        aktuelleBewerber.remove(index);
+
+        put("Bewerber", aktuelleBewerber);
+    }
+
+    public JSONArray getAktuelleBewerber(){
+
+
+        return getJSONArray("Bewerber");
     }
 
     public void setPLZ(int plz){

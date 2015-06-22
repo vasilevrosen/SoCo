@@ -260,6 +260,56 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/LLAnfragenHeader"
+        android:layout_below="@+id/LLTeilnehmer"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Aktuelle Anfragen"
+            android:id="@+id/AnfragenHeader"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="#FF8F0606"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LLAktuelleAnfragen"
+        android:layout_below="@+id/LLAnfragenHeader"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/AnzahlAnfragen"
+            android:textSize="18dp"
+            android:text="Derzeit gibt es noch keine Anfragen."
+            android:gravity="center"
+            android:visibility="invisible"/>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/AnzahlAnfragen"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/AnfrageSenden"
         android:layout_below="@+id/LLBewerben"
         android:layout_marginTop="10dp">
@@ -274,7 +324,7 @@
             android:id="@+id/btnAnfrage"
             android:layout_centerHorizontal="true"
             android:textColor="#000000"
-            android:onClick="eventErstellen"
+            android:onClick="anfrageStarten"
 
             />
 
@@ -292,11 +342,12 @@
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:id="@+id/qrcode"
-        android:layout_below="@+id/AnfrageSenden">
+        android:layout_below="@+id/LLAktuelleAnfragen">
     <ImageView android:id="@+id/img_qrcode" android:layout_width="160dp"
         android:layout_height="160dp"
         android:onClick="onclicksaveqr"
-        android:contentDescription="@string/bitmap" />
+        android:contentDescription="@string/bitmap"
+        android:gravity="center"/>
     </LinearLayout>
 
 
