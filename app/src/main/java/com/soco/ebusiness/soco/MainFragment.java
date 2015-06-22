@@ -17,6 +17,7 @@
 package com.soco.ebusiness.soco;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
@@ -447,7 +448,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, lng))
                     .title(titel)
-                    .snippet(getString(R.string.datetime)+ " "+date+" "+time));
+                    .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
 
             //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
             //    intent.putExtra("objectId",objectId);
@@ -466,10 +467,13 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     }
 
     public boolean onInfoWindowClick(Marker marker) {
-        Log.i("GoogleMapActivity", "onMarkerClick");
-        Toast.makeText(App.getAppContext(),
-                "Marker Clicked: " + marker.getTitle(), Toast.LENGTH_LONG)
-                .show();
+        String snippet = marker.getSnippet();
+       String[] snippets = snippet.split("::");
+        String eventid = snippets[1];
+        Intent intent = new Intent(App.getAppContext(), EventActivity.class);
+           intent.putExtra("objectId",eventid);
+           startActivity(intent);
         return false;
+
     }
 }
