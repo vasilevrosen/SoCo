@@ -84,7 +84,8 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -133,11 +134,18 @@
 
                 <Button
                     android:id="@+id/save_settings"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/save"
                     android:onClick="changeSettings"
-                    android:layout_column="24" />
+                    android:layout_column="24"
+                    android:layout_marginRight="50dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             </TableRow>
 
         </TableLayout>

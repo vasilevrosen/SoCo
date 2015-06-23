@@ -393,7 +393,12 @@ try {
        String kilometer_string = map_maxdistance.getText().toString();
         int kilometer = (Integer.parseInt(kilometer_string));
         ParseUser.getCurrentUser().put("Radius",kilometer);
+        openStart();
+
 
     }
-
+    public void openStart() {
+        Intent intent1 = new Intent(this, FirstActivity.class);
+        startActivity(intent1);
+    }
 }
