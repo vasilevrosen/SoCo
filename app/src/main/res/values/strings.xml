@@ -8,7 +8,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">SoCo</string>
 
-    <string name="terminvermittlung">Terminvermittlung</string>
+    <string name="terminvermittlung">Event Verwaltung</string>
     <string name="rezeptkatalog">Rezeptkatalog</string>
     <string name="wissensdb">Wissensdatenbank</string>
     <string name="settings">Settings</string>
@@ -27,14 +27,14 @@
     <string name="btn_rezept_suche">Suchen</string>
     <string name="btn_event_suchen">Event Suchen</string>
     <string name="btn_event_erstellen">Event Erstellen</string>
-    <string name="title_activity_terminvermittlung">Terminvermittlung</string>
+    <string name="title_activity_terminvermittlung">Event Verwaltung</string>
     <string name="title_activity_kochevent">Kochevent anbieten</string>
     <string name="title_activity_meineevents">Meine Events</string>
     <string name="title_activity_wissensDb">Wissensdatenbank</string>
     <string name="title_activity_rezeptsuchen">Rezept suchen</string>
     <string name="title_activity_design_test">DesignTestActivity</string>
     <string name="title_activity_fragment_test">FragmentTest</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">Registrieren</string>
     <string name="username">Benutzername</string>
     <string name="password_label">Passwort</string>
     <string name="sign_up_label">Registrieren</string>

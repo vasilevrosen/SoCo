@@ -187,6 +187,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 public void done(List<ParseObject> objects, ParseException e) {
                     if (e == null) {
                         objectsl = objects;
+                        listOfSharedWord.clear();
                         for (int i = 0; i < objects.size(); i++) {
                             x = objects.get(i).getString("Titel");
                             y = objects.get(i).getObjectId();

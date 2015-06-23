@@ -81,4 +81,27 @@ public class TerminvermittlungActivity extends MainActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void meine_veranstaltungen(View view) {
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, MeineVeranstaltungenListActivity.class);
+            startActivity(intent);
+        }
+        else sendToast(getString(R.string.msg_loginmissing));
+    }
+
+    public void meine_teilnahmen(View view) {
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, MeineTeilnahmenListActivity.class);
+            startActivity(intent);
+        }
+        else sendToast(getString(R.string.msg_loginmissing));
+    }
+
+    public void meine_favoriten(View view) {
+        if(App.get_loginstate()) {
+            Intent intent = new Intent(this, MeineFavoritenListActivity.class);
+            startActivity(intent);
+        }
+        else sendToast(getString(R.string.msg_loginmissing));
+    }
 }

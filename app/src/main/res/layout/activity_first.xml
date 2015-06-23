@@ -23,33 +23,17 @@
             <!-- TODO:USER ACCESS Permission -->
             <Button
                 android:layout_width="fill_parent"
-                android:enabled="true"
-                android:visibility="visible"
                 android:layout_height="wrap_content"
-                android:text="Meine Veranstaltungen"
-                android:id="@+id/btn_meine_veranstaltungen"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:text="Event Map"
+                android:id="@+id/event_suchen"
                 android:height="80dp"
-                android:onClick="meine_veranstaltungen"
-                android:singleLine="false"
-                android:layout_gravity="center_horizontal|top" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:enabled="true"
-                android:visibility="visible"
-                android:layout_height="wrap_content"
-                android:text="Meine Teilnahmen"
-                android:id="@+id/btn_meine_teilnahmen"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:height="80dp"
-                android:onClick="meine_teilnahmen"
-                android:singleLine="false"
-                android:layout_gravity="center_horizontal|top" />
+                android:onClick="event_map"
+                android:layout_below="@+id/event_ortSuche"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                />
 
             <Button
                 android:layout_width="fill_parent"
@@ -79,44 +63,8 @@
                 android:layout_below="@+id/btn_meine_teilnahmen"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal|bottom" />
+                android:layout_marginTop="20dp" />
 
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:id="@+id/OrtText"
-                android:layout_marginTop="10dp"
-                android:singleLine="true"
-                android:hint="Hier den gewünschten Ort eingeben"/>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Event nach Ort suchen"
-                android:id="@+id/event_ortSuche"
-                android:height="80dp"
-                android:onClick="navigateToEventSuche"
-                android:layout_below="@+id/OrtText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Event Map"
-                android:id="@+id/event_suchen"
-                android:height="80dp"
-                android:onClick="event_map"
-                android:layout_below="@+id/event_ortSuche"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                />
         </LinearLayout>
     </FrameLayout>
     </ScrollView>

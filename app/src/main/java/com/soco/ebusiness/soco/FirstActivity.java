@@ -60,17 +60,4 @@ public class FirstActivity extends MainActivity {
          Intent intent = new Intent(this, SlideMapActivity.class);
          startActivity(intent);
     }
-
-    public void navigateToEventSuche(View view){
-
-        String gesuchterOrt = ((EditText) findViewById(R.id.OrtText)).getText().toString();
-
-
-        Intent intent = new Intent(FirstActivity.this, EventListe.class);
-
-        intent.putExtra("Ort", gesuchterOrt);
-        startActivity(intent);
-
-
-    }
 }

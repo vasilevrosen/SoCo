@@ -8,17 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/third_background">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meine Events"
-        android:id="@+id/zuMeineEvents"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="42dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="navigateToMeineEvents"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -27,7 +16,6 @@
         android:id="@+id/zuKocheventErstellung"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/zuMeineEvents"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="navigateToKocheventAnbieten"/>
@@ -42,7 +30,6 @@
         android:text=""
         android:layout_below="@+id/zuKocheventErstellung"
         android:layout_marginTop="46dp"
-        android:layout_alignLeft="@+id/zuMeineEvents"
         android:layout_marginLeft="5dp"
         android:singleLine="true"
         android:textColor="#000000"/>
@@ -59,6 +46,50 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="navigateToEventSuche"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:text="Meine Veranstaltungen"
+        android:id="@+id/btn_meine_veranstaltungen"
+        android:height="80dp"
+        android:onClick="meine_veranstaltungen"
+        android:singleLine="false"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_above="@+id/btn_meine_teilnahmen"
+        android:layout_alignRight="@+id/eventortSuchtext"
+        android:layout_alignEnd="@+id/eventortSuchtext" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:text="Meine Teilnahmen"
+        android:id="@+id/btn_meine_teilnahmen"
+        android:height="80dp"
+        android:onClick="meine_teilnahmen"
+        android:singleLine="false"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_above="@+id/btn_meine_favoriten"
+        android:layout_alignRight="@+id/btn_meine_favoriten"
+        android:layout_alignEnd="@+id/btn_meine_favoriten" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:text="Meine Favoriten"
+        android:id="@+id/btn_meine_favoriten"
+        android:height="80dp"
+        android:onClick="meine_favoriten"
+        android:singleLine="false"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/eventortSuchtext"
+        android:layout_alignStart="@+id/eventortSuchtext" />
 </RelativeLayout>
     <!-- The navigation drawer -->
     <ListView
