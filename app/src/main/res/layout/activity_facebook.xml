@@ -35,7 +35,8 @@
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:background="#FFF"
-                  android:id="@+id/main_ui_container">
+                  android:id="@+id/main_ui_container"
+        android:weightSum="1">
         <com.facebook.login.widget.LoginButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,41 +82,65 @@
                     />
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="224dp"
-            android:weightSum="1"
-            android:layout_marginTop="30dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MApRadius"
-                android:id="@+id/textView2"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1."
-                android:textSize="15dp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="22dp"
-                android:id="@+id/textView"
-                android:layout_weight="1."
-                android:textStyle="bold|normal|italic"
-                android:focusableInTouchMode="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Settings"
+                    android:textSize="22dp"
+                    android:id="@+id/textView"
+                    android:layout_weight="1.32"
+                    android:textStyle="bold|normal|italic" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/map_maxdistance"
-                android:layout_gravity="center_vertical" />
+            </TableRow>
 
-        </LinearLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MApRadius"
+                    android:id="@+id/textView2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.99"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="18" />
+
+                <EditText
+                    android:layout_width="69dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/map_maxdistance"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="30dp"
+                    android:layout_column="20" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/save_settings"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:onClick="changeSettings"
+                    android:layout_column="24" />
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 

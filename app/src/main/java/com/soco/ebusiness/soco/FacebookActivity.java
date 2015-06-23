@@ -389,5 +389,11 @@ try {
 
         return super.onOptionsItemSelected(item);
     }
+    public void changeSettings(View view){
+       String kilometer_string = map_maxdistance.getText().toString();
+        int kilometer = (Integer.parseInt(kilometer_string));
+        ParseUser.getCurrentUser().put("Radius",kilometer);
+
+    }
 
 }

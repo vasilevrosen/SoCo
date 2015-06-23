@@ -138,4 +138,5 @@
     <string name="titel_slidemaps">Event MAP</string>
     <string name="event_found">Event wird geöffent</string>
     <string name="title_activity_bewerber_check">BewerberCheckActivity</string>
+    <string name="save">Speichern</string>
 </resources>
