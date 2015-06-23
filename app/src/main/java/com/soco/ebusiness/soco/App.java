@@ -62,6 +62,7 @@ public class App extends Application {
         sContext= this;
         //FacebookSdk.sdkInitialize(this.getApplicationContext());
         ParseObject.registerSubclass(Rezept.class);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Event.class);
 
         Parse.enableLocalDatastore(this);

@@ -80,6 +80,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     private SupportMapFragment mMapFragment;
 
     private boolean mIsNeedLocationUpdate = true;
+    private int maxdistanc = 100;
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -155,89 +156,41 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         fragmentTransaction.add(R.id.mapContainer, mMapFragment, "map");
         fragmentTransaction.commit();
 
-
-        //CurrentLocation
-        ParseUser userObject = ParseUser.getCurrentUser();
-        ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
-        try {
-            setUpMapIfNeeded();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (userLocation == null) {
-            try {
-                userLocation = getLastEventGPS();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            //EVENT MARKER
-             eventquery = ParseQuery.getQuery("Event");
-            // if(){
-            //     query.whereWithinKilometers();
-            // }
-
-            eventquery.whereNear("geoPoint", userLocation);
-            eventquery.setLimit(10);
-            eventquery.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-                    if (e == null) {
-                        objectsl = objects;
-                        listOfSharedWord.clear();
-                        for (int i = 0; i < objects.size(); i++) {
-                            x = objects.get(i).getString("Titel");
-                            y = objects.get(i).getObjectId();
-                            eventids.add(y);
-                            listOfSharedWord.add(x);
-                        }
-                        Toast.makeText(App.getAppContext(), "Es wurde(n) " + listOfSharedWord.size() + " Event(s) gefunden", Toast.LENGTH_SHORT).show();
-
-                        createEventMarker(objects);
-                    } else {
-                        e.getMessage();
-                        Toast.makeText(App.getAppContext(), "failed!", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-            mListView.addHeaderView(mTransparentHeaderView);
-            mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
-                    mSlidingUpPanelLayout.collapsePane();
-                    if (id >= 0) {
-                        int ids = (int) id;
-                        String objectId = eventids.get(ids);
-                        try {
-                            eventgps = eventquery.get(objectId).getParseGeoPoint("geoPoint");
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        CameraUpdate center =
-                                CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
-                                        eventgps.getLongitude()));
-                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5);
-
-                        mMap.moveCamera(center);
-                        mMap.animateCamera(zoom);
-                        setupWindowListener();
-                    }
-                }
-            });
-
+        createEventList();
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                     .addApi(LocationServices.API)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .build();
+        mListView.addHeaderView(mTransparentHeaderView);
+        mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
+                mSlidingUpPanelLayout.collapsePane();
+                if (id >= 0) {
+                    int ids = (int) id;
+                    String objectId = eventids.get(ids);
+                    try {
+                        eventgps = eventquery.get(objectId).getParseGeoPoint("geoPoint");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-        }
+                    CameraUpdate center =
+                            CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
+                                    eventgps.getLongitude()));
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(2f);
+
+                    mMap.moveCamera(center);
+                    mMap.animateCamera(zoom);
+                    setupWindowListener();
+                }
+            }
+        });
+
+
     }
 
     private void setUpMapIfNeeded() throws ParseException, JSONException {
@@ -277,12 +230,23 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        synchronized(mListView){
+
+            mListView.deferNotifyDataSetChanged();
+        }
+        mSlidingUpPanelLayout.collapsePane();
+        expandMap();
+        createEventList();
+        mSlidingUpPanelLayout.hidePane();
+        mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Connect the client.
+        createEventList();
         mGoogleApiClient.connect();
     }
 
@@ -322,7 +286,8 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         }
         mLocationMarker = mMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_mylocation))
-                .position(latLng).anchor(0.5f, 0.5f));
+                .position(latLng).anchor(0.5f, 0.5f)
+                .title(getString(R.string.currentPosition)));
     }
 
     private void moveToLocation(Location location) {
@@ -366,7 +331,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         mSpaceView.setVisibility(View.GONE);
         mTransparentView.setVisibility(View.INVISIBLE);
         if (mMap != null) {
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(14f), 1000, null);
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(8f), 1000, null);
         }
         mListView.setScrollingEnabled(false);
     }
@@ -428,10 +393,12 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             e.getMessage();
         } catch (JSONException e) {
             e.getMessage();
-
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         return lastEventGPS;
     }
+    //CreateEventMarker
     private void createEventMarker(List<ParseObject> objects){
         for (int i = 0; i < objects.size(); i++) {
             String objectId = objects.get(i).getObjectId();
@@ -464,4 +431,78 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             }
         });
     }
+    public void createEventList() {
+        ParseGeoPoint userLocation=null;
+
+        try {
+            //CurrentLocation
+            final ParseUser userObject = ParseUser.getCurrentUser();
+             userLocation = (ParseGeoPoint) userObject.get("location");
+           maxdistanc = userObject.getInt("Radius");
+            Toast.makeText(App.getAppContext(),userObject.getString("Radius"),Toast.LENGTH_LONG);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            setUpMapIfNeeded();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (userLocation == null) {
+            try {
+                userLocation = getLastEventGPS();
+                if (mLocation == null) {
+                } else {
+                    int lat = (int) (userLocation.getLatitude());
+                    int lng = (int) (userLocation.getLongitude());
+                    try {
+                        lat = (int) (mLocation.latitude);
+                        lng = (int) (mLocation.longitude);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    userLocation.setLatitude(lat);
+                    userLocation.setLongitude(lng);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //EVENT MARKER
+            eventquery = ParseQuery.getQuery("Event");
+
+            eventquery.whereNear("geoPoint", userLocation);
+            eventquery.setLimit(10);
+            eventquery.whereWithinKilometers("geoPoint", userLocation, maxdistanc);
+            eventquery.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        objectsl = objects;
+                        listOfSharedWord.clear();
+                        for (int i = 0; i < objects.size(); i++) {
+                            x = objects.get(i).getString("Titel");
+                            y = objects.get(i).getObjectId();
+                            eventids.add(y);
+                            listOfSharedWord.add(x);
+                        }
+                        Toast.makeText(App.getAppContext(), "Es wurde(n) " + listOfSharedWord.size()
+                                + " Event(s) im Umkreis von "
+                                + maxdistanc
+                                + " Kilometer gefunden."
+                                , Toast.LENGTH_SHORT).show();
+
+                        createEventMarker(objects);
+                    } else {
+                        e.getMessage();
+                        Toast.makeText(App.getAppContext(), "failed!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+        }
+
 }

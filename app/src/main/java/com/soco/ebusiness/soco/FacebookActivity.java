@@ -35,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,6 +70,7 @@ public class FacebookActivity extends MainActivity {
 
     private final String PENDING_ACTION_BUNDLE_KEY =
             "com.facebook.samples.hellofacebook:PendingAction";
+    EditText map_maxdistance;
 
     private Button postStatusUpdateButton;
     private Button postPhotoButton;
@@ -217,6 +221,13 @@ public class FacebookActivity extends MainActivity {
                 SharePhotoContent.class);
         //Navigation erstellen
         set(navMenuTitles, navMenuIcons);
+try {
+    map_maxdistance = (EditText) findViewById(R.id.map_maxdistance);
+    int kilometer = ParseUser.getCurrentUser().getInt("Radius");
+    map_maxdistance.setText(Integer.toString(kilometer));
+} catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -169,12 +169,7 @@ public class EventActivity extends ListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(erstellerID.equals(ParseUser.getCurrentUser().getObjectId())){
-            nutzerIstErsteller = true;
-        }
-        else { nutzerIstErsteller = false; }
-
-
+        geterstellerbewerberstatus(erstellerID,object);
         int aktuelleTeilnehmerAnzahl = aktuelleTeilnehmer.length();
         int maxTeilnehmerAnzahl = object.getInt("MaxTeilnehmer");
         String teilnehmerString = "Aktuelle Teilnehmerzahl: " + Integer.toString(aktuelleTeilnehmerAnzahl) + " von "  + Integer.toString(maxTeilnehmerAnzahl);
@@ -209,17 +204,6 @@ public class EventActivity extends ListActivity {
 
         if(aktuelleBewerber == null){
             aktuelleBewerber = new JSONArray();
-        }
-
-        if(aktuelleBewerber.toString().contains(ParseUser.getCurrentUser().getObjectId())){
-
-            nutzerIstBewerber = true;
-            btnAnfrage.setText("Anfrage zurückziehen");
-        }
-
-        else {
-            nutzerIstBewerber = false;
-
         }
 
 
@@ -330,9 +314,7 @@ public class EventActivity extends ListActivity {
             lv.setAdapter(arrayAdapter);
 
         }
-
-
-        JSONArray userFavoriten = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
+        JSONArray userFavoriten=createFavoriten();
 
 
         if(userFavoriten != null) {
@@ -456,10 +438,7 @@ public class EventActivity extends ListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(erstellerID.equals(ParseUser.getCurrentUser().getObjectId())){
-            nutzerIstErsteller = true;
-        }
-        else { nutzerIstErsteller = false; }
+       geterstellerbewerberstatus(erstellerID,object);
 
 
         int aktuelleTeilnehmerAnzahl = aktuelleTeilnehmer.length();
@@ -496,17 +475,6 @@ public class EventActivity extends ListActivity {
 
         if(aktuelleBewerber == null){
             aktuelleBewerber = new JSONArray();
-        }
-
-        if(aktuelleBewerber.toString().contains(ParseUser.getCurrentUser().getObjectId())){
-
-            nutzerIstBewerber = true;
-            btnAnfrage.setText("Anfrage zurückziehen");
-        }
-
-        else {
-            nutzerIstBewerber = false;
-
         }
 
 
@@ -614,10 +582,7 @@ public class EventActivity extends ListActivity {
             lv.setAdapter(arrayAdapter);
 
         }
-
-
-        JSONArray userFavoriten = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
-
+        JSONArray userFavoriten =createFavoriten();
 
         if(userFavoriten != null) {
             for (int j = 0; j < userFavoriten.length(); j++) {
@@ -740,11 +705,7 @@ public class EventActivity extends ListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(erstellerID.equals(ParseUser.getCurrentUser().getObjectId())){
-            nutzerIstErsteller = true;
-        }
-        else { nutzerIstErsteller = false; }
-
+        geterstellerbewerberstatus(erstellerID,object);
 
         int aktuelleTeilnehmerAnzahl = aktuelleTeilnehmer.length();
         int maxTeilnehmerAnzahl = object.getInt("MaxTeilnehmer");
@@ -775,23 +736,6 @@ public class EventActivity extends ListActivity {
 
 
         teilnehmerText.setText(teilnehmerString);
-
-        JSONArray aktuelleBewerber = object.getJSONArray("Bewerber");
-
-        if(aktuelleBewerber == null){
-            aktuelleBewerber = new JSONArray();
-        }
-
-        if(aktuelleBewerber.toString().contains(ParseUser.getCurrentUser().getObjectId())){
-
-            nutzerIstBewerber = true;
-            btnAnfrage.setText("Anfrage zurückziehen");
-        }
-
-        else {
-            nutzerIstBewerber = false;
-
-        }
 
 
         if(nutzerIstErsteller){
@@ -898,9 +842,7 @@ public class EventActivity extends ListActivity {
             lv.setAdapter(arrayAdapter);
 
         }
-
-
-        JSONArray userFavoriten = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
+        JSONArray userFavoriten = createFavoriten();
 
 
         if(userFavoriten != null) {
@@ -948,96 +890,98 @@ public class EventActivity extends ListActivity {
     }
 
     public void anfrageStarten(View view){
+        if ( !App.get_loginstate()) {
+            openLogin();
+        } else {
+
+            ParseQuery<ParseObject> getEvent = new ParseQuery<ParseObject>("Event");
+            getEvent.whereEqualTo("objectId", id);
+
+            ParseObject aktuellesEvent = null;
+
+            try {
+                aktuellesEvent = getEvent.getFirst();
 
 
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
 
-        ParseQuery<ParseObject> getEvent = new ParseQuery<ParseObject>("Event");
-        getEvent.whereEqualTo("objectId", id);
+            JSONArray aktuelleBewerber = aktuellesEvent.getJSONArray("Bewerber");
 
-        ParseObject aktuellesEvent = null;
-
-        try {
-            aktuellesEvent = getEvent.getFirst();
+            if (aktuelleBewerber == null) {
+                aktuelleBewerber = new JSONArray();
+            }
 
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+            if (!nutzerIstBewerber) {
+
+                aktuelleBewerber.put(ParseUser.getCurrentUser().getObjectId());
+                nutzerIstBewerber = true;
+                btnAnfrage.setText("Anfrage zurückziehen");
+            } else {
+
+                int index = 0;
+
+                for (int i = 0; i < aktuelleBewerber.length(); i++) {
+
+                    try {
+                        if (aktuelleBewerber.getString(i).equals(ParseUser.getCurrentUser().getObjectId())) {
+                            index = i;
+                            break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                aktuelleBewerber.remove(index);
+                btnAnfrage.setText("Anfrage senden");
+                nutzerIstBewerber = false;
+
+            }
+
+            aktuellesEvent.put("Bewerber", aktuelleBewerber);
+            try {
+                aktuellesEvent.save();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
-
-        JSONArray aktuelleBewerber = aktuellesEvent.getJSONArray("Bewerber");
-
-        if(aktuelleBewerber == null){
-            aktuelleBewerber = new JSONArray();
-        }
-
-
-        if(!nutzerIstBewerber){
-
-            aktuelleBewerber.put(ParseUser.getCurrentUser().getObjectId());
-            nutzerIstBewerber = true;
-            btnAnfrage.setText("Anfrage zurückziehen");
-        }
-        else {
-
-            int index = 0;
-
-            for(int i = 0; i < aktuelleBewerber.length(); i++){
-
-                try {
-                    if(aktuelleBewerber.getString(i).equals(ParseUser.getCurrentUser().getObjectId())){
+    public void onClickFavorit(View view) {
+        if (!App.get_loginstate()) {
+            openLogin();
+        } else {
+            ParseUser aktuellerUser = ParseUser.getCurrentUser();
+            JSONArray userFavoriten = createFavoriten();
+            if (userFavoriten == null) {
+                userFavoriten = new JSONArray();
+            }
+            if (istFavorit) {
+                int index = 0;
+                for (int i = 0; i < userFavoriten.length(); i++) {
+                    if (userFavoriten.optString(i).equals(id)) {
                         index = i;
                         break;
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+                userFavoriten.remove(index);
+                favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_off_normal_holo_light);
+                istFavorit = false;
+            } else {
+                userFavoriten.put(id);
+                favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_on_normal_holo_light);
+                istFavorit = true;
             }
-
-            aktuelleBewerber.remove(index);
-            btnAnfrage.setText("Anfrage senden");
-            nutzerIstBewerber = false;
-
+            aktuellerUser.put("userFavoriten", userFavoriten);
+            aktuellerUser.saveEventually();
         }
-
-        aktuellesEvent.put("Bewerber", aktuelleBewerber);
-        try {
-            aktuellesEvent.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
     }
 
-    public void onClickFavorit(View view){
-        ParseUser aktuellerUser = ParseUser.getCurrentUser();
-        JSONArray userFavoriten = aktuellerUser.getJSONArray("userFavoriten");
-        if(userFavoriten == null){
-            userFavoriten = new JSONArray();
-        }
-        if(istFavorit){
-            int index = 0;
-            for(int i = 0; i < userFavoriten.length(); i++){
-                if(userFavoriten.optString(i).equals(id)){
-                    index = i;
-                    break;
-                }
-            }
-            userFavoriten.remove(index);
-            favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_off_normal_holo_light);
-            istFavorit = false;
-        }
-        else
-        {
-            userFavoriten.put(id);
-            favoritStern.setImageResource(R.drawable.apptheme_btn_rating_star_on_normal_holo_light);
-            istFavorit = true;
-        }
-        aktuellerUser.put("userFavoriten", userFavoriten);
-        aktuellerUser.saveEventually();
-    }
-    public void onclicksaveqr(View view){
+    public void onclicksaveqr(View view) {
         App.saveqrcode(this, bmp_qrcode);
     }
 
@@ -1049,12 +993,56 @@ public class EventActivity extends ListActivity {
         String objectId = alleBewerber.get(position).getObjectId();
 
         Intent intent = new Intent(EventActivity.this, BewerberCheckActivity.class);
-        intent.putExtra("objectId",objectId);
+        intent.putExtra("objectId", objectId);
         intent.putExtra("eventId", id);
         startActivity(intent);
 
 
-
     }
 
+    public void geterstellerbewerberstatus(String erstellerID, ParseObject object) {
+        try {
+            if (erstellerID.equals(ParseUser.getCurrentUser().getObjectId())) {
+                nutzerIstErsteller = true;
+            } else {
+                nutzerIstErsteller = false;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            nutzerIstErsteller = false;
+
+        }
+        JSONArray aktuelleBewerber = object.getJSONArray("Bewerber");
+        if (aktuelleBewerber == null) {
+            aktuelleBewerber = new JSONArray();
+        }
+        try {
+            if (aktuelleBewerber.toString().contains(ParseUser.getCurrentUser().getObjectId())) {
+
+                nutzerIstBewerber = true;
+                btnAnfrage.setText("Anfrage zurückziehen");
+            } else {
+                nutzerIstBewerber = false;
+
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            nutzerIstBewerber = false;
+        }
+    }
+
+    public JSONArray createFavoriten() {
+        JSONArray userFavoriten = null;
+        try {
+            userFavoriten = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return userFavoriten;
+    }
+
+    public void openLogin() {
+        Intent intent1 = new Intent(this, LoginActivity.class);
+        startActivity(intent1);
+    }
 }

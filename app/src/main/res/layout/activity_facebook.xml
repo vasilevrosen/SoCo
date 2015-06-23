@@ -80,8 +80,46 @@
                     android:text="Post Photo"
                     />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="224dp"
+            android:weightSum="1"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MApRadius"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1."
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="22dp"
+                android:id="@+id/textView"
+                android:layout_weight="1."
+                android:textStyle="bold|normal|italic"
+                android:focusableInTouchMode="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/map_maxdistance"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
     </LinearLayout>
-    <!-- The navigation drawer -->
+
+        <!-- The navigation drawer -->
 
     </FrameLayout>
     <!-- The navigation drawer -->

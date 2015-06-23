@@ -51,7 +51,7 @@ public class MeineFavoritenListActivity extends ListActivity {
         JSONArray alleUserEventId = ParseUser.getCurrentUser().getJSONArray("userFavoriten");
 
 
-        if(alleUserEventId != null) {
+        if(alleUserEventId != null && ParseUser.getCurrentUser()!= null) {
             for (int i = 0; i < alleUserEventId.length(); i++) {
 
                 alleUserEventIdStr.add(alleUserEventId.optString(i));

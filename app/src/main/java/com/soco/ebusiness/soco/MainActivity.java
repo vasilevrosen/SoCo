@@ -241,9 +241,11 @@ public class MainActivity extends ActionBarActivity implements
                 finish();
                 break;
             case 5:
+                if (App.get_loginstate()) {
                 Intent intent4 = new Intent(this, FacebookActivity.class);
                 startActivity(intent4);
                 finish();
+            }
                 break;
             case 6:
                 if (!App.get_loginstate()) {
@@ -500,4 +502,8 @@ public class MainActivity extends ActionBarActivity implements
         } // end if
         return null;
     } // end convertAddress
+public void openLogin(){
+    Intent intent1 = new Intent(this, LoginActivity.class);
+    startActivity(intent1);
+}
 }

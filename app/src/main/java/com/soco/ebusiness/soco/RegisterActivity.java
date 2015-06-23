@@ -3,23 +3,27 @@ package com.soco.ebusiness.soco;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends FragmentActivity {
 
     private EditText mUsernameField;
     private EditText mPasswordField;
     private TextView mErrorField;
+    private int kilometer =100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ParseObject.registerSubclass(User.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -40,9 +44,10 @@ public class RegisterActivity extends Activity {
             return;
 
         v.setEnabled(false);
-        ParseUser user = new ParseUser();
+        User user = new User();
         user.setUsername(mUsernameField.getText().toString());
         user.setPassword(mPasswordField.getText().toString());
+        user.setRadius(kilometer);
         mErrorField.setText("");
 
         user.signUpInBackground(new SignUpCallback() {
