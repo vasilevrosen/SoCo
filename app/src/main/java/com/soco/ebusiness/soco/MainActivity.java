@@ -256,6 +256,7 @@ public class MainActivity extends ActionBarActivity implements
                     App.setloginstate(false);
                     ParseUser.logOut();
                     ParseUser currentUser = ParseUser.getCurrentUser();
+                    openFirst();
 
                 }
 
@@ -506,4 +507,8 @@ public void openLogin(){
     Intent intent1 = new Intent(this, LoginActivity.class);
     startActivity(intent1);
 }
+    public void openFirst(){
+        Intent intent1 = new Intent(this, FirstActivity.class);
+        startActivity(intent1);
+    }
 }
