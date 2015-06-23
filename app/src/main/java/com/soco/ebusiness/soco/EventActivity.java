@@ -28,12 +28,14 @@ import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 public class EventActivity extends ListActivity {
     TextView titel;
@@ -949,6 +951,10 @@ public class EventActivity extends ListActivity {
                 e.printStackTrace();
             }
         }
+        LinkedList<String> channels = new LinkedList<String>();
+        channels.add("Event"+id);
+        String message = getString(R.string.neueAnfrage)+":" + titel;
+        sendPush(channels,message);
     }
 
     public void onClickFavorit(View view) {
@@ -1044,5 +1050,12 @@ public class EventActivity extends ListActivity {
     public void openLogin() {
         Intent intent1 = new Intent(this, LoginActivity.class);
         startActivity(intent1);
+    }
+    public void sendPush(LinkedList<String> channels,String message){
+
+        ParsePush push = new ParsePush();
+        push.setChannels(channels); // Notice we use setChannels not setChannel
+        push.setMessage(message);
+        push.sendInBackground();
     }
 }

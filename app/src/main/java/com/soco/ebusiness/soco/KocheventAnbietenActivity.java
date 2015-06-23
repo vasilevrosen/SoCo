@@ -1,10 +1,18 @@
 package com.soco.ebusiness.soco;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,25 +24,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SendCallback;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 
-public class KocheventAnbietenActivity extends FragmentActivity {
+public class KocheventAnbietenActivity extends FragmentActivity implements GPSAdressDialogFragment.NoticeDialogListener{
 
 
     private static EditText titel;
@@ -43,6 +63,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
     private static EditText strasse;
     private static EditText hausnummer;
     private static EditText ort;
+    private static EditText style;
 
 
     private static EditText gesetztesDatum;
@@ -58,6 +79,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
     private static String hausnummerOnPause = "";
     private static String datumOnPause = "";
     private static String zeitOnPause = "";
+    private static String stylOnPause="";
 
     private static Date datum;
 
@@ -103,8 +125,8 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
 
-
         titel = (EditText) findViewById(R.id.editTextEventTitel);
+        style = (EditText) findViewById(R.id.editTextEventStyle);
         maxTeilnehmer = (EditText) findViewById(R.id.editTextMaxTeilnehmerzahl);
         plz= (EditText) findViewById(R.id.editTextEventPLZ);
         strasse = (EditText) findViewById(R.id.editTextEventStraße);
@@ -113,13 +135,8 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
         gesetztesDatum = (EditText) findViewById(R.id.editTextEventDatum);
         gesetzteZeit = (EditText) findViewById(R.id.editTextEventUhrzeit);
-
-
-
-
+       showNoticeDialog();
     }
-
-
 
 
 
@@ -128,12 +145,12 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
         super.onResume();
-
         titel.setText(titelOnPause);
         maxTeilnehmer.setText(maxTeilnehmerOnPause);
         ort.setText(ortOnPause);
         plz.setText(plzOnPause);
         strasse.setText(strasseOnPause);
+        style.setText(stylOnPause);
         hausnummer.setText(hausnummerOnPause);
         gesetztesDatum.setText(datumOnPause);
         gesetzteZeit.setText(zeitOnPause);
@@ -152,14 +169,13 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
 
         super.onRestart();
-
-
         titel.setText(titelOnPause);
         maxTeilnehmer.setText(maxTeilnehmerOnPause);
         ort.setText(ortOnPause);
         plz.setText(plzOnPause);
         strasse.setText(strasseOnPause);
         hausnummer.setText(hausnummerOnPause);
+        style.setText(stylOnPause);
         gesetztesDatum.setText(datumOnPause);
         gesetzteZeit.setText(zeitOnPause);
 
@@ -177,14 +193,13 @@ public class KocheventAnbietenActivity extends FragmentActivity {
 
         super.onPause();
 
-
-
         titelOnPause = titel.getText().toString();
         maxTeilnehmerOnPause = maxTeilnehmer.getText().toString();
         plzOnPause = plz.getText().toString();
         ortOnPause = ort.getText().toString();
         strasseOnPause = strasse.getText().toString();
         hausnummerOnPause = hausnummer.getText().toString();
+        stylOnPause = style.getText().toString();
         zeitOnPause = gesetzteZeit.getText().toString();
         datumOnPause = gesetztesDatum.getText().toString();
 
@@ -202,6 +217,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         ortOnPause = ort.getText().toString();
         strasseOnPause = strasse.getText().toString();
         hausnummerOnPause = hausnummer.getText().toString();
+        stylOnPause = style.getText().toString();
         zeitOnPause = gesetzteZeit.getText().toString();
         datumOnPause = gesetztesDatum.getText().toString();
 
@@ -239,6 +255,7 @@ public class KocheventAnbietenActivity extends FragmentActivity {
             neuesEvent.setOrt(ort.getText().toString());
             neuesEvent.setStrasse(strasse.getText().toString());
             neuesEvent.setHausnummer(Integer.parseInt(hausnummer.getText().toString()));
+            neuesEvent.setstyle(style.getText().toString());
             neuesEvent.setUhrzeit(gesetzteZeit.getText().toString());
             neuesEvent.setRezeptID(ausgewaehltesRezeptID);
             neuesEvent.setDatum(gesetztesDatum.getText().toString());
@@ -247,7 +264,6 @@ public class KocheventAnbietenActivity extends FragmentActivity {
             String neueUserID = ParseUser.getCurrentUser().getObjectId();
 
             neuesEvent.addNeuerTeilnehmer(neueUserID);
-
 
             neuesEvent.saveInBackground(new SaveCallback() {
                 @Override
@@ -270,8 +286,10 @@ public class KocheventAnbietenActivity extends FragmentActivity {
                     aktuellerUser.put("userEvents", eventsMitAktuellenUser);
 
                     aktuellerUser.saveEventually();
-
-
+                    LinkedList<String> channels = new LinkedList<String>();
+                    channels.add("Event" + neuesEvent.getObjectId());
+                    channels.add(neuesEvent.getstyle());
+                    sendPush(channels);
                 }
             });
 
@@ -293,9 +311,9 @@ public class KocheventAnbietenActivity extends FragmentActivity {
             datumOnPause = "";
             strasseOnPause = "";
             hausnummerOnPause = "";
+            stylOnPause ="";
             maxTeilnehmerOnPause = "";
             titelOnPause = "";
-
         } else {
             Toast.makeText(this,getString(R.string.no_address_found),Toast.LENGTH_LONG).show();
         }
@@ -381,6 +399,98 @@ public class KocheventAnbietenActivity extends FragmentActivity {
         } else {
             Toast.makeText(this,getString(R.string.gps_error),Toast.LENGTH_LONG);
         }
+    }
+
+    public void sendPush(LinkedList<String> channels){
+
+        ParsePush push = new ParsePush();
+        push.setChannels(channels); // Notice we use setChannels not setChannel
+        push.setMessage("Neues Event");
+        push.sendInBackground();
+    }
+    private LatLng getLastKnownLocation() {
+        LocationManager lm = (LocationManager) App.getAppContext().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_LOW);
+        String provider = lm.getBestProvider(criteria, true);
+        if (provider == null) {
+            return null;
+        }
+        Location loc = lm.getLastKnownLocation(provider);
+        if (loc != null) {
+            LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+            return latLng;
+        }
+        return null;
+    }
+    private void creatAdressonGPS() {
+        LatLng getlastlocation = getLastKnownLocation();
+        Geocoder geoCoder = new Geocoder(
+                getBaseContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = geoCoder.getFromLocation(
+                    getlastlocation.latitude,
+                    getlastlocation.longitude, 1);
+
+
+            String add = "";
+            if (addresses.size() == 1) {
+                if(addresses.get(0).getPostalCode()!=null) {
+                    plzOnPause = addresses.get(0).getPostalCode();
+                    plz.setText(plzOnPause);
+                }
+                ortOnPause = addresses.get(0).getLocality();
+                ort.setText(ortOnPause);
+                if (addresses.get(0).getThoroughfare() != null) {
+                    strasseOnPause = addresses.get(0).getThoroughfare();
+                    strasse.setText(strasseOnPause);
+                }
+                if (addresses.get(0).getSubThoroughfare() != null) {
+                    hausnummerOnPause = addresses.get(0).getSubThoroughfare();
+                    hausnummer.setText(hausnummerOnPause);
+                }
+            } else {
+
+                for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex();
+                     i++)
+                    add += addresses.get(0).getAddressLine(i) + "\n";
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showNoticeDialog() {
+        // Create an instance of the dialog fragment and show it
+        GPSAdressDialogFragment dialog = new GPSAdressDialogFragment();
+        dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+
+
+    @Override
+    public void onDialogPositiveClick(android.support.v4.app.DialogFragment dialog) {
+        creatAdressonGPS();
+    }
+
+    @Override
+    public void onDialogNegativeClick(android.support.v4.app.DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        creatAdressonGPS();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
 
     }
 }

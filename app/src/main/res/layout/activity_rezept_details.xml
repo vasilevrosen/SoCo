@@ -185,6 +185,15 @@ android:layout_height="wrap_content"
         android:layout_below="@+id/LLUpdateundDelete"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Subschribe Push"
+        android:id="@+id/push_subscribe"
+        android:onClick="pushSubscribe"
+        android:layout_below="@+id/btn_Rezept_Auswählen"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 

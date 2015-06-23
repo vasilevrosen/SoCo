@@ -212,4 +212,11 @@ public class Event extends ParseObject{
         return getString("Beschreibung");
     }
 
+    public void setstyle(String style) {
+        put("Style",style);
+    }
+     String getstyle(){
+        return getString("Style");
+    }
+
 }

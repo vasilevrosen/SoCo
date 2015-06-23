@@ -139,4 +139,8 @@
     <string name="event_found">Event wird geöffent</string>
     <string name="title_activity_bewerber_check">BewerberCheckActivity</string>
     <string name="save">Speichern</string>
+    <string name="neueAnfrage">Neue Anfrage</string>
+    <string name="useGPSquest">GPS Nutzen für Adresse?</string>
+    <string name="fire">OK</string>
+    <string name="cancel">Abbrechen</string>
 </resources>

@@ -50,11 +50,13 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class FacebookActivity extends MainActivity {
 
@@ -67,6 +69,8 @@ public class FacebookActivity extends MainActivity {
             setLongitude(-122.3331);
         }
     };
+
+    List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
 
     private final String PENDING_ACTION_BUNDLE_KEY =
             "com.facebook.samples.hellofacebook:PendingAction";

@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -29,7 +31,6 @@ public class RezeptDetailsActivity extends ActionBarActivity {
     String zutaten;
     String zubereitungszeit;
     String vorbereitung;
-
     EditText et_title;
     EditText et_kategorie;
     EditText et_zutaten;
@@ -53,7 +54,6 @@ public class RezeptDetailsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rezept_details);
         ParseObject.registerSubclass(Rezept.class);
         final ParseUser currentUser = ParseUser.getCurrentUser();
-
         Bundle i = getIntent().getExtras();
         id = i.getString("objectId");
 
@@ -93,7 +93,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
                                          @Override
-                                         public void onClick(View view) {
+                                         public void onClick(final View view) {
                                              if (authorId.matches(currentUser.getObjectId().toString())) {
 
                                                  AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
@@ -109,13 +109,13 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                                              public void onClick(DialogInterface dialog, int which) {
 
                                                                  obj.deleteInBackground();
-
                                                                  Toast.makeText(getApplicationContext(),
                                                                          "Das Rezept wurde erfolgreich geloescht", Toast.LENGTH_SHORT)
                                                                          .show();
                                                                  obj.put("zubereitungszeit", et_zubereitung.getText().toString());
 
                                                                  Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
+
                                                                  startActivity(intent);
                                                              }
                                                          });
@@ -127,9 +127,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                                          });
 
                                                  alertDialog2.show();
-                                             }
-                                             else
-                                             {
+                                             } else {
                                                  Toast.makeText(getApplicationContext(), "Sie duerfen nur Ihre Rezepte loeschen", Toast.LENGTH_LONG).show();
                                              }
                                          }
@@ -152,8 +150,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                                                  Intent intent = new Intent(getApplicationContext(), RezeptActivity.class);
                                                  startActivity(intent);
                                              }
-                                             else
-                                             {
+                                             else {
                                                  Toast.makeText(getApplicationContext(), "Sie duerfen nur Ihre Rezepte aendern.", Toast.LENGTH_LONG).show();
                                              }
                                          }
@@ -196,4 +193,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
 
 
     }
+    public void pushSubscribe(View view){
+            ParsePush.subscribeInBackground(id.toString());
+        }
 }
