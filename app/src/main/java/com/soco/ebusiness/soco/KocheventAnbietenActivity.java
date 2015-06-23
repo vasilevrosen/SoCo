@@ -53,6 +53,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import bolts.Task;
+
 
 public class KocheventAnbietenActivity extends FragmentActivity implements GPSAdressDialogFragment.NoticeDialogListener{
 
@@ -90,15 +92,17 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
     private static String ausgewaehltesRezeptTitelText = "Bitte Rezept auswählen";
 
     private static boolean rezeptAusgewaehlt;
+    private static String ausgewaehltesRezeptKategorie;
 
     private static ParseGeoPoint currentGPS = new ParseGeoPoint(0,0);
 
 
-    public static void rezeptFuerKochevent(String rezeptID, String rezeptTitel){
+    public static void rezeptFuerKochevent(String rezeptID, String rezeptTitel, String kategorie){
 
 
         ausgewaehltesRezeptTitelText = rezeptTitel;
         ausgewaehltesRezeptID = rezeptID;
+        ausgewaehltesRezeptKategorie = kategorie;
 
         rezeptAusgewaehlt = true;
 
@@ -286,10 +290,14 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
                     aktuellerUser.put("userEvents", eventsMitAktuellenUser);
 
                     aktuellerUser.saveEventually();
+                    String channel = "Event"+neuErstelltesEventId;
+                    ParsePush.subscribeInBackground(channel);
                     LinkedList<String> channels = new LinkedList<String>();
-                    channels.add("Event" + neuesEvent.getObjectId());
+                    channels.add("Event" + neuErstelltesEventId);
                     channels.add(neuesEvent.getstyle());
+                    channels.add(ausgewaehltesRezeptKategorie);
                     sendPush(channels);
+
                 }
             });
 

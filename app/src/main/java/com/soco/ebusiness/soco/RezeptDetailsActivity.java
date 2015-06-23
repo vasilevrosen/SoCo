@@ -79,7 +79,8 @@ public class RezeptDetailsActivity extends ActionBarActivity {
                 if (e == null) {
                     obj = object;
                     et_title.setText(object.get("titel").toString());
-                    et_kategorie.setText(object.get("kategorie").toString());
+                    kategorie = object.get("kategorie").toString();
+                    et_kategorie.setText(kategorie);
                     et_zutaten.setText(object.get("zutaten").toString());
                     et_vorbereitung.setText(object.get("vorbereitung").toString());
                     et_zubereitung.setText(object.get("zubereitungszeit").toString());
@@ -185,7 +186,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
     public void rezeptAuswahlKochevent(View view) {
 
 
-        KocheventAnbietenActivity.rezeptFuerKochevent(id, et_title.getText().toString());
+        KocheventAnbietenActivity.rezeptFuerKochevent(id, et_title.getText().toString(),kategorie);
 
 
         Intent intent = new Intent(RezeptDetailsActivity.this, KocheventAnbietenActivity.class);
@@ -194,6 +195,7 @@ public class RezeptDetailsActivity extends ActionBarActivity {
 
     }
     public void pushSubscribe(View view){
-            ParsePush.subscribeInBackground(id.toString());
+        String channel = kategorie;
+            ParsePush.subscribeInBackground(channel);
         }
 }

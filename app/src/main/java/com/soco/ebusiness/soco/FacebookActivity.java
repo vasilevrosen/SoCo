@@ -50,13 +50,21 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+
+import bolts.Task;
 
 public class FacebookActivity extends MainActivity {
 
@@ -289,7 +297,8 @@ try {
             greeting.setText(getString(R.string.hello_user, profile.getFirstName()));
         } else {
             profilePictureView.setProfileId(null);
-            greeting.setText(null);
+            greeting.setText(ParseUser.getCurrentUser().getUsername());
+
         }
     }
 
@@ -397,6 +406,9 @@ try {
        String kilometer_string = map_maxdistance.getText().toString();
         int kilometer = (Integer.parseInt(kilometer_string));
         ParseUser.getCurrentUser().put("Radius",kilometer);
+
+        Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_LONG);
+
         openStart();
 
 

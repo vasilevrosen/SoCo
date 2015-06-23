@@ -143,4 +143,5 @@
     <string name="useGPSquest">GPS Nutzen für Adresse?</string>
     <string name="fire">OK</string>
     <string name="cancel">Abbrechen</string>
+    <string name="settings_saved">Settings gespeichert</string>
 </resources>
