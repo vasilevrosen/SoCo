@@ -239,7 +239,7 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
             hausnummerOnPause = hausnummer.getText().toString();
             String address = hausnummerOnPause+ " " +strasseOnPause+" " + ortOnPause + " " + plzOnPause;
             ParseGeoPoint newGPS = MainActivity.convertAddress(KocheventAnbietenActivity.this, address);
-            if(newGPS.getLatitude()!=0){
+            if(newGPS.getLatitude()!=0 || newGPS!=null){
                 Toast.makeText(this,getString(R.string.address_found),Toast.LENGTH_LONG).show();
                 currentGPS = newGPS;
                 getgps=true;
@@ -249,7 +249,7 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
                 getgps=false;
             }
 
-        if(getgps==true) {
+        if(getgps) {
 
             final Event neuesEvent = new Event();
 
@@ -292,7 +292,7 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
                     aktuellerUser.saveEventually();
                     String channel = "Event"+neuErstelltesEventId;
                     ParsePush.subscribeInBackground(channel);
-                    LinkedList<String> channels = new LinkedList<String>();
+                    LinkedList<String> channels = new LinkedList<>();
                     channels.add("Event" + neuErstelltesEventId);
                     channels.add(neuesEvent.getstyle());
                     channels.add(ausgewaehltesRezeptKategorie);
@@ -435,40 +435,45 @@ public class KocheventAnbietenActivity extends FragmentActivity implements GPSAd
         LatLng getlastlocation = getLastKnownLocation();
         Geocoder geoCoder = new Geocoder(
                 getBaseContext(), Locale.getDefault());
-        try {
-            List<Address> addresses = geoCoder.getFromLocation(
-                    getlastlocation.latitude,
-                    getlastlocation.longitude, 1);
+        if(getlastlocation!=null) {
+            try {
+
+                List<Address> addresses = geoCoder.getFromLocation(
+                        getlastlocation.latitude,
+                        getlastlocation.longitude, 1);
 
 
-            String add = "";
-            if (addresses.size() == 1) {
-                if(addresses.get(0).getPostalCode()!=null) {
-                    plzOnPause = addresses.get(0).getPostalCode();
-                    plz.setText(plzOnPause);
+                String add = "";
+                if (addresses.size() == 1) {
+                    if (addresses.get(0).getPostalCode() != null) {
+                        plzOnPause = addresses.get(0).getPostalCode();
+                        plz.setText(plzOnPause);
+                    }
+                    ortOnPause = addresses.get(0).getLocality();
+                    ort.setText(ortOnPause);
+                    if (addresses.get(0).getThoroughfare() != null) {
+                        strasseOnPause = addresses.get(0).getThoroughfare();
+                        strasse.setText(strasseOnPause);
+                    }
+                    if (addresses.get(0).getSubThoroughfare() != null) {
+                        hausnummerOnPause = addresses.get(0).getSubThoroughfare();
+                        hausnummer.setText(hausnummerOnPause);
+                    }
+                } else if (addresses.size() > 0) {
+
+                    for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex();
+                         i++)
+                        add += addresses.get(0).getAddressLine(i) + "\n";
+
+                } else {
+                    Toast.makeText(this, getString(R.string.no_address_found), Toast.LENGTH_LONG).show();
                 }
-                ortOnPause = addresses.get(0).getLocality();
-                ort.setText(ortOnPause);
-                if (addresses.get(0).getThoroughfare() != null) {
-                    strasseOnPause = addresses.get(0).getThoroughfare();
-                    strasse.setText(strasseOnPause);
-                }
-                if (addresses.get(0).getSubThoroughfare() != null) {
-                    hausnummerOnPause = addresses.get(0).getSubThoroughfare();
-                    hausnummer.setText(hausnummerOnPause);
-                }
-            } else {
 
-                for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex();
-                     i++)
-                    add += addresses.get(0).getAddressLine(i) + "\n";
-
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
     }
     public void showNoticeDialog() {

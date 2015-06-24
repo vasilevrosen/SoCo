@@ -64,7 +64,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        SlidingUpPanelLayout.PanelSlideListener, LocationListener {
+        SlidingUpPanelLayout.PanelSlideListener, LocationListener{
 
 
     private static final String ARG_LOCATION = "arg.location";
@@ -160,44 +160,23 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         fragmentTransaction.add(R.id.mapContainer, mMapFragment, "map");
         fragmentTransaction.commit();
 
-        createEventList();
-            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+           createEventList();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                     .addApi(LocationServices.API)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .build();
-        mListView.addHeaderView(mTransparentHeaderView);
+
+        synchronized(mListView){
+
+            mListView.deferNotifyDataSetChanged();
+        }
+        mSlidingUpPanelLayout.collapsePane();
         mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
-                mSlidingUpPanelLayout.collapsePane();
-                if (id >= 0) {
-                    int ids = (int) id;
-                    String objectId = eventids.get(ids);
-                    try {
-                        eventgps = eventquery.get(objectId).getParseGeoPoint("geoPoint");
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    CameraUpdate center =
-                            CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
-                                    eventgps.getLongitude()));
-                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(2f);
-
-                    mMap.moveCamera(center);
-                    mMap.animateCamera(zoom);
-                    setupWindowListener();
-                }
-            }
-        });
-
-
     }
 
-    private void setUpMapIfNeeded() throws ParseException, JSONException {
+    private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -207,7 +186,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setCompassEnabled(false);
                 mMap.getUiSettings().setZoomControlsEnabled(false);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 LatLng update = getLastKnownLocation();
                 if (update != null) {
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(update, 11.0f)));
@@ -219,37 +198,44 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                         moveToLocation(latLng, false);
                     }
                 });
+            } else {
+                openMaps();
             }
         }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         // In case Google Play services has since become available.
-        try {
+        createEventList();
             setUpMapIfNeeded();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         synchronized(mListView){
 
             mListView.deferNotifyDataSetChanged();
         }
-        createEventList();
-        mSlidingUpPanelLayout.hidePane();
+        mSlidingUpPanelLayout.collapsePane();
         mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
 
     }
 
     @Override
     public void onStart() {
+        setupSlideMenu();
         super.onStart();
-        // Connect the client.
-        createEventList();
         mGoogleApiClient.connect();
+        // In case Google Play services has since become available.
+        createEventList();
+        setUpMapIfNeeded();
+
+        synchronized(mListView){
+
+            mListView.deferNotifyDataSetChanged();
+        }
+        mSlidingUpPanelLayout.collapsePane();
+        mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
     }
 
     @Override
@@ -361,6 +347,11 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     public void onLocationChanged(Location location) {
         if (mIsNeedLocationUpdate) {
             moveToLocation(location);
+            createEventList();
+            progressbar.setVisibility(View.GONE);
+            setUpMapIfNeeded();
+            setupSlideMenu();
+            mSlidingUpPanelLayout.collapsePane();
         }
     }
 
@@ -382,26 +373,36 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-    public ParseGeoPoint getLastEventGPS() throws ParseException, JSONException {
-        try {
+    public ParseGeoPoint getLastEventGPS()  {
+       if(ParseUser.getCurrentUser()!= null){
             JSONArray UserlastEventId = ParseUser.getCurrentUser().getJSONArray("userEvents");
-            String objectid = UserlastEventId.getString((UserlastEventId.length() - 1));
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-            query.whereEqualTo("objectid", objectid);
-            ParseGeoPoint gpslastevent = query.getFirst().getParseGeoPoint("geoPoint");
-            lastEventGPS.setLatitude(gpslastevent.getLatitude());
-            lastEventGPS.setLongitude(gpslastevent.getLongitude());
-        } catch (ParseException e) {
-            e.getMessage();
-        } catch (JSONException e) {
-            e.getMessage();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+           if(UserlastEventId != null) {
+               String objectid = null;
+               try {
+                   objectid = UserlastEventId.getString((UserlastEventId.length() - 1));
+               } catch (JSONException e) {
+                   e.printStackTrace();
+                   return lastEventGPS;
+               }
+               ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+               query.whereEqualTo("objectid", objectid);
+               ParseGeoPoint gpslastevent = null;
+               try {
+                   gpslastevent = query.getFirst().getParseGeoPoint("geoPoint");
+               } catch (ParseException e) {
+                   e.printStackTrace();
+                   return lastEventGPS;
+               }
+               lastEventGPS.setLatitude(gpslastevent.getLatitude());
+               lastEventGPS.setLongitude(gpslastevent.getLongitude());
+           }
         }
         return lastEventGPS;
     }
     //CreateEventMarker
-    private void createEventMarker(List<ParseObject> objects){
+    private void createEventMarker(List<ParseObject> objects) {
+        if (mMap!=null) {
+
         for (int i = 0; i < objects.size(); i++) {
             String objectId = objects.get(i).getObjectId();
             double lat = objects.get(i).getParseGeoPoint("geoPoint").getLatitude();
@@ -409,29 +410,28 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             String titel = objects.get(i).getString("Titel");
             String date = objects.get(i).getString("Datum");
             String time = objects.get(i).getString("Uhrzeit");
-            try {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(lat, lng))
-                        .title(titel)
-                        .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lat, lng))
+                    .title(titel)
+                    .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
 
-                //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
-                //    intent.putExtra("objectId",objectId);
-                //    startActivity(intent);
-            } catch (NullPointerException e){
-                e.printStackTrace();
-                   Intent intent = new Intent(App.getAppContext(), FirstActivity.class);
-                   startActivity(intent);
-                Toast.makeText(App.getAppContext(),getString(R.string.no_map),Toast.LENGTH_LONG);
-            }
+            //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
+            //    intent.putExtra("objectId",objectId);
+            //    startActivity(intent);
         }
+            setupWindowListener();
+        } else {
+                Intent intent = new Intent(App.getAppContext(), MapsActivity.class);
+                startActivity(intent);
+                Toast.makeText(App.getAppContext(), getString(R.string.no_map), Toast.LENGTH_LONG);
+            }
+
     }
     private void setupWindowListener() {
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                progressbar.setVisibility(View.VISIBLE);
                 String snippet = marker.getSnippet();
                 String[] snippets = snippet.split("::");
                 String eventid = snippets[1];
@@ -444,28 +444,16 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     public void createEventList() {
         ParseGeoPoint userLocation=null;
 
-        try {
+
             //CurrentLocation
             final ParseUser userObject = ParseUser.getCurrentUser();
-             userLocation = (ParseGeoPoint) userObject.get("location");
-           maxdistanc = userObject.getInt("Radius");
-            Toast.makeText(App.getAppContext(),userObject.getString("Radius"),Toast.LENGTH_LONG);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        try {
-            setUpMapIfNeeded();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            if(userObject != null) {
+                userLocation = (ParseGeoPoint) userObject.get("location");
+                maxdistanc = userObject.getInt("Radius");
+            }
         if (userLocation == null) {
-            try {
-
-                if (mLocation == null) {
-                    userLocation = getLastEventGPS();
-                } else {
+                userLocation = getLastEventGPS();
+                if (mLocation != null) {
                     int lat = (int) (userLocation.getLatitude());
                     int lng = (int) (userLocation.getLongitude());
                     try {
@@ -477,11 +465,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                     userLocation.setLatitude(lat);
                     userLocation.setLongitude(lng);
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        }
             //EVENT MARKER
             eventquery = ParseQuery.getQuery("Event");
 
@@ -514,6 +498,56 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 }
             });
         }
-        }
+    public void openMaps(){
+        Intent intent1 = new Intent(App.getAppContext(), MapsActivity.class);
+        startActivity(intent1);
+    }
+    public void setupSlideMenu(){
+        mListView.addHeaderView(mTransparentHeaderView);
+        mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ParseGeoPoint eventgps = new ParseGeoPoint(0, 0);
+                mSlidingUpPanelLayout.collapsePane();
+                if (id >= 0) {
+                    int ids = (int) id;
+                    String objectId = eventids.get(ids);
+                    try {
+                        eventgps = eventquery.get(objectId).getParseGeoPoint("geoPoint");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
+                    CameraUpdate center =
+                            CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
+                                    eventgps.getLongitude()));
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(2f);
+
+                    mMap.moveCamera(center);
+                    mMap.animateCamera(zoom);
+                }
+            }
+        });
+    }
+    private void setUpMap() {
+        Location location = MainActivity.getlastlocation();
+        if (location != null) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .title(getString(R.string.currentPosition)));
+        } else {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(49.0017191, 8.4183314))
+                    .title(getString(R.string.currentPosition)));
+            mMap.setMyLocationEnabled(true);
+            mMap.getMaxZoomLevel();
+            mMap.getMyLocation();
+            mMap.getUiSettings();
+        }
+    }
+    public void openFirst(){
+        Intent intent1 = new Intent(App.getAppContext(), FirstActivity.class);
+        startActivity(intent1);
+    }
 }

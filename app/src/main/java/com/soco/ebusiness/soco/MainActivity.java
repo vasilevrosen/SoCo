@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -102,12 +104,12 @@ public class MainActivity extends ActionBarActivity implements
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        navDrawerItems = new ArrayList<NavDrawerItem>();
+        navDrawerItems = new ArrayList<>();
 
         // adding nav drawer items
         if (navMenuIcons == null) {
-            for (int i = 0; i < navMenuTitles.length; i++) {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i]));
+            for (String navMenuTitel: navMenuTitles) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitel));
             }
         } else {
             for (int i = 0; i < navMenuTitles.length; i++) {
@@ -301,7 +303,6 @@ public class MainActivity extends ActionBarActivity implements
         //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
         this.startActivity(new Intent(this, FirstActivity.class));
 
-        return;
     }
 
     public boolean sendToast() {
@@ -510,5 +511,21 @@ public void openLogin(){
     public void openFirst(){
         Intent intent1 = new Intent(this, FirstActivity.class);
         startActivity(intent1);
+    }
+    public boolean isNetworkAvailable(Context contextValue) {
+        Context context = contextValue;
+        ConnectivityManager connectivity = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

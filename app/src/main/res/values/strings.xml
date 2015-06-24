@@ -148,4 +148,5 @@
     <string name="erfolgreichausgetragen">Erfolgreich Ausgetragen aus:</string>
     <string name="deleteall_quest">Wirklich alle löschen?</string>
     <string name="titel_activity_wiki">Themen</string>
+    <string name="nogps">Aktuell können wir dich nicht orten. Die Events werden aufgrund von deinem letzten Event ermittelt.</string>
 </resources>
