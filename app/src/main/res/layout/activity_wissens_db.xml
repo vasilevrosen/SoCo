@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.soco.ebusiness.soco.RezeptListeActivity">
+    tools:context="com.soco.ebusiness.soco.WissensDBActivity">
 
     <ListView
         android:id="@android:id/list"

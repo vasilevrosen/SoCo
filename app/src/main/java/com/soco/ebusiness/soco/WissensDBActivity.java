@@ -15,40 +15,42 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WissensDBActivity extends ListActivity {
 
-    public ArrayList<String> listOfSharedWord = new ArrayList<String>();
+    public ArrayList<String> listOfSharedWord = new ArrayList<>();
     String x;
     String query;
     ListView lv;
-    List<ParseObject> objectsl;
+    List<Themen> objectsl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_rezept_liste);
 
-        ParseObject.registerSubclass(Rezept.class);
+        ParseObject.registerSubclass(Themen.class);
         lv = getListView();
 
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rezept");
+        ParseQuery<Themen> query = new ParseQuery<>("Themen");
         query.addDescendingOrder("createdAt");
-        query.findInBackground(new FindCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<Themen>() {
             @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(List<Themen> objects, ParseException e) {
                 if (e == null) {
                     objectsl = objects;
                     for (int i = 0; i < objects.size(); i++) {
                         x = objects.get(i).getString("titel");
                         listOfSharedWord.add(x);
                     }
-                    Toast.makeText(getApplicationContext(), "Es wurde(n) " + listOfSharedWord.size() + " Rezept(e) gefunden", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Es wurde(n) " + listOfSharedWord.size() + " Themen gefunden", Toast.LENGTH_SHORT).show();
 
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(WissensDBActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(WissensDBActivity.this, android.R.layout.simple_list_item_1, listOfSharedWord);
                     lv.setAdapter(arrayAdapter);
                 } else {
                     e.getMessage();
@@ -62,7 +64,7 @@ public class WissensDBActivity extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_rezept_liste, menu);
+        getMenuInflater().inflate(R.menu.menu_wissens_db, menu);
         return true;
     }
 
@@ -86,9 +88,10 @@ public class WissensDBActivity extends ListActivity {
         super.onListItemClick(l, v, position, id);
 
         String objectId = objectsl.get(position).getObjectId();
+        String uri = objectsl.get(position).getURI();
 
-        Intent intent = new Intent(WissensDBActivity.this, RezeptDetailsActivity.class);
-        intent.putExtra("objectId",objectId);
+        Intent intent = new Intent(WissensDBActivity.this, activity_wiki_article.class);
+        intent.putExtra("URI",uri);
         startActivity(intent);
 
     }
@@ -97,7 +100,6 @@ public class WissensDBActivity extends ListActivity {
         //Display alert message when back button has been pressed
         Intent intent = new Intent(this, FirstActivity.class);
         startActivity(intent);
-        return;
     }
 
 }

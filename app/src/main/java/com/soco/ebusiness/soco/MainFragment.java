@@ -34,6 +34,7 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +71,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
     private LockableListView mListView;
     private SlidingUpPanelLayout mSlidingUpPanelLayout;
+    private ProgressBar progressbar;
 
     private View mTransparentHeaderView;
     private View mTransparentView;
@@ -86,11 +88,11 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-    public ArrayList<String> listOfSharedWord = new ArrayList<String>();
+    public ArrayList<String> listOfSharedWord = new ArrayList<>();
     String x;
     String y;
     List<ParseObject> objectsl;
-    public ArrayList<String> eventids = new ArrayList<String>();
+    public ArrayList<String> eventids = new ArrayList<>();
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ParseGeoPoint lastEventGPS = new ParseGeoPoint(49.0017191, 8.4183314);
@@ -112,6 +114,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
         mListView = (LockableListView) rootView.findViewById(android.R.id.list);
         mListView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+        progressbar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
 
         mSlidingUpPanelLayout = (SlidingUpPanelLayout) rootView.findViewById(R.id.slidingLayout);
         mSlidingUpPanelLayout.setEnableDragViewTouchEvents(true);
@@ -164,7 +167,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                     .addOnConnectionFailedListener(this)
                     .build();
         mListView.addHeaderView(mTransparentHeaderView);
-        mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
+        mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -237,7 +240,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         }
         createEventList();
         mSlidingUpPanelLayout.hidePane();
-        mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
+        mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
 
     }
 
@@ -428,6 +431,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
             @Override
             public void onInfoWindowClick(Marker marker) {
+                progressbar.setVisibility(View.VISIBLE);
                 String snippet = marker.getSnippet();
                 String[] snippets = snippet.split("::");
                 String eventid = snippets[1];
@@ -458,8 +462,9 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         }
         if (userLocation == null) {
             try {
-                userLocation = getLastEventGPS();
+
                 if (mLocation == null) {
+                    userLocation = getLastEventGPS();
                 } else {
                     int lat = (int) (userLocation.getLatitude());
                     int lng = (int) (userLocation.getLongitude());

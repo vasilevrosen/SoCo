@@ -94,6 +94,7 @@ public class FacebookActivity extends MainActivity implements DeleteDialogFragme
 
     private Button postStatusUpdateButton;
     private Button postPhotoButton;
+    private Button changeSettingsButton;
     private ProfilePictureView profilePictureView;
     private TextView greeting;
     private PendingAction pendingAction = PendingAction.NONE;
@@ -102,45 +103,7 @@ public class FacebookActivity extends MainActivity implements DeleteDialogFragme
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private ShareDialog shareDialog;
-    private FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
-        @Override
-        public void onCancel() {
-            Log.d("HelloFacebook", "Canceled");
-        }
 
-        @Override
-        public void onError(FacebookException error) {
-            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
-            String title = getString(R.string.error);
-            String alertMessage = error.getMessage();
-            showResult(title, alertMessage);
-        }
-
-        @Override
-        public void onSuccess(Sharer.Result result) {
-            Log.d("HelloFacebook", "Success!");
-            if (result.getPostId() != null) {
-                String title = getString(R.string.success);
-                String id = result.getPostId();
-                String alertMessage = getString(R.string.successfully_posted_post, id);
-                showResult(title, alertMessage);
-            }
-        }
-
-        private void showResult(String title, String alertMessage) {
-            new AlertDialog.Builder(FacebookActivity.this)
-                    .setTitle(title)
-                    .setMessage(alertMessage)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-        }
-    };
-
-    private enum PendingAction {
-        NONE,
-        POST_PHOTO,
-        POST_STATUS_UPDATE
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -225,12 +188,20 @@ public class FacebookActivity extends MainActivity implements DeleteDialogFragme
             }
         });
 
+        changeSettingsButton = (Button) findViewById(R.id.btn_save_settings);
+        changeSettingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                changeSettings();
+            }
+        });
+
         postPhotoButton = (Button) findViewById(R.id.postPhotoButton);
         postPhotoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 onClickPostPhoto();
             }
         });
+
 
         // Can we present the share dialog for regular links?
         canPresentShareDialog = ShareDialog.canShow(
@@ -443,14 +414,15 @@ try {
 
         return super.onOptionsItemSelected(item);
     }
-    public void changeSettings(View view){
+    public void changeSettings(){
        String kilometer_string = map_maxdistance.getText().toString();
         int kilometer = (Integer.parseInt(kilometer_string));
-        ParseUser.getCurrentUser().put("Radius", kilometer);
+      ParseUser current = ParseUser.getCurrentUser();
+        current.put("Radius", kilometer);
 
-        Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_LONG);
+        Toast.makeText(FacebookActivity.this, getString(R.string.settings_saved), Toast.LENGTH_LONG);
 
-        openStart();
+       // openStart();
 
 
     }
@@ -528,6 +500,47 @@ try {
             prepareListData();
             createExpandListView();
         }
+    }
+
+    //FAcebook
+    private FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
+        @Override
+        public void onCancel() {
+            Log.d("HelloFacebook", "Canceled");
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
+            String title = getString(R.string.error);
+            String alertMessage = error.getMessage();
+            showResult(title, alertMessage);
+        }
+
+        @Override
+        public void onSuccess(Sharer.Result result) {
+            Log.d("HelloFacebook", "Success!");
+            if (result.getPostId() != null) {
+                String title = getString(R.string.success);
+                String id = result.getPostId();
+                String alertMessage = getString(R.string.successfully_posted_post, id);
+                showResult(title, alertMessage);
+            }
+        }
+
+        private void showResult(String title, String alertMessage) {
+            new AlertDialog.Builder(FacebookActivity.this)
+                    .setTitle(title)
+                    .setMessage(alertMessage)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+        }
+    };
+
+    private enum PendingAction {
+        NONE,
+        POST_PHOTO,
+        POST_STATUS_UPDATE
     }
 
 }

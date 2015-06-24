@@ -147,4 +147,5 @@
     <string name="no_map">Karten Problem,GoogleService API Update erforderlich</string>
     <string name="erfolgreichausgetragen">Erfolgreich Ausgetragen aus:</string>
     <string name="deleteall_quest">Wirklich alle löschen?</string>
+    <string name="titel_activity_wiki">Themen</string>
 </resources>

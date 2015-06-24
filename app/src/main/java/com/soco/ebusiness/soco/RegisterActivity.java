@@ -54,6 +54,7 @@ public class RegisterActivity extends FragmentActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
+
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

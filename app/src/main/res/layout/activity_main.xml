@@ -9,56 +9,7 @@ A DrawerLayout is intended to be used as the top-level content view using match_
          space available using match_parent in both dimensions. -->
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent" >
-<!-- TODO:USER ACCESS Permission -->
-        <Button
-            android:layout_width="fill_parent"
-            android:enabled="true"
-            android:visibility="visible"
-            android:layout_height="wrap_content"
-            android:text="@string/title_activity_meineevents"
-            android:id="@+id/btn_meine_events"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:height="80dp"
-            android:onClick="meine_events"
-            android:singleLine="false"
-            android:layout_gravity="center_horizontal|top" />
 
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_event_erstellen"
-            android:id="@+id/btn_event_erstellen"
-            android:enabled="true"
-            android:visibility="visible"
-            android:height="80dp"
-            android:onClick="create_event"
-            android:layout_below="@+id/btn_meine_events"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="65dp"
-            android:layout_gravity="center_horizontal|bottom" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_event_suchen"
-            android:id="@+id/event_suchen"
-            android:height="80dp"
-            android:onClick="event_map"
-            android:layout_below="@+id/btn_event_suchen"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="52dp"
-            android:layout_gravity="center"
-            android:drawableLeft="@android:drawable/ic_menu_search" />
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
     </FrameLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/left_drawer"
