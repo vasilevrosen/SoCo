@@ -80,7 +80,7 @@ public class FacebookActivity extends MainActivity {
         }
     };
 
-    List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
+    List<String> subscribedChannels;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
@@ -151,7 +151,7 @@ public class FacebookActivity extends MainActivity {
 
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);// load icons from
         // strings.xml
-
+        subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
 
         callbackManager = CallbackManager.Factory.create();
 
