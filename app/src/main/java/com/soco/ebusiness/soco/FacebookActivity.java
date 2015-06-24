@@ -21,6 +21,8 @@
 package com.soco.ebusiness.soco;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageInstaller;
 import android.content.res.TypedArray;
@@ -68,7 +70,7 @@ import java.util.List;
 
 import bolts.Task;
 
-public class FacebookActivity extends MainActivity {
+public class FacebookActivity extends MainActivity implements DeleteDialogFragment.NoticeDialogListener{
 
     private static final String PERMISSION = "publish_actions";
     private String[] navMenuTitles;
@@ -259,14 +261,24 @@ try {
                         childPosition);
                 ParsePush.unsubscribeInBackground(subscribte);
                 Toast.makeText(
-                        getApplicationContext(),getString(R.string.erfolgreichausgetragen)+listDataHeader.get(groupPosition)+subscribte
+                        getApplicationContext(), getString(R.string.erfolgreichausgetragen) + listDataHeader.get(groupPosition) + subscribte
                         , Toast.LENGTH_SHORT)
                         .show();
                 subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
                 prepareListData();
                 createExpandListView();
                 return false;
+            }
+        });
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(listDataHeader.get(groupPosition).equals("DeleteAll")) {
+                    showNoticeDialog();
+                    expListView.collapseGroup(groupPosition);
+                }
             }
         });
     }
@@ -450,14 +462,14 @@ try {
     * Preparing the list data
     */
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
+        listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
         listDataHeader.add("Push Subscribtions");
 
         // Adding child data
-        List<String> top250 = new ArrayList<String>();
+        List<String> top250 = new ArrayList<>();
        if(subscribedChannels!=null) {
            for (int y = 0; y < subscribedChannels.size(); y++) {
                top250.add(subscribedChannels.get(y));
@@ -465,9 +477,12 @@ try {
        } else{
            top250.clear();
        }
+        listDataHeader.add("DeleteAll");
+        List<String> deleteAll = new ArrayList<>();
+        deleteAll.add("REALLY?");
 
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+        listDataChild.put(listDataHeader.get(0), top250);
+        listDataChild.put(listDataHeader.get(1), deleteAll); // Header, Child data
     }
     public void createExpandListView(){
         //PushSubscriber
@@ -477,6 +492,42 @@ try {
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
+    }
+    public void showNoticeDialog() {
+        // Create an instance of the dialog fragment and show it
+        DeleteDialogFragment dialog = new DeleteDialogFragment();
+        dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
+    }
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+
+
+    @Override
+    public void onDialogPositiveClick(android.support.v4.app.DialogFragment dialog) {
+        deleteAllsubs();
+    }
+
+    @Override
+    public void onDialogNegativeClick(android.support.v4.app.DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        deleteAllsubs();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+    public void deleteAllsubs(){
+        for(int i=0;i<subscribedChannels.size();i++) {
+            ParsePush.unsubscribeInBackground(subscribedChannels.get(i));
+            prepareListData();
+            createExpandListView();
+        }
     }
 
 }

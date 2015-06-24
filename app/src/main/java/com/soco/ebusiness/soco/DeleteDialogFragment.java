@@ -1,22 +1,18 @@
 package com.soco.ebusiness.soco;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 /**
  * Created by steffenteichmann on 23.06.15.
- * DialogFragment um Abzufragen ob die Adresse per GPS ermittelt werden soll
+ * Dialog Fragment für das Abfragen von Löschanforderungen
  */
-public class GPSAdressDialogFragment extends DialogFragment {
+public class DeleteDialogFragment extends DialogFragment {
 
 
     //   @Override
@@ -71,17 +67,17 @@ public class GPSAdressDialogFragment extends DialogFragment {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Build the dialog and set up the button click handlers
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(R.string.useGPSquest)
+            builder.setMessage(R.string.deleteall_quest)
                     .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // Send the positive button event back to the host activity
-                            mListener.onDialogPositiveClick(GPSAdressDialogFragment.this);
+                            mListener.onDialogPositiveClick(DeleteDialogFragment.this);
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // Send the negative button event back to the host activity
-                            mListener.onDialogNegativeClick(GPSAdressDialogFragment.this);
+                            mListener.onDialogNegativeClick(DeleteDialogFragment.this);
                         }
                     });
             return builder.create();
