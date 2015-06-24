@@ -254,13 +254,12 @@ try {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                String subscribte =listDataHeader.get(groupPosition)
-                        + listDataChild.get(
+                String subscribte = listDataChild.get(
                         listDataHeader.get(groupPosition)).get(
                         childPosition);
                 ParsePush.unsubscribeInBackground(subscribte);
                 Toast.makeText(
-                        getApplicationContext(),getString(R.string.erfolgreichausgetragen)+subscribte
+                        getApplicationContext(),getString(R.string.erfolgreichausgetragen)+listDataHeader.get(groupPosition)+subscribte
                         , Toast.LENGTH_SHORT)
                         .show();
                 subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
