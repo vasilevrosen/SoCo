@@ -420,8 +420,8 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 //    startActivity(intent);
             } catch (NullPointerException e){
                 e.printStackTrace();
-                   Intent intent = new Intent(App.getAppContext(), FirstActivity.class);
-                   startActivity(intent);
+                 //  Intent intent = new Intent(App.getAppContext(), FirstActivity.class);
+                 //  startActivity(intent);
                 Toast.makeText(App.getAppContext(),getString(R.string.no_map),Toast.LENGTH_LONG);
             }
         }
@@ -442,78 +442,81 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         });
     }
     public void createEventList() {
-        ParseGeoPoint userLocation=null;
-
-        try {
-            //CurrentLocation
-            final ParseUser userObject = ParseUser.getCurrentUser();
-             userLocation = (ParseGeoPoint) userObject.get("location");
-           maxdistanc = userObject.getInt("Radius");
-            Toast.makeText(App.getAppContext(),userObject.getString("Radius"),Toast.LENGTH_LONG);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        try {
-            setUpMapIfNeeded();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (userLocation == null) {
+        ParseGeoPoint userLocation = null;
+        if (mMap != null) {
             try {
-
-                if (mLocation == null) {
-                    userLocation = getLastEventGPS();
-                } else {
-                    int lat = (int) (userLocation.getLatitude());
-                    int lng = (int) (userLocation.getLongitude());
-                    try {
-                        lat = (int) (mLocation.latitude);
-                        lng = (int) (mLocation.longitude);
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                    userLocation.setLatitude(lat);
-                    userLocation.setLongitude(lng);
-                }
+                //CurrentLocation
+                final ParseUser userObject = ParseUser.getCurrentUser();
+                userLocation = (ParseGeoPoint) userObject.get("location");
+                maxdistanc = userObject.getInt("Radius");
+                Toast.makeText(App.getAppContext(), userObject.getString("Radius"), Toast.LENGTH_LONG);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+            try {
+                setUpMapIfNeeded();
             } catch (ParseException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //EVENT MARKER
-            eventquery = ParseQuery.getQuery("Event");
+            if (userLocation == null) {
+                try {
 
-            eventquery.whereNear("geoPoint", userLocation);
-            eventquery.setLimit(10);
-            eventquery.whereWithinKilometers("geoPoint", userLocation, maxdistanc);
-            eventquery.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-                    if (e == null) {
-                        objectsl = objects;
-                        listOfSharedWord.clear();
-                        for (int i = 0; i < objects.size(); i++) {
-                            x = objects.get(i).getString("Titel");
-                            y = objects.get(i).getObjectId();
-                            eventids.add(y);
-                            listOfSharedWord.add(x);
-                        }
-                        Toast.makeText(App.getAppContext(), "Es wurde(n) " + listOfSharedWord.size()
-                                + " Event(s) im Umkreis von "
-                                + maxdistanc
-                                + " Kilometer gefunden."
-                                , Toast.LENGTH_SHORT).show();
-
-                        createEventMarker(objects);
+                    if (mLocation == null) {
+                        userLocation = getLastEventGPS();
                     } else {
-                        e.getMessage();
-                        Toast.makeText(App.getAppContext(), "failed!", Toast.LENGTH_LONG).show();
+                        int lat = (int) (userLocation.getLatitude());
+                        int lng = (int) (userLocation.getLongitude());
+                        try {
+                            lat = (int) (mLocation.latitude);
+                            lng = (int) (mLocation.longitude);
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                        userLocation.setLatitude(lat);
+                        userLocation.setLongitude(lng);
                     }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
+                //EVENT MARKER
+                eventquery = ParseQuery.getQuery("Event");
+
+                eventquery.whereNear("geoPoint", userLocation);
+                eventquery.setLimit(10);
+                eventquery.whereWithinKilometers("geoPoint", userLocation, maxdistanc);
+                eventquery.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+                        if (e == null) {
+                            objectsl = objects;
+                            listOfSharedWord.clear();
+                            for (int i = 0; i < objects.size(); i++) {
+                                x = objects.get(i).getString("Titel");
+                                y = objects.get(i).getObjectId();
+                                eventids.add(y);
+                                listOfSharedWord.add(x);
+                            }
+                            Toast.makeText(App.getAppContext(), "Es wurde(n) " + listOfSharedWord.size()
+                                    + " Event(s) im Umkreis von "
+                                    + maxdistanc
+                                    + " Kilometer gefunden."
+                                    , Toast.LENGTH_SHORT).show();
+
+                            createEventMarker(objects);
+                        } else {
+                            e.getMessage();
+                            Toast.makeText(App.getAppContext(), "failed!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        } else{
+            mSlidingUpPanelLayout.hidePane();
         }
-        }
+    }
 
 }
