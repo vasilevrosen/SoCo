@@ -44,23 +44,24 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
-        setupMarkerListener();
-        setupWindowListener();
-        ParseUser userObject = ParseUser.getCurrentUser();
-        ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
-        if(userLocation==null){
-            try {
-                userLocation= getLastEventGPS();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+        try{
+            setupMarkerListener();
+            setupWindowListener();
+            ParseUser userObject = ParseUser.getCurrentUser();
+            ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
+            if (userLocation == null) {
+                try {
+                    userLocation = getLastEventGPS();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-       // if(){
-       //     query.whereWithinKilometers();
-       // }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+//             if(){
+//                 query.whereWithinKilometers();
+//             }
 
         query.whereNear("geoPoint", userLocation);
        query.setLimit(10);
@@ -84,6 +85,9 @@ public class MapsActivity extends FragmentActivity {
                 }
             }
         });
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -239,7 +239,6 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             mListView.deferNotifyDataSetChanged();
         }
         createEventList();
-        mSlidingUpPanelLayout.hidePane();
         mListView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
 
     }
@@ -420,8 +419,6 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 //    startActivity(intent);
             } catch (NullPointerException e){
                 e.printStackTrace();
-                 //  Intent intent = new Intent(App.getAppContext(), FirstActivity.class);
-                 //  startActivity(intent);
                 Toast.makeText(App.getAppContext(),getString(R.string.no_map),Toast.LENGTH_LONG);
             }
         }
@@ -515,7 +512,8 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                 });
             }
         } else{
-            mSlidingUpPanelLayout.hidePane();
+              Intent intent = new Intent(App.getAppContext(), MapsActivity.class);
+              startActivity(intent);
         }
     }
 
