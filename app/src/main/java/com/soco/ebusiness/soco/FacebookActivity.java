@@ -255,7 +255,6 @@ try {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 String subscribte =listDataHeader.get(groupPosition)
-                        + " : "
                         + listDataChild.get(
                         listDataHeader.get(groupPosition)).get(
                         childPosition);
