@@ -16,6 +16,7 @@
 
 package com.soco.ebusiness.soco;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -234,8 +235,6 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
             mListView.deferNotifyDataSetChanged();
         }
-        mSlidingUpPanelLayout.collapsePane();
-        expandMap();
         createEventList();
         mSlidingUpPanelLayout.hidePane();
         mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_list_item, listOfSharedWord));
@@ -407,14 +406,21 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             String titel = objects.get(i).getString("Titel");
             String date = objects.get(i).getString("Datum");
             String time = objects.get(i).getString("Uhrzeit");
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(lat, lng))
-                    .title(titel)
-                    .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
+            try {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .title(titel)
+                        .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
 
-            //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
-            //    intent.putExtra("objectId",objectId);
-            //    startActivity(intent);
+                //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
+                //    intent.putExtra("objectId",objectId);
+                //    startActivity(intent);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+                   Intent intent = new Intent(App.getAppContext(), FirstActivity.class);
+                   startActivity(intent);
+                Toast.makeText(App.getAppContext(),getString(R.string.no_map),Toast.LENGTH_LONG);
+            }
         }
     }
     private void setupWindowListener() {
