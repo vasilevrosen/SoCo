@@ -145,4 +145,5 @@
     <string name="cancel">Abbrechen</string>
     <string name="settings_saved">Settings gespeichert</string>
     <string name="no_map">Karten Problem,GoogleService API Update erforderlich</string>
+    <string name="erfolgreichausgetragen">Erfolgreich Ausgetragen aus:</string>
 </resources>

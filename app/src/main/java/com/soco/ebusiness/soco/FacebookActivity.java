@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,6 +81,10 @@ public class FacebookActivity extends MainActivity {
     };
 
     List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     private final String PENDING_ACTION_BUNDLE_KEY =
             "com.facebook.samples.hellofacebook:PendingAction";
@@ -240,6 +246,31 @@ try {
 } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        createExpandListView();
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                String subscribte =listDataHeader.get(groupPosition)
+                        + " : "
+                        + listDataChild.get(
+                        listDataHeader.get(groupPosition)).get(
+                        childPosition);
+                ParsePush.unsubscribeInBackground(subscribte);
+                Toast.makeText(
+                        getApplicationContext(),getString(R.string.erfolgreichausgetragen)+subscribte
+                        , Toast.LENGTH_SHORT)
+                        .show();
+                subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
+                prepareListData();
+                createExpandListView();
+                return false;
+
+            }
+        });
     }
 
 
@@ -405,7 +436,7 @@ try {
     public void changeSettings(View view){
        String kilometer_string = map_maxdistance.getText().toString();
         int kilometer = (Integer.parseInt(kilometer_string));
-        ParseUser.getCurrentUser().put("Radius",kilometer);
+        ParseUser.getCurrentUser().put("Radius", kilometer);
 
         Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_LONG);
 
@@ -417,4 +448,37 @@ try {
         Intent intent1 = new Intent(this, FirstActivity.class);
         startActivity(intent1);
     }
+    /*
+    * Preparing the list data
+    */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("Push Subscribtions");
+
+        // Adding child data
+        List<String> top250 = new ArrayList<String>();
+       if(subscribedChannels!=null) {
+           for (int y = 0; y < subscribedChannels.size(); y++) {
+               top250.add(subscribedChannels.get(y));
+           }
+       } else{
+           top250.clear();
+       }
+
+
+        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+    }
+    public void createExpandListView(){
+        //PushSubscriber
+        expListView = (ExpandableListView) findViewById(R.id.list_push_subscribe);
+        // preparing list data
+        prepareListData();
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+    }
+
 }
