@@ -953,7 +953,7 @@ public class EventActivity extends ListActivity {
         }
         LinkedList<String> channels = new LinkedList<String>();
         channels.add("Event"+id);
-        String message = getString(R.string.neueAnfrage)+":" + titel;
+        String message = getString(R.string.neueAnfrage)+":" + titel.getText();
         sendPush(channels,message);
     }
 
