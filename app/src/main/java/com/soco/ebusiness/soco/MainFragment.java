@@ -61,10 +61,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         SlidingUpPanelLayout.PanelSlideListener, LocationListener{
+
+    private ArrayList<Marker> eventMarkerMap;
 
 
     private static final String ARG_LOCATION = "arg.location";
@@ -402,7 +405,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     //CreateEventMarker
     private void createEventMarker(List<ParseObject> objects) {
         if (mMap!=null) {
-
+            eventMarkerMap = new ArrayList<>();
         for (int i = 0; i < objects.size(); i++) {
             String objectId = objects.get(i).getObjectId();
             double lat = objects.get(i).getParseGeoPoint("geoPoint").getLatitude();
@@ -410,10 +413,11 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             String titel = objects.get(i).getString("Titel");
             String date = objects.get(i).getString("Datum");
             String time = objects.get(i).getString("Uhrzeit");
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(lat, lng))
-                    .title(titel)
-                    .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId));
+           eventMarkerMap.add(mMap.addMarker(new MarkerOptions()
+                   .position(new LatLng(lat, lng))
+                   .title(titel)
+                   .snippet(getString(R.string.datetime) + " " + date + " " + time + "::" + objectId)));
+           ;
 
             //    Intent intent = new Intent(MapsActivity.this, EventActivity.class);
             //    intent.putExtra("objectId",objectId);
@@ -522,8 +526,8 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
                     CameraUpdate center =
                             CameraUpdateFactory.newLatLng(new LatLng(eventgps.getLatitude(),
                                     eventgps.getLongitude()));
-                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(2f);
-
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(10f);
+                   eventMarkerMap.get(ids).showInfoWindow();
                     mMap.moveCamera(center);
                     mMap.animateCamera(zoom);
                 }
